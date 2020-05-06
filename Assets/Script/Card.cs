@@ -40,7 +40,12 @@ public class Card : MonoBehaviour
     bool isUpgrade;
 
     Image[] images;
-    
+
+    //private void Awake()
+    //{
+    //    Screen.SetResolution(3040, 1440, true);
+    //}
+
     void Start()
     {
         color = CardColor.Red;
