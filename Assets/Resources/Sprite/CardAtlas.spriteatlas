@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CardAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 89487483bb22d274497192202ec30fe5, type: 3}
+    - {fileID: 2800000, guid: e6b412bfc74a4c24f9cc5a6dfff758e3, type: 3}
+    - {fileID: 2800000, guid: 072fa6bdfe8b941449266307290660c8, type: 3}
+    - {fileID: 2800000, guid: 4b1d7ac9660066c43a24ff8ec6385adf, type: 3}
+    - {fileID: 2800000, guid: 9c5bd4a125c388d4f856aa2e04f824f3, type: 3}
+    - {fileID: 2800000, guid: 2ad91ac29d17fef439fbc16543159e43, type: 3}
+    - {fileID: 2800000, guid: cb0d4bd629b30f345ab827dd0b7ff706, type: 3}
+    - {fileID: 2800000, guid: 9627efa8f9032144b8fbf47e0f15dcb7, type: 3}
+    - {fileID: 2800000, guid: 0aab54d9b8cf1bd45989296901eb03c0, type: 3}
+    - {fileID: 2800000, guid: 13ca10b1ab1b2e347900f1d5522b1f2f, type: 3}
+    - {fileID: 2800000, guid: 583d5ad9d8aa2bd40bc60f71d346f0f9, type: 3}
+    - {fileID: 2800000, guid: 5ecf04df053658c4d90bf97c0d50aa9f, type: 3}
+    - {fileID: 2800000, guid: 5cc962af1321354438fb3d1e4ee0bfe4, type: 3}
+    - {fileID: 2800000, guid: 0bfe015b47c28ab42afb8ccf0c9939b9, type: 3}
+    - {fileID: 2800000, guid: c30613fe626014b40b0fe714676416b2, type: 3}
+    - {fileID: 2800000, guid: 90bcf67f8f1d10b499fb90c164e7982a, type: 3}
+    - {fileID: 2800000, guid: 918154616d757b8499af405fdc196eec, type: 3}
+    - {fileID: 2800000, guid: 42ffda01481cc00428495b6ee5f58cb5, type: 3}
+    - {fileID: 2800000, guid: f2b7aa2bcf5dc4741bf70ac47814f575, type: 3}
+    - {fileID: 2800000, guid: 5492ee77ee98a684586075a449d5afae, type: 3}
+    - {fileID: 2800000, guid: 0e8a984d2d7fc384f8c9580f323a2d4f, type: 3}
+    - {fileID: 2800000, guid: cd85b191e59b22a459808ba50ff07fca, type: 3}
+    totalSpriteSurfaceArea: 5781673
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 42ffda01481cc00428495b6ee5f58cb5, type: 3}
+  - {fileID: 21300000, guid: 918154616d757b8499af405fdc196eec, type: 3}
+  - {fileID: 21300000, guid: cd85b191e59b22a459808ba50ff07fca, type: 3}
+  - {fileID: 21300000, guid: 9c5bd4a125c388d4f856aa2e04f824f3, type: 3}
+  - {fileID: 21300000, guid: 13ca10b1ab1b2e347900f1d5522b1f2f, type: 3}
+  - {fileID: 21300000, guid: 2ad91ac29d17fef439fbc16543159e43, type: 3}
+  - {fileID: 21300000, guid: 89487483bb22d274497192202ec30fe5, type: 3}
+  - {fileID: 21300000, guid: cb0d4bd629b30f345ab827dd0b7ff706, type: 3}
+  - {fileID: 21300000, guid: 9627efa8f9032144b8fbf47e0f15dcb7, type: 3}
+  - {fileID: 21300000, guid: 4b1d7ac9660066c43a24ff8ec6385adf, type: 3}
+  - {fileID: 21300000, guid: 0aab54d9b8cf1bd45989296901eb03c0, type: 3}
+  - {fileID: 21300000, guid: 583d5ad9d8aa2bd40bc60f71d346f0f9, type: 3}
+  - {fileID: 21300000, guid: f2b7aa2bcf5dc4741bf70ac47814f575, type: 3}
+  - {fileID: 21300000, guid: 0bfe015b47c28ab42afb8ccf0c9939b9, type: 3}
+  - {fileID: 21300000, guid: 0e8a984d2d7fc384f8c9580f323a2d4f, type: 3}
+  - {fileID: 21300000, guid: 072fa6bdfe8b941449266307290660c8, type: 3}
+  - {fileID: 21300000, guid: c30613fe626014b40b0fe714676416b2, type: 3}
+  - {fileID: 21300000, guid: 90bcf67f8f1d10b499fb90c164e7982a, type: 3}
+  - {fileID: 21300000, guid: 5cc962af1321354438fb3d1e4ee0bfe4, type: 3}
+  - {fileID: 21300000, guid: e6b412bfc74a4c24f9cc5a6dfff758e3, type: 3}
+  - {fileID: 21300000, guid: 5ecf04df053658c4d90bf97c0d50aa9f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Skill_Rare
+  - Skill_Legend
+  - base 1
+  - Gray_Attack
+  - Label_Rare
+  - Gray_Power
+  - Attack_Legend
+  - Gray_Skill
+  - Label_Legend
+  - Black
+  - Label_Nomal
+  - Power_Legend
+  - Skill_Nomal
+  - Red_Attack
+  - base
+  - Attack_Rare
+  - Red_Power
+  - Red_Skill
+  - Power_Rare
+  - Attack_Nomal
+  - Power_Nomal
+  m_Tag: CardAtlas
+  m_IsVariant: 0
