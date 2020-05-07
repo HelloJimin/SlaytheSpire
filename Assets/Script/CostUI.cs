@@ -7,13 +7,13 @@ public class CostUI : MonoBehaviour
 {
     Text text;
     Image[] images;
-    IroncladData data;
+    CharacterData data;
     Outline outline;
     void Start()
     {
-        data = FindObjectOfType<Ironclad>().data;
-      //  text = GetComponentInChildren<Text>();
-      //  text.text = data.currentCost + "/" + data.maxCost;
+        data = FindObjectOfType<PlayerData>().data;
+        text = GetComponentInChildren<Text>();
+        text.text = data.currentCost + "/" + data.maxCost;
         images = GetComponentsInChildren<Image>();
   
         StartCoroutine(Bingle());
