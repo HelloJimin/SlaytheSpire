@@ -9,6 +9,7 @@ public class CostUI : MonoBehaviour
     Image[] images;
     CharacterData data;
     Outline outline;
+
     void Start()
     {
         data = FindObjectOfType<PlayerData>().data;

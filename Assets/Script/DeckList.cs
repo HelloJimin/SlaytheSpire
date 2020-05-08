@@ -7,6 +7,8 @@ public class DeckList : MonoBehaviour
     public static DeckList instance;
 
     public GameObject card;
+
+    [SerializeField]
     public Queue<Card> deckList = new Queue<Card>();
 
     void Awake()
@@ -30,7 +32,7 @@ public class DeckList : MonoBehaviour
         Card newCard = Instantiate(card).GetComponent<Card>();
         newCard.transform.position = transform.position;
         newCard.transform.SetParent(transform);
-        newCard.gameObject.SetActive(true);
+        newCard.gameObject.SetActive(false);
         return newCard;
     }
 

@@ -71,7 +71,11 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 72e27ce72d4116f448721adbea6a6046, type: 3}
     - {fileID: 2800000, guid: 083918988a5eb3e47be5d7fe64163072, type: 3}
     - {fileID: 2800000, guid: 30de1254ecc285a4d935fa472ecc6f33, type: 3}
-    totalSpriteSurfaceArea: 9619737
+    - {fileID: 2800000, guid: ea950022335ba5748a0372353c6dffb1, type: 3}
+    - {fileID: 2800000, guid: 4f940f43f881b3743990bee76237798d, type: 3}
+    - {fileID: 2800000, guid: a8c5b25fed6c31b4f8e092014060dc4b, type: 3}
+    - {fileID: 2800000, guid: 792d2491c06167f4c907c1c471cc11d9, type: 3}
+    totalSpriteSurfaceArea: 16250137
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -82,11 +86,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 918154616d757b8499af405fdc196eec, type: 3}
   - {fileID: 21300000, guid: 97e25981d00070f44972b101b02a36fc, type: 3}
   - {fileID: 21300000, guid: cd85b191e59b22a459808ba50ff07fca, type: 3}
+  - {fileID: 21300000, guid: 792d2491c06167f4c907c1c471cc11d9, type: 3}
   - {fileID: 21300000, guid: 9c5bd4a125c388d4f856aa2e04f824f3, type: 3}
   - {fileID: 21300000, guid: 13ca10b1ab1b2e347900f1d5522b1f2f, type: 3}
+  - {fileID: 21300000, guid: ea950022335ba5748a0372353c6dffb1, type: 3}
   - {fileID: 21300000, guid: 41f158329c410de4cb0a29b5271ecab7, type: 3}
   - {fileID: 21300000, guid: 2ad91ac29d17fef439fbc16543159e43, type: 3}
   - {fileID: 21300000, guid: b87909d2ac322d94abb137dce95a688b, type: 3}
+  - {fileID: 21300000, guid: 4f940f43f881b3743990bee76237798d, type: 3}
   - {fileID: 21300000, guid: 89487483bb22d274497192202ec30fe5, type: 3}
   - {fileID: 21300000, guid: bd55a0b3f7288e24cab00c60d9dc9abd, type: 3}
   - {fileID: 21300000, guid: 30de1254ecc285a4d935fa472ecc6f33, type: 3}
@@ -111,6 +118,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0e8a984d2d7fc384f8c9580f323a2d4f, type: 3}
   - {fileID: 21300000, guid: 072fa6bdfe8b941449266307290660c8, type: 3}
   - {fileID: 21300000, guid: c30613fe626014b40b0fe714676416b2, type: 3}
+  - {fileID: 21300000, guid: a8c5b25fed6c31b4f8e092014060dc4b, type: 3}
   - {fileID: 21300000, guid: 90bcf67f8f1d10b499fb90c164e7982a, type: 3}
   - {fileID: 21300000, guid: 5cc962af1321354438fb3d1e4ee0bfe4, type: 3}
   - {fileID: 21300000, guid: e6b412bfc74a4c24f9cc5a6dfff758e3, type: 3}
@@ -123,11 +131,14 @@ SpriteAtlas:
   - Skill_Legend
   - layer3d
   - base 1
+  - mapTop
   - Gray_Attack
   - Label_Rare
+  - legend2
   - layer1
   - Gray_Power
   - layer2d
+  - mapBot
   - Attack_Legend
   - layer5d
   - defend
@@ -152,6 +163,7 @@ SpriteAtlas:
   - base
   - Attack_Rare
   - Red_Power
+  - mapMid
   - Red_Skill
   - Power_Rare
   - Attack_Nomal

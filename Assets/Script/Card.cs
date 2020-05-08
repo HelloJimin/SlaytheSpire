@@ -47,22 +47,32 @@ public class Card : MonoBehaviour
         card.type = CardType.Attack;
         card.grade = CardGrade.Legend;
 
-        SpriteSetting();
         JsonManager.SaveJsonData(card, "Card", GetType().Name);
+        SpriteSetting();
     }
 
-    public virtual void Use(GameObject target) //실제 사용되는 카드 효과
+    public virtual bool Use(GameObject target) //실제 사용되는 카드 효과
     {
+        return true;
     }
 
+    public IEnumerator GoCenter()
+    {
+        if (transform.position.x > 0)
+        {
+            transform.Translate(new Vector2(transform.position.x - 1, transform.position.y));
+        }
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(GoCenter());
+    }
+    [ContextMenu("load")]
     public void SpriteSetting()
     {
+        card = JsonManager.LoadJsonData<CardData>("Card", GetType().Name);
+        gameObject.name = card.name;
         images = GetComponentsInChildren<Image>();
         texts = GetComponentsInChildren<Text>();
 
-        images[1].sprite = Resources.Load<Sprite>(card.cardImagePath) as Sprite;
-        texts[1].text = card.name;
-        texts[2].text = card.cost.ToString();
         switch (card.type)
         {
             case CardType.Attack:
@@ -81,115 +91,20 @@ public class Card : MonoBehaviour
                 texts[0].text = "상태이상";
                 break;
         }
-        switch (card.color)
+
+        texts[1].text = card.name;
+        texts[2].text = card.cost.ToString();
+
+        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/"+ card.color+"_"+card.type) as Sprite;
+        images[1].sprite = Resources.Load<Sprite>(card.cardImagePath) as Sprite;
+        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/" + card.type + "_" +  card.grade) as Sprite;
+        images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_" + card.grade) as Sprite;
+
+        if (card.type == CardType.Power)
         {
-            case CardColor.Red:
-                switch (card.type)
-                {
-                    case CardType.Attack:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Red_Attack") as Sprite;
-                        break;
-                    case CardType.Skill:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Red_Skill") as Sprite;
-                        break;
-                    case CardType.Power:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Red_Power") as Sprite;
-                        break;
-                }
-                break;
-            case CardColor.Gray:
-                switch (card.type)
-                {
-                    case CardType.Attack:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Attack") as Sprite;
-                        break;
-                    case CardType.Skill:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Skill") as Sprite;
-                        break;
-                    case CardType.Power:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Power") as Sprite;
-                        break;
-                    case CardType.CC:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Skill") as Sprite;
-                        break;
-                }
-                break;
-            case CardColor.Black:
-                switch (card.type)
-                {
-                    case CardType.Curse:
-                        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Black") as Sprite;
-                        break;
-                }
-                break;
-        }
-        switch (card.grade)
-        {
-            case CardGrade.None:
-                break;
-            case CardGrade.Nomal:
-                switch (card.type)
-                {
-                    case CardType.Attack:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Attack_Nomal") as Sprite;
-                        break;
-                    case CardType.Skill:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Nomal") as Sprite;
-                        break;
-                    case CardType.Power:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Power_Nomal") as Sprite;
-                        break;
-                    case CardType.Curse:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Nomal") as Sprite;
-                        break;
-                    case CardType.CC:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Nomal") as Sprite;
-                        break;
-                }
-                images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_Nomal") as Sprite;
-                break;
-            case CardGrade.Rare:
-                switch (card.type)
-                {
-                    case CardType.Attack:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Attack_Rare") as Sprite;
-                        break;
-                    case CardType.Skill:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Rare") as Sprite;
-                        break;
-                    case CardType.Power:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Power_Rare") as Sprite;
-                        break;
-                    case CardType.Curse:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Rare") as Sprite;
-                        break;
-                    case CardType.CC:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Rare") as Sprite;
-                        break;
-                }
-                images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_Rare") as Sprite;
-                break;
-            case CardGrade.Legend:
-                switch (card.type)
-                {
-                    case CardType.Attack:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Attack_Legend") as Sprite;
-                        break;
-                    case CardType.Skill:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Legend") as Sprite;
-                        break;
-                    case CardType.Power:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Power_Legend") as Sprite;
-                        break;
-                    case CardType.Curse:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Legend") as Sprite;
-                        break;
-                    case CardType.CC:
-                        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/Skill_Legend") as Sprite;
-                        break;
-                }
-                images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_Legend") as Sprite;
-                break;
+            //y58 / y-71
+            images[2].transform.localPosition = new Vector3(0, 58, 0);
+            texts[0].transform.localPosition =  new Vector3(0, -71, 0);
         }
     }
 }
