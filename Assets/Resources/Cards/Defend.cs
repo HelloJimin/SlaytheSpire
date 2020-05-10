@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class Defend : Card
 {
-    private void Start()
+    public override bool Use(GameObject target)
     {
+        if (target.GetComponent<Character>() == null) return false;
+
+        Debug.Log("전:" + target.GetComponent<Character>().data.sheild);
+        target.GetComponent<Character>().data.sheild += card.value;
+        Debug.Log("후:" + target.GetComponent<Character>().data.sheild);
+
+        return true;
+    }
+    public override void cardInit()
+    {
+        usedAnime = UIManager.instance.usedCardAnime;
         card.name = "수비";
-        card.value = 5;
+        card.value = 6;
         card.cost = 1;
         card.color = CardColor.Red;
         card.type = CardType.Skill;
         card.grade = CardGrade.Nomal;
-        card.cardImagePath = "Sprite/CardImage/defend";
 
-        JsonManager.SaveJsonData(card, "Card", GetType().Name);
-        SpriteSetting();
-    }
-    public override bool Use(GameObject target)
-    {
-        if (target.GetComponent<PlayerData>() == null) return false;
-
-        Debug.Log("전:" + target.GetComponent<PlayerData>().data.sheild);
-        target.GetComponent<PlayerData>().data.sheild += card.value;
-        Debug.Log("후:" + target.GetComponent<PlayerData>().data.sheild);
-
-        return true;
+        base.cardInit();
     }
 }

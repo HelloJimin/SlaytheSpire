@@ -5,18 +5,11 @@ using UnityEngine.UI;
 
 public class CostUI : MonoBehaviour
 {
-    Text text;
     Image[] images;
-    CharacterData data;
-    Outline outline;
 
     void Start()
     {
-        data = FindObjectOfType<PlayerData>().data;
-        text = GetComponentInChildren<Text>();
-        text.text = data.currentCost + "/" + data.maxCost;
         images = GetComponentsInChildren<Image>();
-  
         StartCoroutine(Bingle());
     }
 

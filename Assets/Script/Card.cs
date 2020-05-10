@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 
 #region enum
 
@@ -33,20 +33,25 @@ public enum CardType
 public class Card : MonoBehaviour
 {
     public CardData card;
+    public GameObject usedAnime;
 
     Image[] images;
     Text[] texts;
-    //private void Awake()
-    //{
-    //    Screen.SetResolution(3040, 1440, true);
-    //}
 
     void Start()
     {
-        card.color = CardColor.Red;
-        card.type = CardType.Attack;
-        card.grade = CardGrade.Legend;
+        //usedAnime = transform.parent.parent.Find("UsedCardAnimation").gameObject;
+        //card.color = CardColor.Red;
+        //card.type = CardType.Attack;
+        //card.grade = CardGrade.Legend;
 
+        //JsonManager.SaveJsonData(card, "Card", GetType().Name);
+        //SpriteSetting();
+    }
+
+    public virtual void cardInit()
+    {
+        card.cardImagePath = "Sprite/CardImage/" + GetType().Name.ToLower();
         JsonManager.SaveJsonData(card, "Card", GetType().Name);
         SpriteSetting();
     }
@@ -56,15 +61,23 @@ public class Card : MonoBehaviour
         return true;
     }
 
-    public IEnumerator GoCenter()
+    public void GoCenter()
     {
-        if (transform.position.x > 0)
+        transform.DOLocalMove(new Vector3(100, 600, 0), 0.2f)
+        .OnComplete(()=>
         {
-            transform.Translate(new Vector2(transform.position.x - 1, transform.position.y));
-        }
-        yield return new WaitForSeconds(0.1f);
-        StartCoroutine(GoCenter());
+            usedAnime.SetActive(true);
+            UsedCard();
+            UIManager.instance.SettingUI();
+        });
     }
+
+    public void UsedCard()
+    {
+        gameObject.SetActive(false);
+        transform.SetParent(GameManager.instance.myCemetary.transform);
+    }
+
     [ContextMenu("load")]
     public void SpriteSetting()
     {
@@ -108,6 +121,7 @@ public class Card : MonoBehaviour
         }
     }
 }
+
 [System.Serializable]
 public struct CardData
 {
