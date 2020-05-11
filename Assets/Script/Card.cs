@@ -27,6 +27,12 @@ public enum CardType
     Curse,
     CC
 }
+public enum CardTarget
+{
+    Player,
+    Monster,
+    All
+}
 
 #endregion
 
@@ -34,7 +40,7 @@ public class Card : MonoBehaviour
 {
     public CardData card;
     public GameObject usedAnime;
-
+    public Player player;
     Image[] images;
     Text[] texts;
 
@@ -51,14 +57,15 @@ public class Card : MonoBehaviour
 
     public virtual void cardInit()
     {
-        card.cardImagePath = "Sprite/CardImage/" + GetType().Name.ToLower();
+        player = FindObjectOfType<Player>();
+       // card.cardImagePath = "Sprite/CardImage/" + GetType().Name.ToLower();
         JsonManager.SaveJsonData(card, "Card", GetType().Name);
         SpriteSetting();
     }
 
-    public virtual bool Use(GameObject target) //실제 사용되는 카드 효과
+    public virtual void Use(GameObject target) //실제 사용되는 카드 효과
     {
-        return true;
+
     }
 
     public void GoCenter()
@@ -109,7 +116,7 @@ public class Card : MonoBehaviour
         texts[2].text = card.cost.ToString();
 
         images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/"+ card.color+"_"+card.type) as Sprite;
-        images[1].sprite = Resources.Load<Sprite>(card.cardImagePath) as Sprite;
+        images[1].sprite = Resources.Load<Sprite>("Sprite/CardImage/"+GetType().Name.ToLower()) as Sprite;
         images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/" + card.type + "_" +  card.grade) as Sprite;
         images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_" + card.grade) as Sprite;
 
@@ -120,6 +127,45 @@ public class Card : MonoBehaviour
             texts[0].transform.localPosition =  new Vector3(0, -71, 0);
         }
     }
+
+    public bool CostCheck()
+    {
+        if (GameManager.instance.currentCost < card.cost)
+        {
+            return false;
+        }
+        GameManager.instance.currentCost -= card.cost;
+        UIManager.instance.SettingUI();
+        return true;
+    }
+
+    public bool TargetCheck(Character character)
+    {
+        if (card.target == CardTarget.Player)
+        {
+            if (character.isPlayer)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (card.target == CardTarget.Monster)
+        {
+            if (character.isPlayer)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        return true;
+    }
 }
 
 [System.Serializable]
@@ -128,11 +174,11 @@ public struct CardData
     public CardColor color;
     public CardType type;
     public CardGrade grade;
+    public CardTarget target;
 
     public string name;
     public string description;
     public int value;
     public int cost;
     public bool isUpgrade;
-    public string cardImagePath;
 }

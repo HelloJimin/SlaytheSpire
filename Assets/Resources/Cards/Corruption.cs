@@ -12,12 +12,12 @@ public class Corruption : Card
         card.color = CardColor.Red;
         card.type = CardType.Power;
         card.grade = CardGrade.Legend;
+        card.target = CardTarget.All;
         base.cardInit();
     }
 
-    public override bool Use(GameObject target)
+    public override void Use(GameObject target)
     {
         Debug.Log("타락카드 사용");
-        return true;
     }
 }

@@ -13,18 +13,15 @@ public class Strike : Card
         card.color = CardColor.Red;
         card.type = CardType.Attack;
         card.grade = CardGrade.Nomal;
+        card.target = CardTarget.Monster;
         base.cardInit();
     }
 
-    public override bool Use(GameObject target)
+    public override void Use(GameObject target)
     {
-        if (target == null || target.GetComponent<Monster>() == null) return false;
 
-        target.GetComponent<Monster>().data.currentHP -= card.value;
-        Debug.Log("후:" + target.GetComponent<Monster>().data.currentHP);
-        //transform.SetParent(transform.parent.parent);
-        //transform.gameObject.SetActive(false);
+        target.GetComponent<Character>().Hit(player.AttackDamageCheck(card.value));
+
         GoCenter();
-        return true;
     }
 }

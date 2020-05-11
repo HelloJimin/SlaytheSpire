@@ -252,3 +252,10 @@ C:\SlaytheSpire\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\SlaytheSpire\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\SlaytheSpire\obj\Debug\Assembly-CSharp.dll
 C:\SlaytheSpire\obj\Debug\Assembly-CSharp.pdb
+C:\SlaytheSpire\Temp\bin\Debug\DemiLib.dll
+C:\SlaytheSpire\Temp\bin\Debug\DOTween.dll
+C:\SlaytheSpire\Temp\bin\Debug\DOTweenPro.dll
+C:\SlaytheSpire\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+C:\SlaytheSpire\Temp\bin\Debug\DemiLib.xml
+C:\SlaytheSpire\Temp\bin\Debug\DOTween.xml
+C:\SlaytheSpire\Temp\bin\Debug\DOTweenPro.xml

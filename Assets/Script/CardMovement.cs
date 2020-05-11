@@ -13,6 +13,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     public Character playerData;
     bool isGrab;
 
+    Card card;
     #region 드래그부분
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -36,10 +37,8 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             {
                 return;
             }
-            if (!GetComponent<Card>().Use(target))
-            {
-                transform.position = originalPosition;
-            }
+
+            UseCard();
         }
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -55,10 +54,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
             CastRay();
 
-            if (!GetComponent<Card>().Use(target))
-            {
-                transform.position = originalPosition;
-            }
+            UseCard();
         }
     }
 
@@ -76,6 +72,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
     private void Start()
     {
+        card = GetComponent<Card>();
         playerData = FindObjectOfType<Player>();
     }
 
@@ -107,6 +104,35 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 transform.position = originalPosition;
                 Debug.Log("코스트부족");
             }
+        }
+    }
+
+    private void UseCard()
+    {
+        if (target == null)
+        {
+            Debug.Log("대상이 아닙니다!!");
+            transform.position = originalPosition;
+            return;
+        }
+
+        if (card.TargetCheck(target.GetComponent<Character>()))
+        {
+            if (card.CostCheck())
+            {
+                Debug.Log(card.card.name+ "사용!!");
+                card.Use(target);
+            }
+            else
+            {
+                Debug.Log("코스트가 부족합니다!!");
+                transform.position = originalPosition;
+            }
+        }
+        else
+        {
+            Debug.Log("대상이 아닙니다!!");
+            transform.position = originalPosition;
         }
     }
 }

@@ -58,18 +58,30 @@ public class GameManager : MonoBehaviour
     {
         currentCost = maxCost;
         isPlayerTurn = true;
-        SettingMyHand();
+        SettingMyDeck();
         TurnProcessing();
         UIManager.instance.SettingUI();
     }
 
-    void SettingMyHand()
+    void SettingMyDeck()
     {
+        //인벤토리에서 덱으로
         for (int i = 0; i < inventory.Count; i++)
         {
             inventory[i].transform.SetParent(myDeck.transform);
         }
         ShuffleDeck(myDeck);
+    }
+
+    public void AllTransferCards( GameObject before , GameObject after , bool active)
+    {
+        int retunCnt = before.transform.childCount;
+
+        for (int i = 0; i < retunCnt; i++)
+        {
+            before.transform.GetChild(0).gameObject.SetActive(active);
+            before.transform.GetChild(0).SetParent(after.transform);
+        }
     }
 
     public static void ShuffleDeck(GameObject deck)
@@ -86,6 +98,11 @@ public class GameManager : MonoBehaviour
 
     public void Draw()
     {
+        if (myDeck.transform.childCount <= 0)
+        {
+            AllTransferCards(myCemetary, myDeck, false);
+            ShuffleDeck(myDeck);
+        }
         myDeck.transform.GetChild(0).gameObject.SetActive(true);
         myDeck.transform.GetChild(0).SetParent(myHand.transform);
     }
@@ -95,6 +112,7 @@ public class GameManager : MonoBehaviour
         if (isPlayerTurn)
         {
             Debug.Log("내턴");
+            currentCost = maxCost;
             while (myHand.transform.childCount <5)
             {
                 Draw();
@@ -103,13 +121,28 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("적턴");
-            ChangeTurn();
+            StartCoroutine(EndPhase());
         }
         UIManager.instance.SettingUI();
+    }
+    IEnumerator EndPhase()
+    {
+        yield return new WaitForSeconds(1f);
+        ChangeTurn();
     }
 
     public void ChangeTurn()
     {
+        if (isPlayerTurn)
+        {
+            AllTransferCards(myHand, myCemetary,false);
+            player.MyEndPhase();
+        }
+        else
+        {
+            player.YourEndPhase();
+        }
+
         isPlayerTurn = !isPlayerTurn;
         TurnProcessing();
     }
@@ -124,7 +157,6 @@ public class GameManager : MonoBehaviour
             test.AddComponent(System.Type.GetType(inven[i]));
 
             Card newCard = test.GetComponent<Card>();
-            newCard.transform.SetParent(transform.Find("Canvas/Inventory"));
             newCard.transform.localScale = new Vector3(2, 2, 2);
             newCard.cardInit();
             newCard.gameObject.SetActive(false);

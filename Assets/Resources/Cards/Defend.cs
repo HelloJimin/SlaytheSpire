@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Defend : Card
 {
-    public override bool Use(GameObject target)
+    public override void Use(GameObject target)
     {
-        if (target.GetComponent<Character>() == null) return false;
+       // target.GetComponent<Character>().data.sheild += card.value;
+        target.GetComponent<Character>().GetShield(card.value);
+        Debug.Log("실드량:" + target.GetComponent<Character>().data.shield);
 
-        Debug.Log("전:" + target.GetComponent<Character>().data.sheild);
-        target.GetComponent<Character>().data.sheild += card.value;
-        Debug.Log("후:" + target.GetComponent<Character>().data.sheild);
-
-        return true;
+        GoCenter();
     }
     public override void cardInit()
     {
@@ -23,7 +21,7 @@ public class Defend : Card
         card.color = CardColor.Red;
         card.type = CardType.Skill;
         card.grade = CardGrade.Nomal;
-
+        card.target = CardTarget.Player;
         base.cardInit();
     }
 }
