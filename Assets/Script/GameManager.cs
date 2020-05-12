@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        player.myTurnStart += StartPhase;
         CreateMyInventory();
         startGame();
     }
@@ -114,16 +115,15 @@ public class GameManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
-            Debug.Log("내턴");
-            currentCost = maxCost;
-            while (myHand.transform.childCount <5)
-            {
-                Draw();
-            }
+            player.MyStartPhase();
         }
         else
         {
             Debug.Log("적턴");
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].MyStartPhase();
+            }
             StartCoroutine(EndPhase());
         }
         UIManager.instance.SettingUI();
@@ -135,16 +135,34 @@ public class GameManager : MonoBehaviour
         ChangeTurn();
     }
 
+    void StartPhase()
+    {
+        Debug.Log("내턴");
+        currentCost = maxCost;
+        while (myHand.transform.childCount < 5)
+        {
+            Draw();
+        }
+    }
+
     public void ChangeTurn()
     {
         if (isPlayerTurn)
         {
             AllTransferCards(myHand, myCemetary,false);
             player.MyEndPhase();
+            //for (int i = 0; i < monsters.Count; i++)
+            //{
+            //    monsters[i].MyEndPhase();
+            //}
         }
         else
         {
             player.YourEndPhase();
+            //for (int i = 0; i < monsters.Count; i++)
+            //{
+            //    monsters[i].YourEndPhase();
+            //}
         }
 
         isPlayerTurn = !isPlayerTurn;
@@ -171,7 +189,7 @@ public class GameManager : MonoBehaviour
 
     void SettingMonsters()
     {
-        var monster = ObjectPoolManager.instance.GetMonster("NobGoblin");
+        var monster = ObjectPoolManager.instance.GetMonster("Cultist");
         monster.gameObject.SetActive(true);
         monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.
             GetChild(Random.Range(0, GameObject.Find("MonsterSpawnPoints").transform.childCount)).transform.position;

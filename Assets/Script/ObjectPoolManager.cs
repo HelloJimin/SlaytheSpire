@@ -34,7 +34,7 @@ public class ObjectPoolManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        string[] monsterFiles = { "NobGoblin" };
+        string[] monsterFiles = { "NobGoblin" , "Cultist" };
 
         for (int i = 0; i < monsterFiles.Length; i++)
         {
@@ -44,6 +44,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     Character CreateNewMonster(string monsterFileName)
     {
+        Debug.Log(monsterFileName);
         Character newMon = Instantiate(monsterPrefab,transform).AddComponent(System.Type.GetType(monsterFileName)).GetComponent<Character>();
         newMon.gameObject.SetActive(false);
         newMon.name = monsterFileName;

@@ -63,7 +63,7 @@ public class Card : MonoBehaviour
         SpriteSetting();
     }
 
-    public virtual void Use(GameObject target) //실제 사용되는 카드 효과
+    public virtual void Use(Character target) //실제 사용되는 카드 효과
     {
 
     }
@@ -187,6 +187,22 @@ public class Card : MonoBehaviour
         card.name = card.name + "+";
         card.isUpgrade = true;
         UpdateCardUI();
+    }
+
+    public virtual int AttackDamageCheck(Character user)
+    {
+        float damage;
+
+        if (user.weak > 0)
+        {
+            damage = card.value - (card.value * 0.25f) + user.data.power;
+            if (damage < 0) damage = 0;
+        }
+        else
+        {
+            damage = user.data.power + card.value;
+        }
+        return (int)damage;
     }
 }
 

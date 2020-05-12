@@ -20,10 +20,11 @@ public class Bash : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
-        target.GetComponent<Character>().Hit(player.AttackDamageCheck(card.value));
-        target.GetComponent<Character>().vulnerable += vulPower;
+        Debug.Log(AttackDamageCheck(GameManager.instance.player));
+        target.Hit(AttackDamageCheck(GameManager.instance.player));
+        target.vulnerable += vulPower;
         GoCenter();
     }
 

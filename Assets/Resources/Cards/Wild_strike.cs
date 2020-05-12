@@ -17,9 +17,10 @@ public class Wild_strike : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
-        target.GetComponent<Character>().Hit(player.AttackDamageCheck(card.value));
+        Debug.Log(AttackDamageCheck(GameManager.instance.player));
+        target.Hit(AttackDamageCheck(GameManager.instance.player));
         GameManager.instance.AddCardToDeck("Wound");
         GoCenter();
     }

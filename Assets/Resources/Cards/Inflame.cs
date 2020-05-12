@@ -18,7 +18,7 @@ public class Inflame : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
         GameManager.instance.player.data.power += card.value;
         GoCenter();

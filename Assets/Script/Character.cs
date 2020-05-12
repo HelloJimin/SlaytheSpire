@@ -11,6 +11,16 @@ public class Character : MonoBehaviour
     public int weak;
     public int frail;
 
+    public delegate void MyTurnEnd();
+    public event MyTurnEnd myTurnEnd;
+    public delegate void MyTurnStart();
+    public event MyTurnStart myTurnStart;
+
+    private void Start()
+    {
+        myTurnEnd += CoolDown;
+    }
+
     public virtual void Hit(float damage)
     {
         damage = DefenseDamageCheck(damage);
@@ -18,22 +28,6 @@ public class Character : MonoBehaviour
         data.currentHP -= (int)damage;
         transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
         transform.Find("Canvas/MyHP/HPText").GetComponent<Text>().text = data.currentHP + "/" + data.maxHP;
-    }
-
-    public int AttackDamageCheck(float damage)
-    {
-        float Damage;
-
-        if (weak>0)
-        {
-            Damage = damage - (damage * 0.25f) + data.power;
-            if (Damage < 0) Damage = 0;
-        }
-        else
-        {
-            Damage = damage + data.power;
-        }
-        return (int)Damage;
     }
 
     public int DefenseDamageCheck(float damage)
@@ -76,9 +70,7 @@ public class Character : MonoBehaviour
 
     public void MyEndPhase()
     {
-        if (frail > 0) frail--;
-        if (vulnerable > 0) vulnerable--;
-        if (weak > 0) weak--;
+        myTurnEnd.Invoke();
     }
 
     public void YourEndPhase()
@@ -87,6 +79,17 @@ public class Character : MonoBehaviour
         ShieldBreak();
     }
 
+    public void MyStartPhase()
+    {
+        myTurnStart.Invoke();
+    }
+
+    void CoolDown()
+    {
+        if (frail > 0) frail--;
+        if (vulnerable > 0) vulnerable--;
+        if (weak > 0) weak--;
+    }
 }
 
 [System.Serializable]

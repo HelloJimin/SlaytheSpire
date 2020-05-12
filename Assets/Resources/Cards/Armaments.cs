@@ -19,9 +19,10 @@ public class Armaments : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
-        target.GetComponent<Character>().GetShield(card.value);
+        target = GameManager.instance.player;
+        target.GetShield(card.value);
 
         if (card.isUpgrade)
         {

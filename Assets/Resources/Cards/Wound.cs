@@ -17,9 +17,8 @@ public class Wound : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
-        Debug.Log(player.AttackDamageCheck(card.value));
         GoCenter();
     }
 

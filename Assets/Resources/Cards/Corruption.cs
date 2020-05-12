@@ -16,7 +16,7 @@ public class Corruption : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
         Debug.Log("타락카드 사용");
     }

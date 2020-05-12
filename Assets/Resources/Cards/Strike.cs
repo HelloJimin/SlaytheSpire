@@ -17,10 +17,10 @@ public class Strike : Card
         base.cardInit();
     }
 
-    public override void Use(GameObject target)
+    public override void Use(Character target)
     {
-        Debug.Log(player.AttackDamageCheck(card.value));
-       target.GetComponent<Character>().Hit(player.AttackDamageCheck(card.value));
+       Debug.Log(AttackDamageCheck(GameManager.instance.player));
+       target.Hit(AttackDamageCheck(GameManager.instance.player));
        GoCenter();
     }
 

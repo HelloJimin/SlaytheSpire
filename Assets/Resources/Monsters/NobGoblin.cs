@@ -7,5 +7,6 @@ public class NobGoblin : Monster
     private void OnEnable()
     {
         Init(30, 10);
+        spain.AnimationName = "Animation";
     }
 }

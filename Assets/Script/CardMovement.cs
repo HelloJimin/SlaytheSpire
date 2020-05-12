@@ -138,8 +138,24 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     {
         if (target == null)
         {
-            Debug.Log("대상이 아닙니다!!");
-            transform.position = originalPosition;
+            if (card.card.target == CardTarget.All)
+            {
+                if (card.CostCheck())
+                {
+                    Debug.Log(card.card.name + "사용!!");
+                    card.Use(GameManager.instance.player);
+                }
+                else
+                {
+                    Debug.Log("코스트가 부족합니다!!");
+                    transform.position = originalPosition;
+                }
+            }
+            else
+            {
+                Debug.Log("대상이 아닙니다!!");
+                transform.position = originalPosition;
+            }
             return;
         }
 
@@ -148,7 +164,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             if (card.CostCheck())
             {
                 Debug.Log(card.card.name+ "사용!!");
-                card.Use(target);
+                card.Use(target.GetComponent<Character>());
             }
             else
             {

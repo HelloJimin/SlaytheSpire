@@ -41,6 +41,9 @@ public class Player : Character
         inventoryList.Add("Bash");
         inventoryList.Add("Armaments");
         inventoryList.Add("Inflame");
+        inventoryList.Add("Heavy_blade");
         inventoryList.Add("Wild_strike");
+        inventoryList.Add("Flex");
+        inventoryList.Add("Body_slam");
     }
 }
