@@ -14,7 +14,7 @@ public class Player : Character
             IroncladSetting();
         }
        // Camera.main.WorldToScreenPoint(transform.position);
-        transform.Find("Canvas").transform.Find("MyHP").position = Camera.main.WorldToScreenPoint(transform.position);
+       // transform.Find("Canvas").transform.Find("MyHP").position = Camera.main.WorldToScreenPoint(transform.position);
 
 
         transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
@@ -39,5 +39,8 @@ public class Player : Character
             inventoryList.Add("Defend");
         }
         inventoryList.Add("Bash");
+        inventoryList.Add("Armaments");
+        inventoryList.Add("Inflame");
+        inventoryList.Add("Wild_strike");
     }
 }

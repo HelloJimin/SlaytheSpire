@@ -11,12 +11,7 @@ public class Character : MonoBehaviour
     public int weak;
     public int frail;
 
-    void Start()
-    {
-        
-    }
-
-    public void Hit(float damage)
+    public virtual void Hit(float damage)
     {
         damage = DefenseDamageCheck(damage);
 
@@ -24,6 +19,7 @@ public class Character : MonoBehaviour
         transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
         transform.Find("Canvas/MyHP/HPText").GetComponent<Text>().text = data.currentHP + "/" + data.maxHP;
     }
+
     public int AttackDamageCheck(float damage)
     {
         float Damage;
@@ -69,6 +65,7 @@ public class Character : MonoBehaviour
         transform.Find("Canvas/MyHP/SheildImage").gameObject.SetActive(true);
         transform.Find("Canvas/MyHP/SheildImage").GetComponentInChildren<Text>().text = data.shield.ToString() ;
     }
+
     public void ShieldBreak()
     {
         if (data.shield > 0) return;
@@ -83,11 +80,13 @@ public class Character : MonoBehaviour
         if (vulnerable > 0) vulnerable--;
         if (weak > 0) weak--;
     }
+
     public void YourEndPhase()
     {
         data.shield = 0;
         ShieldBreak();
     }
+
 }
 
 [System.Serializable]

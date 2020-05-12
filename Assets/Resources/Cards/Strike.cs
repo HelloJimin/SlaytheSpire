@@ -19,9 +19,15 @@ public class Strike : Card
 
     public override void Use(GameObject target)
     {
-
-        target.GetComponent<Character>().Hit(player.AttackDamageCheck(card.value));
-
-        GoCenter();
+        Debug.Log(player.AttackDamageCheck(card.value));
+       target.GetComponent<Character>().Hit(player.AttackDamageCheck(card.value));
+       GoCenter();
     }
+
+    public override void CardUpgrade()
+    {
+        card.value = 9;
+        base.CardUpgrade();
+    }
+
 }

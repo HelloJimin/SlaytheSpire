@@ -96,7 +96,7 @@ namespace Spine.Unity {
 				_animationName = value;
 
 				if (!valid) {
-					Debug.LogWarning("You tried to change AnimationName but the SkeletonAnimation was not valid. Try checking your Skeleton Data for errors.");
+					//Debug.LogWarning("You tried to change AnimationName but the SkeletonAnimation was not valid. Try checking your Skeleton Data for errors.");
 					return;
 				}
 

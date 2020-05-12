@@ -17,6 +17,19 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     #region 드래그부분
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (UIManager.instance.isChoiceMode)
+        {
+           if(UIManager.instance.choicePanel.transform.childCount<UIManager.instance.choiceSize)
+            {
+                transform.SetParent(UIManager.instance.choicePanel.transform);
+            }
+            else
+            {
+                UIManager.instance.choicePanel.transform.GetChild(0).SetParent(GameManager.instance.myHand.transform);
+                transform.SetParent(UIManager.instance.choicePanel.transform);
+            }
+            return;
+        }
         isGrab = true;
         originalPosition = transform.position;
     }
@@ -43,6 +56,20 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (UIManager.instance.isChoiceMode)
+        {
+            if (UIManager.instance.choicePanel.transform.childCount < UIManager.instance.choiceSize)
+            {
+                transform.SetParent(UIManager.instance.choicePanel.transform);
+            }
+            else
+            {
+                UIManager.instance.choicePanel.transform.GetChild(0).SetParent(GameManager.instance.myHand.transform);
+                transform.SetParent(UIManager.instance.choicePanel.transform);
+            }
+            return;
+        }
+
         if (!isGrab)
         {
             isGrab = true;

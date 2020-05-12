@@ -68,21 +68,21 @@ public class Card : MonoBehaviour
 
     }
 
-    public void GoCenter()
+    public virtual void GoCenter()
     {
         transform.DOLocalMove(new Vector3(100, 600, 0), 0.2f)
         .OnComplete(()=>
         {
             usedAnime.SetActive(true);
-            UsedCard();
+            UsedCard(GameManager.instance.myCemetary.transform);
             UIManager.instance.SettingUI();
         });
     }
 
-    public void UsedCard()
+    public void UsedCard(Transform cemetary)
     {
         gameObject.SetActive(false);
-        transform.SetParent(GameManager.instance.myCemetary.transform);
+        transform.SetParent(cemetary);
     }
 
     [ContextMenu("load")]
@@ -126,6 +126,12 @@ public class Card : MonoBehaviour
             images[2].transform.localPosition = new Vector3(0, 58, 0);
             texts[0].transform.localPosition =  new Vector3(0, -71, 0);
         }
+        if (card.type == CardType.CC || card.type==CardType.Curse)
+        {
+            images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Skill") as Sprite;
+            images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/skill_" + card.grade) as Sprite;
+            images[4].gameObject.SetActive(false);
+        }
     }
 
     public bool CostCheck()
@@ -165,6 +171,22 @@ public class Card : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void UpdateCardUI()
+    {
+        texts[1].text = card.name;
+    }
+
+    public virtual void CardUpgrade()
+    {
+        if (card.isUpgrade)
+        {
+            return;
+        }
+        card.name = card.name + "+";
+        card.isUpgrade = true;
+        UpdateCardUI();
     }
 }
 

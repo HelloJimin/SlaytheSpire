@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     public Player player;
     public GameObject cardPrefab;
 
+    public List<Character> monsters = new List<Character>();
+
     private void Awake()
     {
         if (instance != this)
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     void startGame()
     {
+        SettingMonsters();
         currentCost = maxCost;
         isPlayerTurn = true;
         SettingMyDeck();
@@ -125,6 +128,7 @@ public class GameManager : MonoBehaviour
         }
         UIManager.instance.SettingUI();
     }
+
     IEnumerator EndPhase()
     {
         yield return new WaitForSeconds(1f);
@@ -163,5 +167,25 @@ public class GameManager : MonoBehaviour
 
             inventory.Add(newCard);
         }
+    }
+
+    void SettingMonsters()
+    {
+        var monster = ObjectPoolManager.instance.GetMonster("NobGoblin");
+        monster.gameObject.SetActive(true);
+        monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.
+            GetChild(Random.Range(0, GameObject.Find("MonsterSpawnPoints").transform.childCount)).transform.position;
+        monsters.Add(monster);
+    }
+
+    public void AddCardToDeck(string cardname)
+    {
+        GameObject test = Instantiate(cardPrefab, myDeck.transform);
+        test.AddComponent(System.Type.GetType(cardname));
+
+        Card newCard = test.GetComponent<Card>();
+        newCard.transform.localScale = new Vector3(2, 2, 2);
+        newCard.cardInit();
+        newCard.gameObject.SetActive(false);
     }
 }

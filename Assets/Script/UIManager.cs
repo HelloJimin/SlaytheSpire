@@ -24,12 +24,21 @@ public class UIManager : MonoBehaviour
     private static UIManager m_instance;
     #endregion
 
+    public GameObject alphaImage;
     public GameObject usedCardAnime;
+    public GameObject powerZone;
     public Text costText;
     public Text myDeckText;
     public Text myCemeteryText;
     public Text myHPText;
     public Text myMoneyText;
+
+
+    public bool isChoiceMode;
+    public GameObject choicePanel;
+    public int choiceSize;
+
+    public GameObject battleSystem;
 
     private void Awake()
     {
