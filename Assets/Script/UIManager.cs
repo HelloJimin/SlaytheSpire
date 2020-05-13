@@ -80,4 +80,12 @@ public class UIManager : MonoBehaviour
         StartCoroutine(Effect(effName, target));
     }
 
+    public void ChoiceMode(bool yesORno, int ChoiceSize = 0)
+    {
+        isChoiceMode = yesORno;
+        alphaImage.SetActive(yesORno);
+        alphaImage.transform.Find("OkButton").gameObject.SetActive(yesORno);
+        alphaImage.transform.Find("ChoicePanel").gameObject.SetActive(yesORno);
+        choiceSize = ChoiceSize;
+    }
 }

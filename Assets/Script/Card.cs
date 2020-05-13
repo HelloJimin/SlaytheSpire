@@ -189,6 +189,7 @@ public class Card : MonoBehaviour
     public void UpdateCardUI()
     {
         texts[1].text = card.name;
+        gameObject.name = card.name;
     }
 
     public virtual void CardUpgrade()

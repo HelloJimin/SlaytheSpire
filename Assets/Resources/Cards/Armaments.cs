@@ -35,9 +35,7 @@ public class Armaments : Card
         }
         else
         {
-            UIManager.instance.isChoiceMode = true;
-            UIManager.instance.choiceSize = 1;
-            UIManager.instance.alphaImage.SetActive(true);
+            UIManager.instance.ChoiceMode(true, 1);
             UIManager.instance.alphaImage.transform.Find("OkButton").GetComponent<Button>().onClick.RemoveAllListeners();
             UIManager.instance.alphaImage.transform.Find("OkButton").GetComponent<Button>().onClick.AddListener(UseEffect);
             transform.parent.SetParent(UIManager.instance.alphaImage.transform);
@@ -53,11 +51,11 @@ public class Armaments : Card
 
         target = UIManager.instance.choicePanel.GetComponentsInChildren<Card>()[0];
         target.CardUpgrade();
-
         target.transform.SetParent(GameManager.instance.myHand.transform);
-        UIManager.instance.isChoiceMode = false;    
-        UIManager.instance.alphaImage.SetActive(false);
+
+        UIManager.instance.ChoiceMode(false);
         GameManager.instance.myHand.transform.SetParent(UIManager.instance.battleSystem.transform);
+
         GoCenter();
     }
 }
