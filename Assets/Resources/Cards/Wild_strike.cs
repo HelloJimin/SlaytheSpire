@@ -22,6 +22,7 @@ public class Wild_strike : Card
         Debug.Log(AttackDamageCheck(GameManager.instance.player));
         target.Hit(AttackDamageCheck(GameManager.instance.player));
         GameManager.instance.AddCardToDeck("Wound");
+        UIManager.instance.EffectStart("atk1", target.transform);
         GoCenter();
     }
 

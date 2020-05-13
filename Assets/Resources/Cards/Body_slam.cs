@@ -21,6 +21,7 @@ public class Body_slam : Card
     {
         Debug.Log(AttackDamageCheck(GameManager.instance.player));
         target.Hit(AttackDamageCheck(GameManager.instance.player));
+        UIManager.instance.EffectStart("atk2", target.transform);
         GoCenter();
     }
 

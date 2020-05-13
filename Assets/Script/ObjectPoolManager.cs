@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
 public class ObjectPoolManager : MonoBehaviour
 {
     #region 싱글톤

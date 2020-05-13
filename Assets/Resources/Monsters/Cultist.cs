@@ -23,19 +23,18 @@ public class Cultist : Monster
     {
         if (isFirstTurn)
         {
-            myTurnStart += PowerUP;
+            myTurnEnd += Ritual;
+            SettingDamageUI();
             isFirstTurn = false;
-            FindIntentImage("attack1");
-
-                intentImage.transform.Find("Damage").GetComponent<Text>().enabled = true;
-                intentImage.transform.Find("Damage").GetComponent<Text>().text = AttackDamageCheck().ToString();
-
-            
+            FindIntentImage("attack2");
+            SkeletonAnimeStart("waving", false);
         }
         else
         {
             Attack();
+            Animation("Atk", true);
         }
+
     }
 
     public override void Attack()
@@ -48,6 +47,11 @@ public class Cultist : Monster
         data.power += 3;
         Debug.Log("지금파워:" + data.power);
     }
-
-
+    void Ritual()
+    {
+        myTurnEnd += PowerUP;
+        myTurnEnd -= SettingDamageUI;
+        myTurnEnd += SettingDamageUI;
+        myTurnEnd -= Ritual;
+    }
 }

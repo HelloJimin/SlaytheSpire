@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Spine.Unity;
+using DG.Tweening;
 
 public class Character : MonoBehaviour
 {
@@ -16,8 +18,16 @@ public class Character : MonoBehaviour
     public delegate void MyTurnStart();
     public event MyTurnStart myTurnStart;
 
-    private void Start()
+    public SkeletonAnimation anime;
+    public CameraShake cameraShake;
+
+    public Text HPText;
+
+    public virtual void Start()
     {
+        HPText = transform.Find("Canvas/MyHP/HPText").GetComponent<Text>();
+        cameraShake = FindObjectOfType<Camera>().GetComponent<CameraShake>();
+        anime = GetComponent<SkeletonAnimation>();
         myTurnEnd += CoolDown;
     }
 
@@ -26,8 +36,8 @@ public class Character : MonoBehaviour
         damage = DefenseDamageCheck(damage);
 
         data.currentHP -= (int)damage;
-        transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
-        transform.Find("Canvas/MyHP/HPText").GetComponent<Text>().text = data.currentHP + "/" + data.maxHP;
+        SettingHPUI();
+        cameraShake.Shake();
     }
 
     public int DefenseDamageCheck(float damage)
@@ -89,6 +99,33 @@ public class Character : MonoBehaviour
         if (frail > 0) frail--;
         if (vulnerable > 0) vulnerable--;
         if (weak > 0) weak--;
+    }
+
+    public virtual void Animation(string aniName, bool isLeft)
+    {
+        float position;
+        if (isLeft)
+        {
+            position = -0.5f;
+        }
+        else
+        {
+            position = 1;
+        }
+        if (aniName == "Atk")
+        {
+            transform.DOMove(new Vector3(transform.position.x + position, transform.position.y, transform.position.z), 0.1f).SetLoops(2, LoopType.Yoyo);
+        }
+        else
+        {
+
+        }
+    }
+
+    public void SettingHPUI()
+    {
+        HPText.text = data.currentHP + "/" + data.maxHP;
+        HPText.transform.parent.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
     }
 }
 

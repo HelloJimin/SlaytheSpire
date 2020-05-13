@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 public class Player : Character
 {
     public List<string> inventoryList;
@@ -17,9 +16,6 @@ public class Player : Character
        // transform.Find("Canvas").transform.Find("MyHP").position = Camera.main.WorldToScreenPoint(transform.position);
 
 
-        transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
-        transform.Find("Canvas").GetComponentInChildren<Text>().text = data.currentHP + "/" + data.maxHP;
-
         JsonManager.SaveJsonData(data, gameObject.name, gameObject.name);
         JsonManager.SaveJsonData(inventoryList, gameObject.name, gameObject.name + "List");
     }
@@ -27,7 +23,7 @@ public class Player : Character
     void IroncladSetting()
     {
         data.maxHP = 80;
-        data.currentHP = 50;
+        data.currentHP = data.maxHP;
         data.money = 100;
 
         for (int i = 0; i < 5; i++)
@@ -46,4 +42,5 @@ public class Player : Character
         inventoryList.Add("Flex");
         inventoryList.Add("Body_slam");
     }
+
 }

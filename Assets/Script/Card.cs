@@ -70,13 +70,26 @@ public class Card : MonoBehaviour
 
     public virtual void GoCenter()
     {
-        transform.DOLocalMove(new Vector3(100, 600, 0), 0.2f)
+        transform.DOLocalMove(new Vector3(100, 1700, 0), 0.2f)
         .OnComplete(()=>
+        {
+            StartCoroutine(StopCard());
+        });
+    }
+
+    IEnumerator StopCard()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (usedAnime.activeSelf)
+        {
+            StartCoroutine(StopCard());
+        }
+        else
         {
             usedAnime.SetActive(true);
             UsedCard(GameManager.instance.myCemetary.transform);
             UIManager.instance.SettingUI();
-        });
+        }
     }
 
     public void UsedCard(Transform cemetary)

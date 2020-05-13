@@ -27,22 +27,32 @@ public class Monster : Character
         SettingAnimation();
         ActionCheck();
         myTurnStart += Action;
+        myTurnEnd += SettingDamageUI;
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         player = GameManager.instance.player;
     }
+
 
     public override void Hit(float damage)
     {
         base.Hit(damage);
+        player.Animation("Atk",false);
         if (data.currentHP<=0)
         {
-            GameManager.instance.player.data.money += data.money;
-            ObjectPoolManager.instance.ReturnMonster(this);
-            UIManager.instance.SettingUI();
+            Dead();
         }
+    }
+
+    void Dead()
+    {
+        GameManager.instance.monsters.Remove(this);
+        player.data.money += data.money;
+        ObjectPoolManager.instance.ReturnMonster(this);
+        UIManager.instance.SettingUI();
     }
 
     public virtual void Action()
@@ -53,6 +63,20 @@ public class Monster : Character
     {
 
     }
+
+    public void SkeletonAnimeStart(string name, bool loop)
+    {
+        string original = spain.AnimationName;
+        spain.AnimationState.SetAnimation(0, name, loop);
+        StartCoroutine(returnAnime(original));
+    }
+
+    IEnumerator returnAnime(string name)
+    {
+        yield return new WaitForSeconds(0.1f);
+        spain.AnimationState.SetAnimation(0, name, true);
+    }
+
 
     public void FindIntentImage(string name)
     {
@@ -92,5 +116,11 @@ public class Monster : Character
             realDamage = damage + data.power;
         }
         return (int)realDamage;
+    }
+
+    public void SettingDamageUI()
+    {
+        intentImage.transform.Find("Damage").GetComponent<Text>().enabled = true;
+        intentImage.transform.Find("Damage").GetComponent<Text>().text = AttackDamageCheck().ToString();
     }
 }

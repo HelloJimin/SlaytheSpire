@@ -23,6 +23,7 @@ public class Heavy_blade : Card
     {
         Debug.Log(AttackDamageCheck(GameManager.instance.player));
         target.Hit(AttackDamageCheck(GameManager.instance.player));
+        UIManager.instance.EffectStart("atk1", target.transform);
         GoCenter();
     }
 

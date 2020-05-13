@@ -33,12 +33,15 @@ public class UIManager : MonoBehaviour
     public Text myHPText;
     public Text myMoneyText;
 
-
+    public Image AtkEffect;
     public bool isChoiceMode;
     public GameObject choicePanel;
     public int choiceSize;
 
     public GameObject battleSystem;
+    public GameObject battleUI;
+    public GameObject mapScroll;
+    public GameObject Neow;
 
     private void Awake()
     {
@@ -59,5 +62,22 @@ public class UIManager : MonoBehaviour
         myCemeteryText.text = GameManager.instance.myCemetary.transform.childCount.ToString();
         myHPText.text = GameManager.instance.player.data.currentHP + "/"+ GameManager.instance.player.data.maxHP;
         myMoneyText.text = GameManager.instance.player.data.money.ToString();
+        GameManager.instance.player.SettingHPUI();
     }
+
+    public IEnumerator Effect(string effName , Transform target)
+    {
+        AtkEffect.gameObject.SetActive(true);
+        AtkEffect.sprite = Resources.Load<Sprite>("Sprite/Cards/atkEffects/" + effName) as Sprite;
+        AtkEffect.transform.position = target.position+ new Vector3(0,1.5f,0);
+
+        yield return new WaitForSeconds(0.1f);
+        AtkEffect.gameObject.SetActive(false);
+    }
+
+    public void EffectStart(string effName, Transform target)
+    {
+        StartCoroutine(Effect(effName, target));
+    }
+
 }

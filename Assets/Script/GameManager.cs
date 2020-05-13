@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum RoomType
+{
+    Event,
+    Campfire,
+    Shop,
+    Monster,
+    Elite,
+    Boss
+}
+
 public class GameManager : MonoBehaviour
 {
     #region 싱글톤
@@ -40,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public List<Character> monsters = new List<Character>();
 
+    GameObject battleUI;
     private void Awake()
     {
         if (instance != this)
@@ -48,21 +59,25 @@ public class GameManager : MonoBehaviour
         }
         player = FindObjectOfType<Player>();
         maxCost = 3;
+
     }
 
     void Start()
     {
+        battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
         player.myTurnStart += StartPhase;
         CreateMyInventory();
-        startGame();
+        UIManager.instance.SettingUI();
+        GoToNeowRoom();
     }
 
-    void startGame()
+    void StartGame()
     {
         SettingMonsters();
         currentCost = maxCost;
         isPlayerTurn = true;
         SettingMyDeck();
+        StartPhase();
         TurnProcessing();
         UIManager.instance.SettingUI();
     }
@@ -131,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EndPhase()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         ChangeTurn();
     }
 
@@ -151,18 +166,18 @@ public class GameManager : MonoBehaviour
         {
             AllTransferCards(myHand, myCemetary,false);
             player.MyEndPhase();
-            //for (int i = 0; i < monsters.Count; i++)
-            //{
-            //    monsters[i].MyEndPhase();
-            //}
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].YourEndPhase();
+            }
         }
         else
         {
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].MyEndPhase();
+            }
             player.YourEndPhase();
-            //for (int i = 0; i < monsters.Count; i++)
-            //{
-            //    monsters[i].YourEndPhase();
-            //}
         }
 
         isPlayerTurn = !isPlayerTurn;
@@ -205,5 +220,27 @@ public class GameManager : MonoBehaviour
         newCard.transform.localScale = new Vector3(2, 2, 2);
         newCard.cardInit();
         newCard.gameObject.SetActive(false);
+    }
+
+    void GoToNeowRoom()
+    {
+        battleUI.SetActive(false);
+    }
+    public void GoToMap()
+    {
+        UIManager.instance.alphaImage.SetActive(true);
+        UIManager.instance.mapScroll.SetActive(true);
+        UIManager.instance.battleSystem.SetActive(false);
+    }
+
+    public void GoToMonsterRoom()
+    {
+        UIManager.instance.Neow.SetActive(false);
+        UIManager.instance.mapScroll.SetActive(false);
+        UIManager.instance.alphaImage.SetActive(false);
+
+        UIManager.instance.battleSystem.SetActive(true);
+        UIManager.instance.battleUI.SetActive(true);
+        StartGame();
     }
 }
