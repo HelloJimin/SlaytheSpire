@@ -19,14 +19,12 @@ public class Character : MonoBehaviour
     public event MyTurnStart myTurnStart;
 
     public SkeletonAnimation anime;
-    public CameraShake cameraShake;
 
     public Text HPText;
 
     public virtual void Start()
     {
         HPText = transform.Find("Canvas/MyHP/HPText").GetComponent<Text>();
-        cameraShake = FindObjectOfType<Camera>().GetComponent<CameraShake>();
         anime = GetComponent<SkeletonAnimation>();
         myTurnEnd += CoolDown;
     }
@@ -37,7 +35,7 @@ public class Character : MonoBehaviour
 
         data.currentHP -= (int)damage;
         SettingHPUI();
-        cameraShake.Shake();
+        UIManager.instance.CameraShake();
     }
 
     public int DefenseDamageCheck(float damage)
@@ -64,18 +62,31 @@ public class Character : MonoBehaviour
         data.shield += sheild + data.dexterity;
         if (frail > 0) data.shield -= (int)(data.shield * 0.25f);
 
-        transform.Find("Canvas").transform.Find("MyHP").GetComponent<Outline>().enabled = true ;
-        transform.Find("Canvas/MyHP/HPBar").GetComponent<Image>().color = Color.blue;
-        transform.Find("Canvas/MyHP/SheildImage").gameObject.SetActive(true);
-        transform.Find("Canvas/MyHP/SheildImage").GetComponentInChildren<Text>().text = data.shield.ToString() ;
+        SettingShieldUI(true);
     }
 
     public void ShieldBreak()
     {
         if (data.shield > 0) return;
-        transform.Find("Canvas/MyHP/SheildImage").gameObject.SetActive(false);
-        transform.Find("Canvas/MyHP/HPBar").GetComponent<Image>().color = Color.red;
-        transform.Find("Canvas").transform.Find("MyHP").GetComponent<Outline>().enabled = false;
+
+        SettingShieldUI(false);
+    }
+
+    void SettingShieldUI(bool isShield)
+    {
+        if (isShield)
+        {
+            transform.Find("Canvas").transform.Find("MyHP").GetComponent<Outline>().enabled = true;
+            transform.Find("Canvas/MyHP/HPBar").GetComponent<Image>().color = Color.blue;
+            transform.Find("Canvas/MyHP/SheildImage").gameObject.SetActive(true);
+            transform.Find("Canvas/MyHP/SheildImage").GetComponentInChildren<Text>().text = data.shield.ToString();
+        }
+        else
+        {
+            transform.Find("Canvas/MyHP/SheildImage").gameObject.SetActive(false);
+            transform.Find("Canvas/MyHP/HPBar").GetComponent<Image>().color = Color.red;
+            transform.Find("Canvas").transform.Find("MyHP").GetComponent<Outline>().enabled = false;
+        }
     }
 
     public void MyEndPhase()
@@ -104,6 +115,7 @@ public class Character : MonoBehaviour
     public virtual void Animation(string aniName, bool isLeft)
     {
         float position;
+
         if (isLeft)
         {
             position = -0.5f;
@@ -112,6 +124,7 @@ public class Character : MonoBehaviour
         {
             position = 1;
         }
+
         if (aniName == "Atk")
         {
             transform.DOMove(new Vector3(transform.position.x + position, transform.position.y, transform.position.z), 0.15f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Flash);

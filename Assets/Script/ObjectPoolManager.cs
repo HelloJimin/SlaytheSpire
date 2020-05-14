@@ -24,11 +24,12 @@ public class ObjectPoolManager : MonoBehaviour
     private static ObjectPoolManager m_instance;
     #endregion
 
+    public GameObject cardPrefab;
     public GameObject monsterPrefab;
     public GameObject rewardButtonPrefab;
-    public GameObject cardPrefab;
-    List<Character> monsterPool = new List<Character>();
+
     List<Card> cardPool = new List<Card>();
+    List<Character> monsterPool = new List<Character>();
     Queue<Reward> rewardButtonPool = new Queue<Reward>();
 
     void Awake()
@@ -50,16 +51,18 @@ public class ObjectPoolManager : MonoBehaviour
             rewardButtonPool.Enqueue(CreateButtons());
         }
 
-        string[] inven = { "Bash", "Armaments","Inflame","Heavy_blade","Wild_strike","Flex","Body_slam","Strike","Defend","Wound" };
+        string[] cardList = { "Bash", "Armaments","Inflame","Heavy_blade","Wild_strike","Flex","Body_slam","Strike","Defend","Wound" };
 
-        for (int i = 0; i < inven.Length; i++)
+        for (int i = 0; i < cardList.Length; i++)
         {
             for (int k = 0; k < 3; k++)
             {
-                  cardPool.Add(CreateCard(inven[i]));
+               cardPool.Add(CreateCard(cardList[i]));
             }
         }
     }
+
+    #region CREATE
 
     Card CreateCard(string name)
     {
@@ -90,10 +93,14 @@ public class ObjectPoolManager : MonoBehaviour
         newMon.name = monsterFileName;
         return newMon;
     }
+
+    #endregion
+
+    #region GET
     public Card GetCard(string cardName)
     {
         Card card;
-        if (cardPool.Count>0)
+        if (cardPool.Count > 0)
         {
             for (int i = 0; i < cardPool.Count; i++)
             {
@@ -122,7 +129,7 @@ public class ObjectPoolManager : MonoBehaviour
             {
                 if (monsterPool[i].name == monsterName)
                 {
-                   Debug.Log("몬스터풀 가져오기 완료");
+                    Debug.Log("몬스터풀 가져오기 완료");
                     mon = monsterPool[i];
                     mon.gameObject.SetActive(true);
                     monsterPool.Remove(monsterPool[i]);
@@ -138,13 +145,6 @@ public class ObjectPoolManager : MonoBehaviour
         return mon;
     }
 
-    public void ReturnMonster(Character monster)
-    {
-        monster.gameObject.SetActive(false);
-        monster.transform.SetParent(transform.Find("Monsters"));
-        monsterPool.Add(monster);
-    }
-
     public void GetRewardMoneyButton(string type)
     {
         Reward button = rewardButtonPool.Dequeue();
@@ -156,11 +156,36 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (type == "money")
         {
-           button.GetComponent<Button>().onClick.AddListener(() => button.MoneyButton());
+            button.GetComponent<Button>().onClick.AddListener(() => button.MoneyButton());
         }
         else if (type == "nomal")
         {
-          button.GetComponent<Button>().onClick.AddListener(() => button.nomalCardButton());
+            button.GetComponent<Button>().onClick.AddListener(() => button.nomalCardButton());
+        }
+    }
+
+    #endregion
+
+    #region RETURN
+
+    public void ReturnMonster(Character monster)
+    {
+        monster.gameObject.SetActive(false);
+        monster.transform.SetParent(transform.Find("Monsters"));
+        monsterPool.Add(monster);
+    }
+
+    public void ReturnCard(Card card)
+    {
+        cardPool.Add(card);
+        // card.cardInit();
+        card.gameObject.SetActive(false);
+        card.transform.SetParent(transform.Find("Cards"));
+        if (card.name == "부상")
+        {
+            Debug.Log("부상>");
+            Debug.Log(card.gameObject);
+            Debug.Log(card.transform.parent);
         }
     }
 
@@ -171,17 +196,6 @@ public class ObjectPoolManager : MonoBehaviour
         button.transform.SetParent(transform.Find("Buttons"));
     }
 
-    public void ReturnCard(Card card)
-    {
-        cardPool.Add(card);
-       // card.cardInit();
-        card.gameObject.SetActive(false);
-        card.transform.SetParent(transform.Find("Cards"));
-        if (card.name == "부상")
-        {
-        Debug.Log("부상>");
-            Debug.Log(card.gameObject);
-            Debug.Log(card.transform.parent);
-        }
-    }
+    #endregion
+
 }

@@ -5,15 +5,14 @@ using UnityEngine.EventSystems;
 
 public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler, IEndDragHandler
 {
-
     //카드와 마우스의 상호작용을 하는 부분입니다
 
     public static Vector2 originalPosition;
     private GameObject target;
     public Character playerData;
     bool isGrab;
-
     Card card;
+
     #region 드래그부분
     public void OnBeginDrag(PointerEventData eventData)
     {

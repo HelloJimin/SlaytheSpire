@@ -23,10 +23,10 @@ public class Bash : Card
     public override void Use(Character target)
     {
         Debug.Log(AttackDamageCheck(GameManager.instance.player));
+
         target.Hit(AttackDamageCheck(GameManager.instance.player));
         target.vulnerable += vulPower;
         UIManager.instance.EffectStart("atk2", target.transform);
-      //  GoCenter();
     }
 
     public override void CardUpgrade()

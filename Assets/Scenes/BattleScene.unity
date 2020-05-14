@@ -158,7 +158,6 @@ MonoBehaviour:
   weak: 0
   frail: 0
   anime: {fileID: 0}
-  cameraShake: {fileID: 0}
   HPText: {fileID: 0}
   inventoryList: []
 --- !u!61 &112639557
@@ -1195,7 +1194,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1211,18 +1209,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
---- !u!114 &519420030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee45c425637fec4b877ce2f96f3eac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1897,7 +1883,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819876139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.685394, y: -220.87958, z: 8.358285}
+  m_LocalPosition: {x: -1443, y: -685, z: 8.358285}
   m_LocalScale: {x: 0.47368416, y: 0.47368416, z: 0.47368416}
   m_Children: []
   m_Father: {fileID: 452578822}
@@ -3010,7 +2996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da29e86c3ea99f4479e7bbfdfc0a3e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPosition: {fileID: 670082558}
 --- !u!120 &1119814388
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3333,7 +3318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224340864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.685394, y: -220.87958, z: 8.358285}
+  m_LocalPosition: {x: 1433, y: -672, z: 0}
   m_LocalScale: {x: 0.47368416, y: 0.47368416, z: 0.47368416}
   m_Children: []
   m_Father: {fileID: 452578822}
@@ -3841,11 +3826,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65464ee280961a847a834da32836d38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 2601357791710741490, guid: ebfee1fe94912324ba857d06bb6f8014,
+    type: 3}
   monsterPrefab: {fileID: 5126826908835086405, guid: 2b850e579924a78418f617d0feacad8a,
     type: 3}
   rewardButtonPrefab: {fileID: 5182452983789330436, guid: c473c1269b9d34441aa5fbd264f9fa68,
-    type: 3}
-  cardPrefab: {fileID: 2601357791710741490, guid: ebfee1fe94912324ba857d06bb6f8014,
     type: 3}
 --- !u!4 &1470049548
 Transform:
@@ -3873,7 +3858,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1519286492}
-  - component: {fileID: 1519286493}
   m_Layer: 5
   m_Name: CostUI
   m_TagString: Untagged
@@ -3906,18 +3890,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1040.7778, y: -375.77783}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1519286493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519286491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8838efe002aa584f8313e783149bcb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1530250493
 GameObject:
   m_ObjectHideFlags: 0
@@ -4069,7 +4041,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633642931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.685394, y: -220.87958, z: 8.358285}
+  m_LocalPosition: {x: 1302, y: 635, z: 8.358285}
   m_LocalScale: {x: 0.47368416, y: 0.47368416, z: 0.47368416}
   m_Children: []
   m_Father: {fileID: 452578822}
@@ -5843,7 +5815,10 @@ MonoBehaviour:
   mapScroll: {fileID: 441484247}
   Neow: {fileID: 772068870}
   reward: {fileID: 1679798781}
+  costUI: {fileID: 1519286491}
+  costUIs: []
   choice: 0
+  camera: {fileID: 0}
 --- !u!1 &2141997078
 GameObject:
   m_ObjectHideFlags: 0

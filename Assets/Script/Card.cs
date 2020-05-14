@@ -57,10 +57,12 @@ public class Card : MonoBehaviour
 
     public virtual void cardInit()
     {
+        gameObject.name = card.name;
         card.isUpgrade = false; 
         player = FindObjectOfType<Player>();
-       // card.cardImagePath = "Sprite/CardImage/" + GetType().Name.ToLower();
+
         JsonManager.SaveJsonData(card, "Card", GetType().Name);
+        card = JsonManager.LoadJsonData<CardData>("Card", GetType().Name);
         SpriteSetting();
     }
 
@@ -71,6 +73,7 @@ public class Card : MonoBehaviour
 
     public virtual void GoCenter(Character target)
     {
+        //화면 중앙으로 간 뒤 효과가 실행됩니다.
         transform.DOLocalMove(new Vector3(100, 1700, 0), 0.2f)
         .OnComplete(()=>
         {
@@ -82,16 +85,16 @@ public class Card : MonoBehaviour
     IEnumerator StopCard(Character target)
     {
         yield return new WaitForSeconds(0.1f);
+
         if (usedAnime.activeSelf)
         {
             StartCoroutine(StopCard(target));
         }
         else
         {
-            usedAnime.SetActive(true);
-
+            //usedAnime.SetActive(true);
+            UIManager.instance.UsedCardAnimeStart(GameManager.instance.myCemetary);
             UsedCard(GameManager.instance.myCemetary.transform);
-            UIManager.instance.SettingUI();
         }
     }
 
@@ -99,13 +102,12 @@ public class Card : MonoBehaviour
     {
         gameObject.SetActive(false);
         transform.SetParent(cemetary);
+        UIManager.instance.SettingUI();
     }
 
     [ContextMenu("load")]
     public void SpriteSetting()
     {
-        card = JsonManager.LoadJsonData<CardData>("Card", GetType().Name);
-        gameObject.name = card.name;
         images = GetComponentsInChildren<Image>();
         texts = GetComponentsInChildren<Text>();
 
@@ -142,6 +144,7 @@ public class Card : MonoBehaviour
             images[2].transform.localPosition = new Vector3(0, 58, 0);
             texts[0].transform.localPosition =  new Vector3(0, -71, 0);
         }
+
         if (card.type == CardType.CC || card.type==CardType.Curse)
         {
             images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Skill") as Sprite;
@@ -189,12 +192,6 @@ public class Card : MonoBehaviour
         return true;
     }
 
-    public void UpdateCardUI()
-    {
-        texts[1].text = card.name;
-        gameObject.name = card.name;
-    }
-
     public virtual void CardUpgrade()
     {
         if (card.isUpgrade)
@@ -203,7 +200,8 @@ public class Card : MonoBehaviour
         }
         card.name = card.name + "+";
         card.isUpgrade = true;
-        UpdateCardUI();
+        texts[1].text = card.name;
+        gameObject.name = card.name;
     }
 
     public virtual int AttackDamageCheck(Character user)

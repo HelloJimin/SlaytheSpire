@@ -17,6 +17,7 @@ public class Monster : Character
         data.money = money;
         data.currentHP = data.maxHP;
 
+       // SettingHPUI();
         transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
         transform.Find("Canvas").GetComponentInChildren<Text>().text = data.currentHP + "/" + data.maxHP;
     }
@@ -35,7 +36,6 @@ public class Monster : Character
         base.Start();
         player = GameManager.instance.player;
     }
-
 
     public override void Hit(float damage)
     {
@@ -77,7 +77,6 @@ public class Monster : Character
         yield return new WaitForSeconds(0.1f);
         spain.AnimationState.SetAnimation(0, name, true);
     }
-
 
     public void FindIntentImage(string name)
     {

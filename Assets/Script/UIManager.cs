@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 
 public enum ChoiceMode
 {
@@ -51,8 +51,12 @@ public class UIManager : MonoBehaviour
     public GameObject mapScroll;
     public GameObject Neow;
     public GameObject reward;
+    public GameObject costUI;
+    public Image[] costUIs;
 
     public ChoiceMode choice;
+
+    public Camera camera;
 
     private void Awake()
     {
@@ -60,10 +64,14 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        camera = FindObjectOfType<Camera>();
     }
 
     void Start()
     {
+        costUIs = costUI.GetComponentsInChildren<Image>();
+        StartCoroutine(Bingle());
     }
 
     public void SettingUI()
@@ -120,5 +128,37 @@ public class UIManager : MonoBehaviour
         battleSystem.SetActive(true);
         battleUI.SetActive(true);
         GameManager.instance.StartGame();
+    }
+
+    public void CameraShake()
+    {
+        Vector3 endPosition = new Vector3(camera.transform.position.x + 0.2f, camera.transform.position.y + 0.1f, camera.transform.position.z);
+        camera.transform.DOMove(endPosition, 0.07f).SetLoops(2, LoopType.Yoyo);
+    }
+
+    IEnumerator Bingle()
+    {
+        costUIs[2].rectTransform.Rotate(Vector3.forward * Time.deltaTime * 150f);
+        costUIs[3].rectTransform.Rotate(Vector3.forward * Time.deltaTime * -150f);
+        costUIs[4].rectTransform.Rotate(Vector3.forward * Time.deltaTime * 130f);
+
+        yield return new WaitForSeconds(0.05f);
+        StartCoroutine(Bingle());
+    }
+
+    public void UsedCardAnimeStart(GameObject target)
+    {
+        usedCardAnime.gameObject.SetActive(true);
+
+        Vector3 original = transform.position;
+        Vector3 endPosition = target.transform.position;
+
+        usedCardAnime.transform.DOMove(endPosition, 0.7f)
+                .OnComplete(() =>
+                {
+                    Debug.Log("다움직임");
+                    usedCardAnime.transform.position = original;
+                    usedCardAnime.gameObject.SetActive(false);
+                });
     }
 }

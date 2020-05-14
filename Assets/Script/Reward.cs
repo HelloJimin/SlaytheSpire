@@ -17,13 +17,14 @@ public class Reward : MonoBehaviour
             GetComponentInChildren<Text>().text = "덱에 카드를 추가";
         }
     }
+
     public void MoneyButton()
     {
-
         GameManager.instance.player.data.money += GameManager.instance.currentRoomMoney;
         ObjectPoolManager.instance.ReturnRewardButton(this);
         UIManager.instance.SettingUI();
     }
+
     public void nomalCardButton()
     {
         UIManager.instance.choice = ChoiceMode.Choice;
