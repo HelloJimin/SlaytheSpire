@@ -21,9 +21,12 @@ public class Wild_strike : Card
     {
         Debug.Log(AttackDamageCheck(GameManager.instance.player));
         target.Hit(AttackDamageCheck(GameManager.instance.player));
-        GameManager.instance.AddCardToDeck("Wound");
+
+        Card newcard = ObjectPoolManager.instance.GetCard("Wound");
+        newcard.transform.SetParent(GameManager.instance.myDeck.transform);
+
         UIManager.instance.EffectStart("atk1", target.transform);
-        GoCenter();
+       // GoCenter(target);
     }
 
     public override void CardUpgrade()

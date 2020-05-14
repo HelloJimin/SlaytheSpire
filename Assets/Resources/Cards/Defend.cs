@@ -21,7 +21,7 @@ public class Defend : Card
     {
         GameManager.instance.player.GetShield(card.value);
         Debug.Log("실드량:" + GameManager.instance.player.data.shield);
-        GoCenter();
+      //  GoCenter();
     }
 
     public override void CardUpgrade()

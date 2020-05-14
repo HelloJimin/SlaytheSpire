@@ -31,10 +31,11 @@ public class Armaments : Card
                 var card = GameManager.instance.myHand.transform.GetChild(i).GetComponent<Card>();
                 card.CardUpgrade();
             }
-            GoCenter();
+          //  GoCenter();
         }
         else
         {
+            UIManager.instance.choice = ChoiceMode.Upgrade;
             UIManager.instance.ChoiceMode(true, 1);
             UIManager.instance.alphaImage.transform.Find("OkButton").GetComponent<Button>().onClick.RemoveAllListeners();
             UIManager.instance.alphaImage.transform.Find("OkButton").GetComponent<Button>().onClick.AddListener(UseEffect);
@@ -54,8 +55,9 @@ public class Armaments : Card
         target.transform.SetParent(GameManager.instance.myHand.transform);
 
         UIManager.instance.ChoiceMode(false);
+        UIManager.instance.choice = ChoiceMode.Grab;
         GameManager.instance.myHand.transform.SetParent(UIManager.instance.battleSystem.transform);
 
-        GoCenter();
+     //   GoCenter();
     }
 }

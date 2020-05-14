@@ -50,9 +50,10 @@ public class Monster : Character
     void Dead()
     {
         GameManager.instance.monsters.Remove(this);
-        player.data.money += data.money;
+        GameManager.instance.currentRoomMoney += data.money;
         ObjectPoolManager.instance.ReturnMonster(this);
         UIManager.instance.SettingUI();
+        GameManager.instance.BattleEnd();
     }
 
     public virtual void Action()

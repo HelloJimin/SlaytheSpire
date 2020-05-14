@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum ChoiceMode
+{
+    Grab,
+    Upgrade,
+    Choice
+}
+
+
 public class UIManager : MonoBehaviour
 {
     #region 싱글톤
@@ -26,7 +35,6 @@ public class UIManager : MonoBehaviour
 
     public GameObject alphaImage;
     public GameObject usedCardAnime;
-    public GameObject powerZone;
     public Text costText;
     public Text myDeckText;
     public Text myCemeteryText;
@@ -42,6 +50,9 @@ public class UIManager : MonoBehaviour
     public GameObject battleUI;
     public GameObject mapScroll;
     public GameObject Neow;
+    public GameObject reward;
+
+    public ChoiceMode choice;
 
     private void Awake()
     {
@@ -87,5 +98,27 @@ public class UIManager : MonoBehaviour
         alphaImage.transform.Find("OkButton").gameObject.SetActive(yesORno);
         alphaImage.transform.Find("ChoicePanel").gameObject.SetActive(yesORno);
         choiceSize = ChoiceSize;
+    }
+
+    public void GoToNeowRoom()
+    {
+        battleUI.SetActive(false);
+    }
+    public void GoToMap()
+    {
+        alphaImage.SetActive(true);
+        mapScroll.SetActive(true);
+        battleSystem.SetActive(false);
+    }
+
+    public void GoToMonsterRoom()
+    {
+        Neow.SetActive(false);
+        mapScroll.SetActive(false);
+        alphaImage.SetActive(false);
+
+        battleSystem.SetActive(true);
+        battleUI.SetActive(true);
+        GameManager.instance.StartGame();
     }
 }

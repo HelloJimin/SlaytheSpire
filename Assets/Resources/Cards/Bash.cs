@@ -26,7 +26,7 @@ public class Bash : Card
         target.Hit(AttackDamageCheck(GameManager.instance.player));
         target.vulnerable += vulPower;
         UIManager.instance.EffectStart("atk2", target.transform);
-        GoCenter();
+      //  GoCenter();
     }
 
     public override void CardUpgrade()

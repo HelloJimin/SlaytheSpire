@@ -50,7 +50,11 @@ public class GameManager : MonoBehaviour
 
     public List<Character> monsters = new List<Character>();
 
-    GameObject battleUI;
+    //public delegate void BattleEndProcess();
+   // public event BattleEndProcess battleEndProcess;
+
+    public int currentRoomMoney;
+    //GameObject battleUI;
     private void Awake()
     {
         if (instance != this)
@@ -59,20 +63,21 @@ public class GameManager : MonoBehaviour
         }
         player = FindObjectOfType<Player>();
         maxCost = 3;
-
+        currentRoomMoney = 0;
     }
 
     void Start()
     {
-        battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
+       // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
         player.myTurnStart += StartPhase;
         CreateMyInventory();
         UIManager.instance.SettingUI();
-        GoToNeowRoom();
+       UIManager.instance.GoToNeowRoom();
     }
 
-    void StartGame()
+    public void StartGame()
     {
+        currentRoomMoney = 0;
         SettingMonsters();
         currentCost = maxCost;
         isPlayerTurn = true;
@@ -190,15 +195,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < inven.Count; i++)
         {
-            GameObject test = Instantiate(cardPrefab , transform.Find("Canvas/Inventory"));
-            test.AddComponent(System.Type.GetType(inven[i]));
-
-            Card newCard = test.GetComponent<Card>();
-            newCard.transform.localScale = new Vector3(2, 2, 2);
-            newCard.cardInit();
-            newCard.gameObject.SetActive(false);
-
-            inventory.Add(newCard);
+            inventory.Add(ObjectPoolManager.instance.GetCard(inven[i]));
         }
     }
 
@@ -211,7 +208,7 @@ public class GameManager : MonoBehaviour
         monsters.Add(monster);
     }
 
-    public void AddCardToDeck(string cardname)
+    public Card AddCardToDeck(string cardname)
     {
         GameObject test = Instantiate(cardPrefab, myDeck.transform);
         test.AddComponent(System.Type.GetType(cardname));
@@ -220,27 +217,40 @@ public class GameManager : MonoBehaviour
         newCard.transform.localScale = new Vector3(2, 2, 2);
         newCard.cardInit();
         newCard.gameObject.SetActive(false);
+
+        return newCard;
     }
 
-    void GoToNeowRoom()
+    public void BattleEnd()
     {
-        battleUI.SetActive(false);
+        if (monsters.Count != 0) return;
+       // battleEndProcess.Invoke();
+        OpenReward();
+        DeckReset(myDeck);
+        DeckReset(myHand);
+        DeckReset(myCemetary);
+        UIManager.instance.usedCardAnime.SetActive(false);
     }
-    public void GoToMap()
+
+    public void DeckReset(GameObject before)
     {
-        UIManager.instance.alphaImage.SetActive(true);
-        UIManager.instance.mapScroll.SetActive(true);
+        int retunCnt = before.transform.childCount;
+
+        for (int i = 0; i < retunCnt; i++)
+        {
+                Debug.Log(before.transform.GetChild(0));
+                ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
+        }
+    }
+
+    public void OpenReward()
+    {
+        UIManager.instance.battleUI.SetActive(false);
         UIManager.instance.battleSystem.SetActive(false);
-    }
 
-    public void GoToMonsterRoom()
-    {
-        UIManager.instance.Neow.SetActive(false);
-        UIManager.instance.mapScroll.SetActive(false);
-        UIManager.instance.alphaImage.SetActive(false);
-
-        UIManager.instance.battleSystem.SetActive(true);
-        UIManager.instance.battleUI.SetActive(true);
-        StartGame();
+        UIManager.instance.alphaImage.SetActive(true);
+        UIManager.instance.reward.SetActive(true);
+        ObjectPoolManager.instance.GetRewardMoneyButton("money");
+        ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
     }
 }

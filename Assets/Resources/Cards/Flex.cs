@@ -23,7 +23,7 @@ public class Flex : Card
         target.data.power += card.value;
         GameManager.instance.player.myTurnEnd += PowerDown;
         Debug.Log("파워업!:" + GameManager.instance.player.data.power);
-        GoCenter();
+      //  GoCenter();
     }
 
     public override void CardUpgrade()

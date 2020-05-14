@@ -21,7 +21,7 @@ public class Inflame : Card
     public override void Use(Character target)
     {
         GameManager.instance.player.data.power += card.value;
-        GoCenter();
+       // GoCenter();
     }
 
     public override void CardUpgrade()
@@ -30,13 +30,13 @@ public class Inflame : Card
         base.CardUpgrade();
     }
 
-    public override void GoCenter()
+    public override void GoCenter(Character target)
     {
         transform.DOLocalMove(new Vector3(100, 600, 0), 0.2f)
     .OnComplete(() =>
     {
-        usedAnime.SetActive(true);
-        UsedCard(UIManager.instance.powerZone.transform);
+        Use(target);
+        ObjectPoolManager.instance.ReturnCard(this);
         UIManager.instance.SettingUI();
     });
     }

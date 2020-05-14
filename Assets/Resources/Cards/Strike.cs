@@ -22,7 +22,7 @@ public class Strike : Card
        Debug.Log(AttackDamageCheck(GameManager.instance.player));
        target.Hit(AttackDamageCheck(GameManager.instance.player));
        UIManager.instance.EffectStart("atk3", target.transform);
-       GoCenter();
+    //   GoCenter();
     }
 
     public override void CardUpgrade()

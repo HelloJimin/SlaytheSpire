@@ -114,7 +114,7 @@ public class Character : MonoBehaviour
         }
         if (aniName == "Atk")
         {
-            transform.DOMove(new Vector3(transform.position.x + position, transform.position.y, transform.position.z), 0.1f).SetLoops(2, LoopType.Yoyo);
+            transform.DOMove(new Vector3(transform.position.x + position, transform.position.y, transform.position.z), 0.15f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Flash);
         }
         else
         {

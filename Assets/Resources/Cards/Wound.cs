@@ -19,7 +19,7 @@ public class Wound : Card
 
     public override void Use(Character target)
     {
-        GoCenter();
+       // GoCenter();
     }
 
     public override void CardUpgrade()

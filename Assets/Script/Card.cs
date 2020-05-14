@@ -57,6 +57,7 @@ public class Card : MonoBehaviour
 
     public virtual void cardInit()
     {
+        card.isUpgrade = false; 
         player = FindObjectOfType<Player>();
        // card.cardImagePath = "Sprite/CardImage/" + GetType().Name.ToLower();
         JsonManager.SaveJsonData(card, "Card", GetType().Name);
@@ -68,25 +69,27 @@ public class Card : MonoBehaviour
 
     }
 
-    public virtual void GoCenter()
+    public virtual void GoCenter(Character target)
     {
         transform.DOLocalMove(new Vector3(100, 1700, 0), 0.2f)
         .OnComplete(()=>
         {
-            StartCoroutine(StopCard());
+            StartCoroutine(StopCard(target));
+            Use(target);
         });
     }
 
-    IEnumerator StopCard()
+    IEnumerator StopCard(Character target)
     {
         yield return new WaitForSeconds(0.1f);
         if (usedAnime.activeSelf)
         {
-            StartCoroutine(StopCard());
+            StartCoroutine(StopCard(target));
         }
         else
         {
             usedAnime.SetActive(true);
+
             UsedCard(GameManager.instance.myCemetary.transform);
             UIManager.instance.SettingUI();
         }
