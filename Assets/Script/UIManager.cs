@@ -52,12 +52,14 @@ public class UIManager : MonoBehaviour
     public GameObject Neow;
     public GameObject reward;
     public GameObject costUI;
+    public GameObject proceedButton;
     public Image[] costUIs;
 
     public ChoiceMode choice;
 
     public Camera camera;
 
+    public Text RewardbanerText;
     private void Awake()
     {
         if (instance != this)
@@ -72,6 +74,7 @@ public class UIManager : MonoBehaviour
     {
         costUIs = costUI.GetComponentsInChildren<Image>();
         StartCoroutine(Bingle());
+    //    reward.GetComponent<Button>().GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
     public void SettingUI()
@@ -117,6 +120,15 @@ public class UIManager : MonoBehaviour
         alphaImage.SetActive(true);
         mapScroll.SetActive(true);
         battleSystem.SetActive(false);
+        proceedButton.SetActive(false);
+
+
+        Reward[] rewards = reward.transform.Find("Panel").GetComponentsInChildren<Reward>();
+        for (int i = 0; i < rewards.Length; i++)
+        {
+            ObjectPoolManager.instance.ReturnRewardButton(rewards[i]);
+        }
+        reward.SetActive(false);
     }
 
     public void GoToMonsterRoom()
@@ -156,9 +168,37 @@ public class UIManager : MonoBehaviour
         usedCardAnime.transform.DOMove(endPosition, 0.7f)
                 .OnComplete(() =>
                 {
-                    Debug.Log("다움직임");
                     usedCardAnime.transform.position = original;
                     usedCardAnime.gameObject.SetActive(false);
                 });
+    }
+
+    public void OpenRewardPanel()
+    {
+        battleUI.SetActive(false);
+        battleSystem.SetActive(false);
+        proceedButton.SetActive(true);
+
+        alphaImage.SetActive(true);
+        reward.SetActive(true);
+        reward.transform.Find("Panel").gameObject.SetActive(true);
+        reward.transform.Find("ChoicePanel").gameObject.SetActive(false);
+        RewardbanerText.text = "전리품!";
+
+    }
+    public void CloseRewardPanel()
+    {
+        GameManager.instance.DeckReset(reward.transform.Find("ChoicePanel").gameObject);
+
+        proceedButton.SetActive(false);
+        reward.SetActive(false);
+        alphaImage.SetActive(false);
+    }
+
+    public void SucceesChoice()
+    {
+        choice = global::ChoiceMode.Grab;
+        CloseRewardPanel();
+        OpenRewardPanel();
     }
 }

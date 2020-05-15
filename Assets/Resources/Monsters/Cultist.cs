@@ -8,10 +8,14 @@ public class Cultist : Monster
 
     private void OnEnable()
     {
-        Init(50, 10);
+        Init(1, 10);
         spain.AnimationName = "rally";
         isFirstTurn = true;
         damage = 6;
+        myTurnEnd -= PowerUP;
+        isAttack = false;
+        SettingDamageUI();
+        ActionCheck();
     }
 
     public override void ActionCheck()
@@ -24,6 +28,7 @@ public class Cultist : Monster
         if (isFirstTurn)
         {
             myTurnEnd += Ritual;
+            isAttack = true;
             SettingDamageUI();
             isFirstTurn = false;
             FindIntentImage("attack2");
@@ -49,6 +54,8 @@ public class Cultist : Monster
     }
     void Ritual()
     {
+
+
         myTurnEnd += PowerUP;
         myTurnEnd -= SettingDamageUI;
         myTurnEnd += SettingDamageUI;

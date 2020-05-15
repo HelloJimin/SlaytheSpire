@@ -2,16 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum RoomType
-{
-    Event,
-    Campfire,
-    Shop,
-    Monster,
-    Elite,
-    Boss
-}
-
 public class GameManager : MonoBehaviour
 {
     #region 싱글톤
@@ -38,7 +28,7 @@ public class GameManager : MonoBehaviour
     public int currentCost;
     public int maxCost;
 
-    public List<Card> inventory;
+    public List<string> myInventoryList = new List<string>();
 
     public GameObject myDeck;
     public GameObject myHand;
@@ -64,15 +54,16 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         maxCost = 3;
         currentRoomMoney = 0;
+        myInventoryList = JsonManager.LoadJsonData<List<string>>(player.gameObject.name, player.gameObject.name + "List");
     }
 
     void Start()
     {
        // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
-        player.myTurnStart += StartPhase;
-        CreateMyInventory();
-        UIManager.instance.SettingUI();
+       player.myTurnStart += StartPhase;
+       UIManager.instance.SettingUI();
        UIManager.instance.GoToNeowRoom();
+      
     }
 
     public void StartGame()
@@ -90,9 +81,13 @@ public class GameManager : MonoBehaviour
     void SettingMyDeck()
     {
         //인벤토리에서 덱으로
-        for (int i = 0; i < inventory.Count; i++)
+        Debug.Log(myInventoryList.Count);
+        for (int i = 0; i < myInventoryList.Count; i++)
         {
-            inventory[i].transform.SetParent(myDeck.transform);
+            // inventory[i].transform.SetParent(myDeck.transform);
+            Debug.Log(myInventoryList[i]);
+            Card myCard = ObjectPoolManager.instance.GetCard(myInventoryList[i]);
+            myCard.transform.SetParent(myDeck.transform);
         }
         ShuffleDeck(myDeck);
     }
@@ -189,16 +184,6 @@ public class GameManager : MonoBehaviour
         TurnProcessing();
     }
 
-    void CreateMyInventory()
-    {
-        List<string> inven = JsonManager.LoadJsonData<List<string>>(player.gameObject.name, player.gameObject.name+"List");
-
-        for (int i = 0; i < inven.Count; i++)
-        {
-            inventory.Add(ObjectPoolManager.instance.GetCard(inven[i]));
-        }
-    }
-
     void SettingMonsters()
     {
         var monster = ObjectPoolManager.instance.GetMonster("Cultist");
@@ -224,11 +209,16 @@ public class GameManager : MonoBehaviour
     public void BattleEnd()
     {
         if (monsters.Count != 0) return;
-       // battleEndProcess.Invoke();
-        OpenReward();
+        // battleEndProcess.Invoke();
+
+
+        ObjectPoolManager.instance.GetRewardMoneyButton("money");
+        ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
+
         DeckReset(myDeck);
         DeckReset(myHand);
         DeckReset(myCemetary);
+        UIManager.instance.OpenRewardPanel();
         UIManager.instance.usedCardAnime.SetActive(false);
     }
 
@@ -238,19 +228,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < retunCnt; i++)
         {
-                Debug.Log(before.transform.GetChild(0));
-                ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
+           ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
         }
-    }
-
-    public void OpenReward()
-    {
-        UIManager.instance.battleUI.SetActive(false);
-        UIManager.instance.battleSystem.SetActive(false);
-
-        UIManager.instance.alphaImage.SetActive(true);
-        UIManager.instance.reward.SetActive(true);
-        ObjectPoolManager.instance.GetRewardMoneyButton("money");
-        ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
     }
 }

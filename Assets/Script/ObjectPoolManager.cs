@@ -28,6 +28,8 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject monsterPrefab;
     public GameObject rewardButtonPrefab;
 
+    public List<string> cardList = new List<string>();
+
     List<Card> cardPool = new List<Card>();
     List<Character> monsterPool = new List<Character>();
     Queue<Reward> rewardButtonPool = new Queue<Reward>();
@@ -51,9 +53,19 @@ public class ObjectPoolManager : MonoBehaviour
             rewardButtonPool.Enqueue(CreateButtons());
         }
 
-        string[] cardList = { "Bash", "Armaments","Inflame","Heavy_blade","Wild_strike","Flex","Body_slam","Strike","Defend","Wound" };
+        cardList.Add("Bash");
+        cardList.Add("Armaments");
+        cardList.Add("Inflame");
+        cardList.Add("Heavy_blade");
+        cardList.Add("Wild_strike");
+        cardList.Add("Flex");
+        cardList.Add("Body_slam");
+        cardList.Add("Strike");
+        cardList.Add("Defend");
+        cardList.Add("Wound");
 
-        for (int i = 0; i < cardList.Length; i++)
+
+        for (int i = 0; i < cardList.Count; i++)
         {
             for (int k = 0; k < 3; k++)
             {
@@ -106,12 +118,14 @@ public class ObjectPoolManager : MonoBehaviour
             {
                 if (cardPool[i].GetType().Name == cardName)
                 {
+                    Debug.Log("보냇어요");
                     card = cardPool[i];
                     card.gameObject.SetActive(false);
                     cardPool.Remove(card);
                     return card;
                 }
             }
+                    Debug.Log("못찾아서만들엇어요");
             card = CreateCard(cardName);
             return card;
         }
@@ -148,20 +162,11 @@ public class ObjectPoolManager : MonoBehaviour
     public void GetRewardMoneyButton(string type)
     {
         Reward button = rewardButtonPool.Dequeue();
-        button.transform.SetParent(UIManager.instance.reward.transform);
+        button.transform.SetParent(UIManager.instance.reward.transform.Find("Panel").transform);
         button.gameObject.SetActive(true);
         button.GetComponent<Button>().onClick.RemoveAllListeners();
         button.transform.localScale = new Vector3(1, 1, 1);
         button.init(type);
-
-        if (type == "money")
-        {
-            button.GetComponent<Button>().onClick.AddListener(() => button.MoneyButton());
-        }
-        else if (type == "nomal")
-        {
-            button.GetComponent<Button>().onClick.AddListener(() => button.nomalCardButton());
-        }
     }
 
     #endregion
@@ -181,12 +186,6 @@ public class ObjectPoolManager : MonoBehaviour
         // card.cardInit();
         card.gameObject.SetActive(false);
         card.transform.SetParent(transform.Find("Cards"));
-        if (card.name == "부상")
-        {
-            Debug.Log("부상>");
-            Debug.Log(card.gameObject);
-            Debug.Log(card.transform.parent);
-        }
     }
 
     public void ReturnRewardButton(Reward button)

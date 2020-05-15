@@ -10,13 +10,14 @@ public class Monster : Character
     public SkeletonAnimation spain;
     public float damage;
     public Character player;
+    public bool isAttack;
 
     public void Init(int maxHp, int money)
     {
         data.maxHP = maxHp;
         data.money = money;
         data.currentHP = data.maxHP;
-
+        data.power = 0;
        // SettingHPUI();
         transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
         transform.Find("Canvas").GetComponentInChildren<Text>().text = data.currentHP + "/" + data.maxHP;
@@ -106,21 +107,28 @@ public class Monster : Character
     {
        float realDamage;
         
-        if (weak > 0)
-        {
-            realDamage = damage - (damage * 0.25f) + data.power;
-            if (realDamage < 0) realDamage = 0;
-        }
-        else
-        {
-            realDamage = damage + data.power;
-        }
-        return (int)realDamage;
+       if (weak > 0)
+       {
+           realDamage = damage - (damage * 0.25f) + data.power;
+           if (realDamage < 0) realDamage = 0;
+       }
+       else
+       {
+           realDamage = damage + data.power;
+       }
+       return (int)realDamage;
     }
 
     public void SettingDamageUI()
     {
-        intentImage.transform.Find("Damage").GetComponent<Text>().enabled = true;
-        intentImage.transform.Find("Damage").GetComponent<Text>().text = AttackDamageCheck().ToString();
+        if (isAttack)
+        {
+            intentImage.transform.Find("Damage").GetComponent<Text>().enabled = true;
+            intentImage.transform.Find("Damage").GetComponent<Text>().text = AttackDamageCheck().ToString();
+        }
+        else
+        {
+            intentImage.transform.Find("Damage").GetComponent<Text>().enabled = false;
+        }
     }
 }

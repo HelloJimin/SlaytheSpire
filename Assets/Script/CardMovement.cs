@@ -32,8 +32,10 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 }
                 return;
             case ChoiceMode.Choice:
-              Card newca=  GameManager.instance.AddCardToDeck(card.GetType().Name);
-                GameManager.instance.inventory.Add(newca);
+              //Card newca=  GameManager.instance.AddCardToDeck(card.GetType().Name);
+                
+                GameManager.instance.myInventoryList.Add(card.GetType().Name);
+                UIManager.instance.SucceesChoice();
                 return;
         }
         isGrab = true;
@@ -78,8 +80,8 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 }
                 return;
             case ChoiceMode.Choice:
-                Card newca = GameManager.instance.AddCardToDeck(card.GetType().Name);
-                GameManager.instance.inventory.Add(newca);
+                GameManager.instance.myInventoryList.Add(card.GetType().Name);
+                UIManager.instance.SucceesChoice();
                 return;
         }
 
