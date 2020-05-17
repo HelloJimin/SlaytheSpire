@@ -32,10 +32,11 @@ public class Inflame : Card
 
     public override void GoCenter(Character target)
     {
-        transform.DOLocalMove(new Vector3(100, 600, 0), 0.2f)
-    .OnComplete(() =>
+        transform.DOLocalMove(new Vector3(100, 1700, 0), 0.2f)
+        .OnComplete(() =>
     {
         Use(target);
+        StartCoroutine(StopCard(player));
         ObjectPoolManager.instance.ReturnCard(this);
         UIManager.instance.SettingUI();
     });

@@ -259,3 +259,7 @@ C:\SlaytheSpire\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
 C:\SlaytheSpire\Temp\bin\Debug\DemiLib.xml
 C:\SlaytheSpire\Temp\bin\Debug\DOTween.xml
 C:\SlaytheSpire\Temp\bin\Debug\DOTweenPro.xml
+D:\myProject\SlaytheSpire\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\myProject\SlaytheSpire\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+D:\myProject\SlaytheSpire\obj\Debug\Assembly-CSharp.dll
+D:\myProject\SlaytheSpire\obj\Debug\Assembly-CSharp.pdb

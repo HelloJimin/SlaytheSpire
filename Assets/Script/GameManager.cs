@@ -72,22 +72,21 @@ public class GameManager : MonoBehaviour
         SettingMonsters();
         currentCost = maxCost;
         isPlayerTurn = true;
-        SettingMyDeck();
+        SettingMyDeck(myDeck);
         StartPhase();
         TurnProcessing();
         UIManager.instance.SettingUI();
     }
 
-    void SettingMyDeck()
+    public void SettingMyDeck(GameObject after)
     {
         //인벤토리에서 덱으로
-        Debug.Log(myInventoryList.Count);
         for (int i = 0; i < myInventoryList.Count; i++)
         {
             // inventory[i].transform.SetParent(myDeck.transform);
             Debug.Log(myInventoryList[i]);
             Card myCard = ObjectPoolManager.instance.GetCard(myInventoryList[i]);
-            myCard.transform.SetParent(myDeck.transform);
+            myCard.transform.SetParent(after.transform);
         }
         ShuffleDeck(myDeck);
     }

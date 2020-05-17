@@ -82,7 +82,7 @@ public class Card : MonoBehaviour
         });
     }
 
-    IEnumerator StopCard(Character target)
+    public IEnumerator StopCard(Character target)
     {
         yield return new WaitForSeconds(0.1f);
 

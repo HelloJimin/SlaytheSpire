@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
+using Map;
 public enum ChoiceMode
 {
     Grab,
@@ -60,6 +60,9 @@ public class UIManager : MonoBehaviour
     public Camera camera;
 
     public Text RewardbanerText;
+    public GameObject scollMapUI;
+    public GameObject restRoom;
+
     private void Awake()
     {
         if (instance != this)
@@ -74,6 +77,8 @@ public class UIManager : MonoBehaviour
     {
         costUIs = costUI.GetComponentsInChildren<Image>();
         StartCoroutine(Bingle());
+        scollMapUI = FindObjectOfType<ScrollNonUI>().gameObject;
+        scollMapUI.SetActive(false);
     //    reward.GetComponent<Button>().GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
@@ -117,11 +122,14 @@ public class UIManager : MonoBehaviour
     }
     public void GoToMap()
     {
-        alphaImage.SetActive(true);
-        mapScroll.SetActive(true);
+        Neow.SetActive(false);
+        alphaImage.SetActive(false);
+        scollMapUI.gameObject.SetActive(true);
+
+        //mapScroll.SetActive(true);
         battleSystem.SetActive(false);
         proceedButton.SetActive(false);
-
+        restRoom.SetActive(false);
 
         Reward[] rewards = reward.transform.Find("Panel").GetComponentsInChildren<Reward>();
         for (int i = 0; i < rewards.Length; i++)
@@ -131,8 +139,17 @@ public class UIManager : MonoBehaviour
         reward.SetActive(false);
     }
 
+    public void GoToRestRoom()
+    {
+        alphaImage.SetActive(true);
+        battleSystem.SetActive(false);
+        proceedButton.SetActive(false);
+        restRoom.SetActive(true);
+    }
+
     public void GoToMonsterRoom()
     {
+        scollMapUI.SetActive(false);
         Neow.SetActive(false);
         mapScroll.SetActive(false);
         alphaImage.SetActive(false);
@@ -184,8 +201,8 @@ public class UIManager : MonoBehaviour
         reward.transform.Find("Panel").gameObject.SetActive(true);
         reward.transform.Find("ChoicePanel").gameObject.SetActive(false);
         RewardbanerText.text = "전리품!";
-
     }
+
     public void CloseRewardPanel()
     {
         GameManager.instance.DeckReset(reward.transform.Find("ChoicePanel").gameObject);
