@@ -18,6 +18,8 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     {
         switch (UIManager.instance.choice)
         {
+            case ChoiceMode.None:
+                return;
             case ChoiceMode.Grab:
                 break;
             case ChoiceMode.Upgrade:
@@ -36,6 +38,9 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 
                 GameManager.instance.myInventoryList.Add(card.GetType().Name);
                 UIManager.instance.SucceesChoice();
+                return;
+            case ChoiceMode.RestUpgrade:
+                UIManager.instance.RestCardGoToUpgradePanel(card);
                 return;
         }
         isGrab = true;
@@ -66,6 +71,8 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
     {
         switch (UIManager.instance.choice)
         {
+            case ChoiceMode.None:
+                return;
             case ChoiceMode.Grab:
                 break;
             case ChoiceMode.Upgrade:
@@ -83,8 +90,10 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 GameManager.instance.myInventoryList.Add(card.GetType().Name);
                 UIManager.instance.SucceesChoice();
                 return;
+            case ChoiceMode.RestUpgrade:
+                UIManager.instance.RestCardGoToUpgradePanel(card);
+                return;
         }
-
         if (!isGrab)
         {
             isGrab = true;

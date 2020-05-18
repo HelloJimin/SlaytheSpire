@@ -180,13 +180,16 @@ namespace Spine.Unity {
 					}
 
 					c = 0;
-					#if UNITY_5
+#if UNITY_5
 					if (nextStateInfo.fullPathHash != 0) {
-					#else
-					if (nextStateInfo.nameHash != 0) {
-					#endif
-						//apply next clip directly instead of mixing (ie:  no crossfade, ignores mecanim transition weights)
-						if (mode == MixMode.SpineStyle) {
+#else
+#pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+                    if (nextStateInfo.nameHash != 0)
+                    {
+#pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+#endif
+                        //apply next clip directly instead of mixing (ie:  no crossfade, ignores mecanim transition weights)
+                        if (mode == MixMode.SpineStyle) {
 							for (; c < nextClipInfo.Length; c++) {
 								AnimatorClipInfo info = nextClipInfo[c];
 								float weight = info.weight * layerWeight;

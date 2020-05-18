@@ -17,6 +17,16 @@ public class Reward : MonoBehaviour
         }
         else if (type == "nomal")
         {
+
+            GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
+
+            Card[] cards = choicePanel.GetComponentsInChildren<Card>();
+
+            for (int i = 0; i < cards.Length; i++)
+            {
+                ObjectPoolManager.instance.ReturnCard(cards[i]);
+            }
+
             icon.sprite = Resources.Load<Sprite>("Sprite/Reward/normalCardReward") as Sprite;
             GetComponentInChildren<Text>().text = "덱에 카드를 추가";
             GetComponent<Button>().onClick.AddListener(() => nomalCardButton());

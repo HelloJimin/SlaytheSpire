@@ -89,8 +89,10 @@ namespace Spine.Unity.Editor {
 			}
 
 			UpdateAttachments();
-			isPrefab |= PrefabUtility.GetPrefabType(this.target) == PrefabType.Prefab;
-		}
+#pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+            isPrefab |= PrefabUtility.GetPrefabType(this.target) == PrefabType.Prefab;
+#pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+        }
 
 		void OnSceneGUI () {
 			if (skeleton == null) {

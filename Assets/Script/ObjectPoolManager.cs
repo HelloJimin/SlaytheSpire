@@ -26,6 +26,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     public GameObject cardPrefab;
     public GameObject monsterPrefab;
+    public GameObject artifactPrefab;
     public GameObject rewardButtonPrefab;
 
     public List<string> cardList = new List<string>();
@@ -76,6 +77,18 @@ public class ObjectPoolManager : MonoBehaviour
 
     #region CREATE
 
+    Artifact CreateArtifact(string name)
+    {
+        GameObject test = Instantiate(artifactPrefab, transform.Find("Artifacts"));
+        test.AddComponent(System.Type.GetType(name));
+
+        Artifact newArtifact = test.GetComponent<Artifact>();
+        newArtifact.transform.localPosition = new Vector3(2, 2, 2);
+        newArtifact.Init();
+        newArtifact.gameObject.SetActive(false);
+        return newArtifact;
+    }
+
     Card CreateCard(string name)
     {
         GameObject test = Instantiate(cardPrefab, transform.Find("Cards"));
@@ -99,7 +112,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     Character CreateNewMonster(string monsterFileName)
     {
-        Debug.Log(monsterFileName);
+        Debug.Log(monsterFileName+ " 생성 완료");
         Character newMon = Instantiate(monsterPrefab, transform.Find("Monsters")).AddComponent(System.Type.GetType(monsterFileName)).GetComponent<Character>();
         newMon.gameObject.SetActive(false);
         newMon.name = monsterFileName;
@@ -118,19 +131,37 @@ public class ObjectPoolManager : MonoBehaviour
             {
                 if (cardPool[i].GetType().Name == cardName)
                 {
-                    Debug.Log("보냇어요");
                     card = cardPool[i];
                     card.gameObject.SetActive(false);
                     cardPool.Remove(card);
                     return card;
                 }
             }
-                    Debug.Log("못찾아서만들엇어요");
+
+            if (cardName.Contains("+"))
+            {
+                card = CreateCard(cardName.Replace("+",""));
+                card.CardUpgrade();
+                return card;
+            }
+            else
+            {
+                card = CreateCard(cardName);
+                return card;
+            }
+        }
+
+        if (cardName.Contains("+"))
+        {
+            card = CreateCard(cardName.Replace("+", ""));
+            card.CardUpgrade();
+            return card;
+        }
+        else
+        {
             card = CreateCard(cardName);
             return card;
         }
-        card = CreateCard(cardName);
-        return card;
     }
 
     public Character GetMonster(string monsterName)

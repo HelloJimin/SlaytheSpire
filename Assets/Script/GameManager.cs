@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTurn()
     {
+
         if (isPlayerTurn)
         {
             AllTransferCards(myHand, myCemetary,false);
@@ -210,7 +211,7 @@ public class GameManager : MonoBehaviour
         if (monsters.Count != 0) return;
         // battleEndProcess.Invoke();
 
-
+        player.YourEndPhase();
         ObjectPoolManager.instance.GetRewardMoneyButton("money");
         ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
 
@@ -229,5 +230,29 @@ public class GameManager : MonoBehaviour
         {
            ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
         }
+    }
+
+    public void UpgradeInventoryCard()
+    {
+        string cardName = UIManager.instance.restUpgradePanel.transform.Find("ChoicePanel").GetComponentInChildren<Card>().GetType().Name;
+        for (int i = 0; i < myInventoryList.Count; i++)
+        {
+            if (myInventoryList[i] == cardName)
+            {
+                myInventoryList[i] = myInventoryList[i] + "+";
+                break;
+            }
+        }
+
+        for (int i = 0; i < myInventoryList.Count; i++)
+        {
+            Debug.Log(myInventoryList[i]);
+        }
+
+        UIManager.instance.choice = ChoiceMode.Grab;
+        UIManager.instance.alphaImage.SetActive(false);
+        UIManager.instance.RestCardGoToCardPool();
+        UIManager.instance.restUpgradePanel.SetActive(false);
+        UIManager.instance.restRoom.SetActive(false);
     }
 }

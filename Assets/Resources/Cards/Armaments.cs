@@ -41,6 +41,7 @@ public class Armaments : Card
             UIManager.instance.alphaImage.transform.Find("OkButton").GetComponent<Button>().onClick.AddListener(UseEffect);
             transform.parent.SetParent(UIManager.instance.alphaImage.transform);
             transform.SetParent(null);
+        UIManager.instance.turnEndButton.SetActive(false);
         }
 
        // GoCenter();
@@ -54,6 +55,8 @@ public class Armaments : Card
         target.CardUpgrade();
         target.transform.SetParent(GameManager.instance.myHand.transform);
 
+
+        UIManager.instance.turnEndButton.SetActive(true);
         UIManager.instance.ChoiceMode(false);
         UIManager.instance.choice = ChoiceMode.Grab;
         GameManager.instance.myHand.transform.SetParent(UIManager.instance.battleSystem.transform);

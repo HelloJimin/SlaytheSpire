@@ -241,7 +241,6 @@ namespace Map
                 attempts++;
             }
 
-            Debug.Log("Attempts to generate paths: " + attempts);
         }
 
         private static bool PathsLeadToAtLeastNDifferentPoints(IEnumerable<List<Point>> paths, int n)

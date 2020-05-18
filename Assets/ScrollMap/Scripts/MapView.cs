@@ -224,7 +224,6 @@ namespace Map
             var scrollNonUi = mapParent.GetComponent<ScrollNonUI>();
             var span = mapManager.CurrentMap.DistanceBetweenFirstAndLastLayers();
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
-            Debug.Log("Map span in set orientation: " + span + " camera aspect: " + cam.aspect);
 
             // setting first parent to be right in front of the camera first:
             firstParent.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);

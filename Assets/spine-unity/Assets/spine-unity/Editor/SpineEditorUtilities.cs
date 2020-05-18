@@ -1030,8 +1030,10 @@ namespace Spine.Unity.Editor {
 
 			if (prefab == null) {
 				root = new GameObject("temp", typeof(MeshFilter), typeof(MeshRenderer));
-				prefab = PrefabUtility.CreatePrefab(bakedPrefabPath, root);
-				isNewPrefab = true;
+#pragma warning disable CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+                prefab = PrefabUtility.CreatePrefab(bakedPrefabPath, root);
+#pragma warning restore CS0618 // 형식 또는 멤버는 사용되지 않습니다.
+                isNewPrefab = true;
 				Object.DestroyImmediate(root);
 			}
 

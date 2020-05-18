@@ -6,9 +6,11 @@ using DG.Tweening;
 using Map;
 public enum ChoiceMode
 {
+    None,
     Grab,
     Upgrade,
-    Choice
+    Choice,
+    RestUpgrade
 }
 
 
@@ -62,6 +64,9 @@ public class UIManager : MonoBehaviour
     public Text RewardbanerText;
     public GameObject scollMapUI;
     public GameObject restRoom;
+    public GameObject restUpgradePanel;
+
+    public GameObject turnEndButton;
 
     private void Awake()
     {
@@ -79,6 +84,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(Bingle());
         scollMapUI = FindObjectOfType<ScrollNonUI>().gameObject;
         scollMapUI.SetActive(false);
+        choice = global::ChoiceMode.Grab;
     //    reward.GetComponent<Button>().GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
@@ -122,6 +128,8 @@ public class UIManager : MonoBehaviour
     }
     public void GoToMap()
     {
+        choice = global::ChoiceMode.Grab;
+
         Neow.SetActive(false);
         alphaImage.SetActive(false);
         scollMapUI.gameObject.SetActive(true);
@@ -151,9 +159,10 @@ public class UIManager : MonoBehaviour
     {
         scollMapUI.SetActive(false);
         Neow.SetActive(false);
-        mapScroll.SetActive(false);
+       // mapScroll.SetActive(false);
         alphaImage.SetActive(false);
 
+        Debug.Log("몬스터룸으로 갑니다");
         battleSystem.SetActive(true);
         battleUI.SetActive(true);
         GameManager.instance.StartGame();
@@ -217,5 +226,28 @@ public class UIManager : MonoBehaviour
         choice = global::ChoiceMode.Grab;
         CloseRewardPanel();
         OpenRewardPanel();
+    }
+
+    public void RestCardGoToUpgradePanel(Card card)
+    {
+        restUpgradePanel.SetActive(true);
+        choice = global::ChoiceMode.None;
+        GameObject choicePanel = restUpgradePanel.transform.Find("ChoicePanel").gameObject;
+
+        card.transform.SetParent(choicePanel.transform);
+
+        Card NewCard = ObjectPoolManager.instance.GetCard(card.GetType() + "+");
+        NewCard.transform.SetParent(choicePanel.transform);
+        NewCard.gameObject.SetActive(true);
+    }
+
+    public void RestCardGoToCardPool()
+    {
+        GameObject choicePanel = restUpgradePanel.transform.Find("ChoicePanel").gameObject;
+        Card[] cards = choicePanel.GetComponentsInChildren<Card>();
+        for (int i = 0; i < cards.Length; i++)
+        {
+            ObjectPoolManager.instance.ReturnCard(cards[i]);
+        }
     }
 }

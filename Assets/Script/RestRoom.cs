@@ -41,6 +41,7 @@ public class RestRoom : MonoBehaviour
     public void OnDisable()
     {
         playerAnime.transform.localPosition = original;
+        myAllCardList.SetActive(false);
     }
 
     public void Rest()
@@ -81,6 +82,7 @@ public class RestRoom : MonoBehaviour
 
         myAllCardList.SetActive(true);
 
+        UIManager.instance.choice = ChoiceMode.RestUpgrade;
         GameObject inventoryCards = myAllCardList.transform.Find("AllCards").gameObject;
         GameManager.instance.SettingMyDeck(inventoryCards);
 
@@ -91,7 +93,7 @@ public class RestRoom : MonoBehaviour
         //이부분 마이올카드리스트 스크립트로 옮기자..
        // UIManager.instance.choice=ChoiceMode.
         UIManager.instance.SettingUI();
-        UIManager.instance.proceedButton.SetActive(true);
+        UIManager.instance.proceedButton.SetActive(false);
         actionPoint--;
         ButtonColorChange(new Color(255, 255, 255, 0.5f));
     }
