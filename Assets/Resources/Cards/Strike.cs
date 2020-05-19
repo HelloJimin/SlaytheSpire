@@ -14,6 +14,7 @@ public class Strike : Card
         card.type = CardType.Attack;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.Monster;
+        card.description = "피해를 " + card.value + " 줍니다.";
         base.cardInit();
     }
 
@@ -28,6 +29,7 @@ public class Strike : Card
     public override void CardUpgrade()
     {
         card.value = 9;
+        card.description = "피해를 " + card.value + " 줍니다.";
         base.CardUpgrade();
     }
 

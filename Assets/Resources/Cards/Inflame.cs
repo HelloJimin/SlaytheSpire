@@ -15,6 +15,7 @@ public class Inflame : Card
         card.type = CardType.Power;
         card.grade = CardGrade.Rare;
         card.target = CardTarget.All;
+        card.description = "힘을 " + card.value + " 얻습니다.";
         base.cardInit();
     }
 
@@ -27,6 +28,7 @@ public class Inflame : Card
     public override void CardUpgrade()
     {
         card.value = 3;
+        card.description = "힘을 " + card.value + " 얻습니다.";
         base.CardUpgrade();
     }
 

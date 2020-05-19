@@ -14,6 +14,7 @@ public class Wound : Card
         card.type = CardType.CC;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.All;
+        card.description = "사용불가";
         base.cardInit();
     }
 

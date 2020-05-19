@@ -13,6 +13,7 @@ public class Corruption : Card
         card.type = CardType.Power;
         card.grade = CardGrade.Legend;
         card.target = CardTarget.All;
+        card.description = "스킬 카드의 비용이 0이 됩니다. 스킬 카드를 사용할 때마다 소멸시킵니다.";
         base.cardInit();
     }
 

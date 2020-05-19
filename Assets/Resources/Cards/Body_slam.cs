@@ -14,6 +14,7 @@ public class Body_slam : Card
         card.type = CardType.Attack;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.Monster;
+        card.description = "현재 방어도만큼 피해를 줍니다.";
         base.cardInit();
     }
 

@@ -74,7 +74,7 @@ public class Card : MonoBehaviour
     public virtual void GoCenter(Character target)
     {
         //화면 중앙으로 간 뒤 효과가 실행됩니다.
-        transform.DOLocalMove(new Vector3(100, 1700, 0), 0.2f)
+        transform.DOLocalMove(new Vector3(100, 1000, 0), 0.2f)
         .OnComplete(()=>
         {
             StartCoroutine(StopCard(target));
@@ -108,7 +108,32 @@ public class Card : MonoBehaviour
     [ContextMenu("load")]
     public void SpriteSetting()
     {
+        TextUpdate();
+
         images = GetComponentsInChildren<Image>();
+
+        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/"+ card.color+"_"+card.type) as Sprite;
+        images[1].sprite = Resources.Load<Sprite>("Sprite/CardImage/"+GetType().Name.ToLower()) as Sprite;
+        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/" + card.type + "_" +  card.grade) as Sprite;
+        images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_" + card.grade) as Sprite;
+
+        if (card.type == CardType.Power)
+        {
+            //y58 / y-71
+            images[2].transform.localPosition = new Vector3(0, 58, 0);
+            texts[0].transform.localPosition =  new Vector3(0, -71, 0);
+        }
+
+        if (card.type == CardType.CC || card.type==CardType.Curse)
+        {
+            images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Skill") as Sprite;
+            images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/skill_" + card.grade) as Sprite;
+            images[4].gameObject.SetActive(false);
+        }
+    }
+
+    void TextUpdate()
+    {
         texts = GetComponentsInChildren<Text>();
 
         switch (card.type)
@@ -132,25 +157,7 @@ public class Card : MonoBehaviour
 
         texts[1].text = card.name;
         texts[2].text = card.cost.ToString();
-
-        images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/"+ card.color+"_"+card.type) as Sprite;
-        images[1].sprite = Resources.Load<Sprite>("Sprite/CardImage/"+GetType().Name.ToLower()) as Sprite;
-        images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/" + card.type + "_" +  card.grade) as Sprite;
-        images[3].sprite = Resources.Load<Sprite>("Sprite/Cards/Label_" + card.grade) as Sprite;
-
-        if (card.type == CardType.Power)
-        {
-            //y58 / y-71
-            images[2].transform.localPosition = new Vector3(0, 58, 0);
-            texts[0].transform.localPosition =  new Vector3(0, -71, 0);
-        }
-
-        if (card.type == CardType.CC || card.type==CardType.Curse)
-        {
-            images[0].sprite = Resources.Load<Sprite>("Sprite/Cards/Gray_Skill") as Sprite;
-            images[2].sprite = Resources.Load<Sprite>("Sprite/Cards/skill_" + card.grade) as Sprite;
-            images[4].gameObject.SetActive(false);
-        }
+        texts[3].text = card.description;
     }
 
     public bool CostCheck()
@@ -202,6 +209,7 @@ public class Card : MonoBehaviour
         card.isUpgrade = true;
         texts[1].text = card.name;
         gameObject.name = card.name;
+        TextUpdate();
     }
 
     public virtual int AttackDamageCheck(Character user)

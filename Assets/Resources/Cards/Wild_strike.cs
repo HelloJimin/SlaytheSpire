@@ -14,6 +14,7 @@ public class Wild_strike : Card
         card.type = CardType.Attack;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.Monster;
+        card.description = "피해를 " + card.value + " 줍니다. 뽑을 카드 더미에 부상을 섞어 넣습니다.";
         base.cardInit();
     }
 
@@ -32,6 +33,7 @@ public class Wild_strike : Card
     public override void CardUpgrade()
     {
         card.value = 17;
+        card.description = "피해를 " + card.value + " 줍니다. 뽑을 카드 더미에 부상을 섞어 넣습니다.";
         base.CardUpgrade();
     }
 }

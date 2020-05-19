@@ -15,7 +15,7 @@ public class Armaments : Card
         card.type = CardType.Skill;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.All;
-
+        card.description = "방어도를 5 얻습니다. 카드 1 장을 이번 전투동안 강화합니다.";
         base.cardInit();
     }
 
@@ -62,5 +62,10 @@ public class Armaments : Card
         GameManager.instance.myHand.transform.SetParent(UIManager.instance.battleSystem.transform);
 
      //   GoCenter();
+    }
+    public override void CardUpgrade()
+    {
+        base.CardUpgrade();
+        card.description = "방어도를 5 얻습니다. 손에 있는 모든 카드를 이번 전투동안 강화합니다.";
     }
 }

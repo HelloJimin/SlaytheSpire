@@ -14,6 +14,7 @@ public class Defend : Card
         card.type = CardType.Skill;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.All;
+        card.description = "방어도를 " + card.value + " 얻습니다.";
         base.cardInit();
     }
 
@@ -27,6 +28,7 @@ public class Defend : Card
     public override void CardUpgrade()
     {
         card.value = 8;
+        card.description = "방어도를 " + card.value + " 얻습니다.";
         base.CardUpgrade();
     }
 }

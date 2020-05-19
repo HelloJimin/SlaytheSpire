@@ -11,6 +11,20 @@ public class Player : Character
         isPlayer = true;
         LoadInvenData();
         LoadPlayerData();
+        //isPlayer = true;
+        //if (gameObject.name == "Ironclad")
+        //{
+        //    IroncladSetting();
+        //}
+        //// Camera.main.WorldToScreenPoint(transform.position);
+        //// transform.Find("Canvas").transform.Find("MyHP").position = Camera.main.WorldToScreenPoint(transform.position);
+
+
+        //transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
+        //transform.Find("Canvas").GetComponentInChildren<Text>().text = data.currentHP + "/" + data.maxHP;
+        //LoadInvenData();
+        ////JsonManager.SaveJsonData(data, gameObject.name, gameObject.name);
+        ////JsonManager.SaveJsonData(inventoryList, gameObject.name, gameObject.name + "List");
     }
 
     void CreateInvenList()

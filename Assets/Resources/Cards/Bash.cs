@@ -8,6 +8,7 @@ public class Bash : Card
 
     public override void cardInit()
     {
+        vulPower = 2;
         usedAnime = UIManager.instance.usedCardAnime;
         card.name = "강타";
         card.value = 8;
@@ -16,7 +17,7 @@ public class Bash : Card
         card.type = CardType.Attack;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.Monster;
-        vulPower = 2;
+        card.description = "피해를 " + card.value + "줍니다. 취약을 " + vulPower + "부여합니다.";
         base.cardInit();
     }
 
@@ -33,6 +34,7 @@ public class Bash : Card
     {
         card.value = 10;
         vulPower = 3;
+        card.description = "피해를 " + card.value + "줍니다. 취약을 " + vulPower + "부여합니다.";
         base.CardUpgrade();
     }
 }

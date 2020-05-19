@@ -14,6 +14,7 @@ public class Flex : Card
         card.type = CardType.Skill;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.All;
+        card.description = "힘을 " + card.value + " 얻습니다. 이번 턴이 끝날 때 힘을 " + card.value + " 잃습니다.";
         base.cardInit();
     }
 
@@ -29,6 +30,7 @@ public class Flex : Card
     public override void CardUpgrade()
     {
         card.value = 4;
+        card.description = "힘을 " + card.value + " 얻습니다. 이번 턴이 끝날 때 힘을 " + card.value + " 잃습니다.";
         base.CardUpgrade();
     }
     public void PowerDown()

@@ -7,6 +7,7 @@ public class Heavy_blade : Card
     public int power;
     public override void cardInit()
     {
+        power = 3;
         usedAnime = UIManager.instance.usedCardAnime;
         card.name = "대검";
         card.value = 14;
@@ -15,7 +16,7 @@ public class Heavy_blade : Card
         card.type = CardType.Attack;
         card.grade = CardGrade.Nomal;
         card.target = CardTarget.Monster;
-        power = 3;
+        card.description = "피해를 14 줍니다. 힘의 효과가 " + power + " 배로 적용됩니다.";
         base.cardInit();
     }
 
@@ -46,6 +47,7 @@ public class Heavy_blade : Card
     public override void CardUpgrade()
     {
         power = 5;
+        card.description = "피해를 14 줍니다. 힘의 효과가 " + power + " 배로 적용됩니다.";
         base.CardUpgrade();
     }
 
