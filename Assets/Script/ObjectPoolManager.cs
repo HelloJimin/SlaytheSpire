@@ -33,6 +33,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     List<Card> cardPool = new List<Card>();
     List<Character> monsterPool = new List<Character>();
+    List<Artifact> artifactPool = new List<Artifact>();
     Queue<Reward> rewardButtonPool = new Queue<Reward>();
 
     void Awake()
@@ -47,6 +48,12 @@ public class ObjectPoolManager : MonoBehaviour
         for (int i = 0; i < monsterFiles.Length; i++)
         {
           //  monsterPool.Add(CreateNewMonster(monsterFiles[i]));
+        }
+        string[] artifactFiles = { "BurningBlood" };
+
+        for (int i = 0; i < artifactFiles.Length; i++)
+        {
+            artifactPool.Add(CreateArtifact(artifactFiles[i]));
         }
 
         for (int i = 0; i < 5; i++)
@@ -83,7 +90,7 @@ public class ObjectPoolManager : MonoBehaviour
         test.AddComponent(System.Type.GetType(name));
 
         Artifact newArtifact = test.GetComponent<Artifact>();
-        newArtifact.transform.localPosition = new Vector3(2, 2, 2);
+       // newArtifact.transform.localPosition = new Vector3(2, 2, 2);
         newArtifact.Init();
         newArtifact.gameObject.SetActive(false);
         return newArtifact;

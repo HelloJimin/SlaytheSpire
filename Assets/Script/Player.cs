@@ -58,7 +58,6 @@ public class Player : Character
             IroncladSetting();
             JsonManager.SaveJsonData(data, gameObject.name, gameObject.name);
         }
-
     }
 
     void LoadInvenData()

@@ -110,7 +110,7 @@ public class RestRoom : MonoBehaviour
     {
         original = playerAnime.transform.localPosition;
 
-        playerAnime.transform.DOLocalMove(new Vector3(-250, -70, 0), 0.5f);
+        playerAnime.transform.DOLocalMove(new Vector3(-200, -70, 0), 0.5f);
     }
 
     void ButtonColorChange(Color color)
