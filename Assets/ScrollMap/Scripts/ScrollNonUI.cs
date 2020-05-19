@@ -22,6 +22,8 @@ namespace Map
         {
             mainCamera = Camera.main;
             zDisplacement = -mainCamera.transform.position.z + transform.position.z;
+            UIManager.instance.scollMapUI = gameObject;
+           gameObject.SetActive(false);
         }
 
         public void OnMouseDown()

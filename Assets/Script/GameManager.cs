@@ -54,12 +54,12 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         maxCost = 3;
         currentRoomMoney = 0;
-        myInventoryList = JsonManager.LoadJsonData<List<string>>(player.gameObject.name, player.gameObject.name + "List");
     }
 
     void Start()
     {
-       // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
+        // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
+        myInventoryList = player.inventoryList;
        player.myTurnStart += StartPhase;
        UIManager.instance.SettingUI();
        UIManager.instance.GoToNeowRoom();
@@ -254,5 +254,15 @@ public class GameManager : MonoBehaviour
         UIManager.instance.RestCardGoToCardPool();
         UIManager.instance.restUpgradePanel.SetActive(false);
         UIManager.instance.restRoom.SetActive(false);
+    }
+    public void RestUpgradeCancelButton()
+    {
+        GameObject choicePanel = UIManager.instance.restUpgradePanel.transform.Find("ChoicePanel").gameObject;
+        UIManager.instance.restUpgradePanel.SetActive(false);
+        UIManager.instance.choice = global::ChoiceMode.RestUpgrade;
+        Card[] cards = choicePanel.GetComponentsInChildren<Card>();
+
+        ObjectPoolManager.instance.ReturnCard(cards[1]);
+        cards[0].transform.SetParent(FindObjectOfType<MyAllcardList>().transform.Find("AllCards"));
     }
 }

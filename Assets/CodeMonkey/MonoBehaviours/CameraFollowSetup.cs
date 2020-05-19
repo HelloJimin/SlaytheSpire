@@ -22,7 +22,9 @@ namespace CodeMonkey.MonoBehaviours {
 
         [SerializeField] private CameraFollow cameraFollow;
         [SerializeField] private Transform followTransform;
+#pragma warning disable IDE0044 // 읽기 전용 한정자 추가
         [SerializeField] private float zoom;
+#pragma warning restore IDE0044 // 읽기 전용 한정자 추가
 
         private void Start() {
             if (followTransform == null) {

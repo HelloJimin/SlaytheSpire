@@ -46,7 +46,7 @@ public class ObjectPoolManager : MonoBehaviour
 
         for (int i = 0; i < monsterFiles.Length; i++)
         {
-            monsterPool.Add(CreateNewMonster(monsterFiles[i]));
+          //  monsterPool.Add(CreateNewMonster(monsterFiles[i]));
         }
 
         for (int i = 0; i < 5; i++)
@@ -95,7 +95,7 @@ public class ObjectPoolManager : MonoBehaviour
         test.AddComponent(System.Type.GetType(name));
 
         Card newCard = test.GetComponent<Card>();
-        newCard.transform.localScale = new Vector3(2, 2, 2);
+       // newCard.transform.localScale = new Vector3(2, 2, 2);
         newCard.cardInit();
         newCard.gameObject.SetActive(false);
 

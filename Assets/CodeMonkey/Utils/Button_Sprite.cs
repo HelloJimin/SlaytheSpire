@@ -70,7 +70,9 @@ namespace CodeMonkey.Utils {
         public bool triggerMouseOutFuncOnClick = false;
         public bool clickThroughUI = false;
 
+#pragma warning disable IDE0044 // 읽기 전용 한정자 추가
         private Action internalOnMouseDownFunc, internalOnMouseEnterFunc, internalOnMouseExitFunc;
+#pragma warning restore IDE0044 // 읽기 전용 한정자 추가
 
 #if SOUND_MANAGER
         public Sound_Manager.Sound mouseOverSound, mouseClickSound;

@@ -27,6 +27,7 @@ public class Character : MonoBehaviour
         HPText = transform.Find("Canvas/MyHP/HPText").GetComponent<Text>();
         anime = GetComponent<SkeletonAnimation>();
         myTurnEnd += CoolDown;
+        SettingHPUI();
     }
 
     public virtual void Hit(float damage)
@@ -35,6 +36,7 @@ public class Character : MonoBehaviour
 
         data.currentHP -= (int)damage;
         SettingHPUI();
+        //ShieldBreak();
         UIManager.instance.CameraShake();
     }
 
@@ -49,7 +51,16 @@ public class Character : MonoBehaviour
             float temp = Damage;
             Damage -= data.shield;
             data.shield -= (int)temp;
-            if (data.shield < 0) data.shield = 0;
+            ShieldBreak();
+            if (data.shield <= 0)
+            {
+                data.shield = 0;
+                SettingShieldUI(false);
+            }
+            else
+            {
+                SettingShieldUI(true);
+            }
         }
 
         if (Damage < 0) Damage = 0;
@@ -65,7 +76,7 @@ public class Character : MonoBehaviour
         SettingShieldUI(true);
     }
 
-    public void ShieldBreak()
+    public void ShieldBreak(int damage = 0)
     {
         if (data.shield > 0) return;
 

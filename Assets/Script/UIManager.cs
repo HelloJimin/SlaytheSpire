@@ -82,10 +82,9 @@ public class UIManager : MonoBehaviour
     {
         costUIs = costUI.GetComponentsInChildren<Image>();
         StartCoroutine(Bingle());
-        scollMapUI = FindObjectOfType<ScrollNonUI>().gameObject;
-        scollMapUI.SetActive(false);
         choice = global::ChoiceMode.Grab;
-    //    reward.GetComponent<Button>().GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+
+        //    reward.GetComponent<Button>().GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
     public void SettingUI()
@@ -235,7 +234,7 @@ public class UIManager : MonoBehaviour
         GameObject choicePanel = restUpgradePanel.transform.Find("ChoicePanel").gameObject;
 
         card.transform.SetParent(choicePanel.transform);
-
+        Debug.Log(choicePanel+"여기실행");
         Card NewCard = ObjectPoolManager.instance.GetCard(card.GetType() + "+");
         NewCard.transform.SetParent(choicePanel.transform);
         NewCard.gameObject.SetActive(true);

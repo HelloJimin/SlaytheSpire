@@ -86,9 +86,17 @@ public class RestRoom : MonoBehaviour
         GameObject inventoryCards = myAllCardList.transform.Find("AllCards").gameObject;
         GameManager.instance.SettingMyDeck(inventoryCards);
 
-        for (int i = 0; i < inventoryCards.transform.childCount; i++)
+        for (int i = 0; i < inventoryCards.transform.childCount;)
         {
-            inventoryCards.transform.GetChild(i).gameObject.SetActive(true);
+            if (inventoryCards.transform.GetChild(i).name.Contains("+"))
+            {
+                ObjectPoolManager.instance.ReturnCard(inventoryCards.transform.GetChild(i).GetComponent<Card>());
+            }
+            else
+            {
+                inventoryCards.transform.GetChild(i).gameObject.SetActive(true);
+                i++;
+            }
         }
         //이부분 마이올카드리스트 스크립트로 옮기자..
        // UIManager.instance.choice=ChoiceMode.
@@ -102,7 +110,7 @@ public class RestRoom : MonoBehaviour
     {
         original = playerAnime.transform.localPosition;
 
-        playerAnime.transform.DOLocalMove(new Vector3(-250, -24, 0), 0.5f);
+        playerAnime.transform.DOLocalMove(new Vector3(-250, -70, 0), 0.5f);
     }
 
     void ButtonColorChange(Color color)

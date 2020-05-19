@@ -6,7 +6,7 @@ public class MyAllcardList : MonoBehaviour
 {
     private void OnDisable()
     {
-        Card[] cards = transform.Find("Allcards").GetComponentsInChildren<Card>();
+        Card[] cards = transform.Find("AllCards").GetComponentsInChildren<Card>();
 
         for (int i = 0; i < cards.Length; i++)
         {

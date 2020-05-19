@@ -136,7 +136,6 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
             target = hit.collider.gameObject;
         }
     }
