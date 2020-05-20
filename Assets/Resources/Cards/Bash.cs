@@ -26,7 +26,7 @@ public class Bash : Card
         Debug.Log(AttackDamageCheck(GameManager.instance.player));
 
         target.Hit(AttackDamageCheck(GameManager.instance.player));
-        target.vulnerable += vulPower;
+        target.Vulnerable += vulPower;
         UIManager.instance.EffectStart("atk2", target.transform);
     }
 

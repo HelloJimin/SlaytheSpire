@@ -5,26 +5,23 @@ using UnityEngine.UI;
 public class Player : Character
 {
     public List<string> inventoryList;
+    public List<string> artifactList;
+
+    public delegate void BattleEnded();
+    public event BattleEnded battleEnded;
+    public delegate void BattleStarted();
+    public event BattleStarted battleStart;
 
     void Awake()
     {
         isPlayer = true;
         LoadInvenData();
         LoadPlayerData();
-        //isPlayer = true;
-        //if (gameObject.name == "Ironclad")
-        //{
-        //    IroncladSetting();
-        //}
-        //// Camera.main.WorldToScreenPoint(transform.position);
-        //// transform.Find("Canvas").transform.Find("MyHP").position = Camera.main.WorldToScreenPoint(transform.position);
+        artifactList.Add("BurningBlood");
+        artifactList.Add("Blood_vial");
+        artifactList.Add("Vajra");
+        artifactList.Add("OldCoin");
 
-
-        //transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
-        //transform.Find("Canvas").GetComponentInChildren<Text>().text = data.currentHP + "/" + data.maxHP;
-        //LoadInvenData();
-        ////JsonManager.SaveJsonData(data, gameObject.name, gameObject.name);
-        ////JsonManager.SaveJsonData(inventoryList, gameObject.name, gameObject.name + "List");
     }
 
     void CreateInvenList()
@@ -39,7 +36,7 @@ public class Player : Character
         }
         inventoryList.Add("Bash");
         //inventoryList.Add("Armaments");
-        //inventoryList.Add("Inflame");
+       // inventoryList.Add("Inflame");
         //inventoryList.Add("Heavy_blade");
         //inventoryList.Add("Wild_strike");
         //inventoryList.Add("Flex");
@@ -78,7 +75,26 @@ public class Player : Character
         data.maxHP = 80;
         data.currentHP = data.maxHP;
         data.money = 100;
-
     }
+
+    public void BattleEnd()
+    {
+        if (battleEnded.GetInvocationList().Length <= 0)
+        {
+            return;
+        }
+        battleEnded.Invoke();
+    }
+
+    public void BattleStart()
+    {
+        if (battleStart.GetInvocationList().Length <= 0)
+        {
+            return;
+        }
+        battleStart.Invoke();
+    }
+
+
 
 }

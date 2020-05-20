@@ -28,6 +28,7 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject monsterPrefab;
     public GameObject artifactPrefab;
     public GameObject rewardButtonPrefab;
+    public GameObject statusUIPrefab;
 
     public List<string> cardList = new List<string>();
 
@@ -35,6 +36,7 @@ public class ObjectPoolManager : MonoBehaviour
     List<Character> monsterPool = new List<Character>();
     List<Artifact> artifactPool = new List<Artifact>();
     Queue<Reward> rewardButtonPool = new Queue<Reward>();
+    Queue<StatusUI> statusUIPool = new Queue<StatusUI>();
 
     void Awake()
     {
@@ -49,11 +51,16 @@ public class ObjectPoolManager : MonoBehaviour
         {
           //  monsterPool.Add(CreateNewMonster(monsterFiles[i]));
         }
-        string[] artifactFiles = { "BurningBlood" };
+        string[] artifactFiles = { "BurningBlood" ,"Blood_vial" , "OldCoin", "Vajra" };
 
         for (int i = 0; i < artifactFiles.Length; i++)
         {
             artifactPool.Add(CreateArtifact(artifactFiles[i]));
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            statusUIPool.Enqueue(CreateStatusUI());
         }
 
         for (int i = 0; i < 5; i++)
@@ -83,6 +90,14 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     #region CREATE
+
+    StatusUI CreateStatusUI()
+    {
+        StatusUI newUI = Instantiate(statusUIPrefab, transform.Find("StatusUIs")).GetComponent<StatusUI>();
+
+        newUI.gameObject.SetActive(false);
+        return newUI;
+    }
 
     Artifact CreateArtifact(string name)
     {
@@ -129,6 +144,28 @@ public class ObjectPoolManager : MonoBehaviour
     #endregion
 
     #region GET
+    public Artifact GetArtifact(string artifactName)
+    {
+        Artifact artifact;
+        if (artifactPool.Count > 0)
+        {
+            for (int i = 0; i < artifactPool.Count; i++)
+            {
+                if (artifactPool[i].GetType().Name == artifactName)
+                {
+                    artifact = artifactPool[i];
+                    artifact.gameObject.SetActive(false);
+                    artifactPool.Remove(artifact);
+                    return artifact;
+                }
+            }
+            artifact = CreateArtifact(artifactName);
+            return artifact;
+        }
+        artifact = CreateArtifact(artifactName);
+        return artifact;
+    }
+
     public Card GetCard(string cardName)
     {
         Card card;
@@ -206,10 +243,25 @@ public class ObjectPoolManager : MonoBehaviour
         button.transform.localScale = new Vector3(1, 1, 1);
         button.init(type);
     }
-
+    public StatusUI GetStatusUI(GameObject statusPanel, Sprite sprite )
+    {
+        StatusUI statusUI = statusUIPool.Dequeue();
+        statusUI.transform.position = new Vector3(0, 0, -1);
+        statusUI.transform.SetParent(statusPanel.transform);
+        statusUI.gameObject.SetActive(true);
+        statusUI.Init(sprite);
+        return statusUI;
+    }
     #endregion
 
     #region RETURN
+
+    public void ReturnArtifact(Artifact artifact)
+    {
+        artifactPool.Add(artifact);
+        artifact.gameObject.SetActive(false);
+        artifact.transform.SetParent(transform.Find("Artifacts"));
+    }
 
     public void ReturnMonster(Character monster)
     {
@@ -232,7 +284,12 @@ public class ObjectPoolManager : MonoBehaviour
         button.gameObject.SetActive(false);
         button.transform.SetParent(transform.Find("Buttons"));
     }
-
+    public void ReturnStatusUI(StatusUI ui)
+    {
+        statusUIPool.Enqueue(ui);
+        ui.gameObject.SetActive(false);
+        ui.transform.SetParent(transform.Find("StatusUIs"));
+    }
     #endregion
 
 }

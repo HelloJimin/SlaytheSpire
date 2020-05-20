@@ -11,7 +11,77 @@ public class Character : MonoBehaviour
     public bool isPlayer;
     public int vulnerable;
     public int weak;
-    public int frail;
+    private int frail;
+
+    public Dictionary<string , StatusUI> statusUIs = new Dictionary<string, StatusUI>();
+
+    #region 프로퍼티
+
+    public int Vulnerable
+    {
+        get
+        {
+            return vulnerable;
+        }
+        set
+        {
+            vulnerable = value;
+            PropertySet("vulnerable", Resources.LoadAll<Sprite>("Sprite/powers")[109], vulnerable);
+        }
+    }
+
+    public int Weak
+    {
+        get
+        {
+            return weak;
+        }
+        set
+        {
+            weak = value;
+            PropertySet("weak", Resources.LoadAll<Sprite>("Sprite/powers")[147], weak);
+        }
+    }
+
+    public int Frail
+    {
+        get
+        {
+            return frail;
+        }
+        set
+        {
+            frail = value;
+            PropertySet("frail", Resources.LoadAll<Sprite>("Sprite/powers")[64] , frail);
+        }
+    }
+
+    public int Power
+    {
+        get
+        {
+            return data.power;
+        }
+        set
+        {
+            data.power = value;
+            PropertySet("power", Resources.LoadAll<Sprite>("Sprite/powers")[112] , data.power );
+        }
+    }
+
+    public int Dexterity
+    {
+        get
+        {
+            return data.dexterity;
+        }
+        set
+        {
+            data.dexterity = value;
+            PropertySet("dexterity", Resources.LoadAll<Sprite>("Sprite/powers")[18], data.dexterity);
+        }
+    }
+    #endregion
 
     public delegate void MyTurnEnd();
     public event MyTurnEnd myTurnEnd;
@@ -22,10 +92,13 @@ public class Character : MonoBehaviour
 
     public Text HPText;
 
+    public GameObject statusPanel;
+
     public virtual void Start()
     {
         HPText = transform.Find("Canvas/MyHP/HPText").GetComponent<Text>();
         anime = GetComponent<SkeletonAnimation>();
+        statusPanel = transform.Find("Canvas/StatusPanel").gameObject;
         myTurnEnd += CoolDown;
         SettingHPUI();
     }
@@ -67,6 +140,19 @@ public class Character : MonoBehaviour
 
         return (int)Damage;
     }
+    public void GetHeal(int heal)
+    {
+        if ((data.currentHP + heal) >= data.maxHP)
+        {
+            data.currentHP = data.maxHP;
+        }
+        else
+        {
+            data.currentHP += heal;
+        }
+
+        UIManager.instance.SettingUI();
+    }
 
     public void GetShield(int sheild)
     {
@@ -105,7 +191,7 @@ public class Character : MonoBehaviour
         myTurnEnd.Invoke();
     }
 
-    public void YourEndPhase()
+    public virtual void YourEndPhase()
     {
         data.shield = 0;
         ShieldBreak();
@@ -118,10 +204,12 @@ public class Character : MonoBehaviour
 
     void CoolDown()
     {
-        if (frail > 0) frail--;
-        if (vulnerable > 0) vulnerable--;
-        if (weak > 0) weak--;
+        if (Frail > 0) Frail--;
+        if (Vulnerable > 0) Vulnerable--;
+        if (Weak > 0) Weak--;
     }
+
+
 
     public virtual void Animation(string aniName, bool isLeft)
     {
@@ -150,6 +238,41 @@ public class Character : MonoBehaviour
     {
         HPText.text = data.currentHP + "/" + data.maxHP;
         HPText.transform.parent.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
+    }
+
+    void PropertySet(string Key , Sprite sprite, int value)
+    {
+        string key = Key;
+
+        if (!statusUIs.ContainsKey(key))
+        {
+            StatusUI newStatusUI = ObjectPoolManager.instance.GetStatusUI(transform.Find("Canvas/StatusPanel").gameObject, sprite);
+            statusUIs.Add(key, newStatusUI);
+        }
+
+        if (statusUIs.ContainsKey(key))
+        {
+            statusUIs[key].SettingUI(value);
+        }
+
+        if (value <= 0)
+        {
+            value = 0;
+            if (statusUIs.ContainsKey(key))
+            {
+                ObjectPoolManager.instance.ReturnStatusUI(statusUIs[key]);
+                statusUIs.Remove(key);
+            }
+        }
+    }
+
+    public void DataInit()
+    {
+        data.dexterity = 0;
+        data.power = 0;
+        Vulnerable = 0;
+        Weak = 0;
+        Frail = 0;
     }
 }
 

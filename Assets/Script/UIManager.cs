@@ -127,6 +127,7 @@ public class UIManager : MonoBehaviour
     }
     public void GoToMap()
     {
+        GameManager.instance.player.DataInit();
         choice = global::ChoiceMode.Grab;
 
         Neow.SetActive(false);

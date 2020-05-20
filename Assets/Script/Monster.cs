@@ -14,6 +14,7 @@ public class Monster : Character
 
     public void Init(int maxHp, int money)
     {
+        DataInit();
         data.maxHP = maxHp;
         data.money = money;
         data.currentHP = data.maxHP;

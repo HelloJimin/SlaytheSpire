@@ -29,11 +29,13 @@ public class GameManager : MonoBehaviour
     public int maxCost;
 
     public List<string> myInventoryList = new List<string>();
+    public List<string> myArtifactList = new List<string>();
 
     public GameObject myDeck;
     public GameObject myHand;
     public GameObject myCemetary;
     public GameObject myExhaustZone;
+    public GameObject myArtifact;
 
     public Player player;
     public GameObject cardPrefab;
@@ -60,10 +62,19 @@ public class GameManager : MonoBehaviour
     {
         // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
         myInventoryList = player.inventoryList;
+        myInventoryList.Add("Inflame");
+        myArtifactList = player.artifactList;
        player.myTurnStart += StartPhase;
        UIManager.instance.SettingUI();
        UIManager.instance.GoToNeowRoom();
-      
+
+        for (int i = 0; i < myArtifactList.Count; i++)
+        {
+            Artifact artifact = ObjectPoolManager.instance.GetArtifact(myArtifactList[i]);
+            artifact.transform.SetParent(myArtifact.transform);
+            artifact.gameObject.SetActive(true);
+            artifact.ActiveEffect();
+        }
     }
 
     public void StartGame()
@@ -75,6 +86,7 @@ public class GameManager : MonoBehaviour
         SettingMyDeck(myDeck);
         StartPhase();
         TurnProcessing();
+        player.BattleStart();
         UIManager.instance.SettingUI();
     }
 
@@ -211,7 +223,10 @@ public class GameManager : MonoBehaviour
         if (monsters.Count != 0) return;
         // battleEndProcess.Invoke();
 
+        player.data.power = 0;
         player.YourEndPhase();
+        player.BattleEnd();
+
         ObjectPoolManager.instance.GetRewardMoneyButton("money");
         ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
 

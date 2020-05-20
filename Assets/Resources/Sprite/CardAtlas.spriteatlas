@@ -43,7 +43,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bbf6c4609d521e9438f65597646cceb0, type: 3}
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
-    totalSpriteSurfaceArea: 28410524
+    totalSpriteSurfaceArea: 28459676
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -149,6 +149,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8677f8b2d5ccc0446ae2331bc96a08ab, type: 3}
   - {fileID: 21300000, guid: 2ad91ac29d17fef439fbc16543159e43, type: 3}
   - {fileID: 21300000, guid: b87909d2ac322d94abb137dce95a688b, type: 3}
+  - {fileID: 21300000, guid: 7d9d07e29703f1a40982297e15d5fa3c, type: 3}
   - {fileID: 21300000, guid: 40e3db03124f5194a97f234cd577bf93, type: 3}
   - {fileID: 21300000, guid: 9331f023b889d3043bfabed8b5b3cb55, type: 3}
   - {fileID: 21300000, guid: 90004243dc26c7247b3418ab872be0dc, type: 3}
@@ -156,6 +157,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 89487483bb22d274497192202ec30fe5, type: 3}
   - {fileID: 21300000, guid: 4cabd293f43db044ebf172ed1da92731, type: 3}
   - {fileID: 21300000, guid: bd55a0b3f7288e24cab00c60d9dc9abd, type: 3}
+  - {fileID: 21300000, guid: 5554aab3accd26347b24610d43360135, type: 3}
   - {fileID: 21300000, guid: 696906e3e651d994a86b5f6bb7b2ad3a, type: 3}
   - {fileID: 21300000, guid: 65e4f934b9f364d4d9f79aed17fec936, type: 3}
   - {fileID: 21300000, guid: 651bd244c6cbe044f9f9db618f7d6c8d, type: 3}
@@ -186,6 +188,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 72e27ce72d4116f448721adbea6a6046, type: 3}
   - {fileID: 21300000, guid: 7c340008b76e03c46bb60fe8b28bcf30, type: 3}
   - {fileID: 21300000, guid: e1eaa338f9dc38949a319b8841af0e69, type: 3}
+  - {fileID: 21300000, guid: 5e803838363aa854caae16d1c7481193, type: 3}
   - {fileID: 21300000, guid: bf5ef3483e4e93044a46fe495a552342, type: 3}
   - {fileID: 21300000, guid: 083918988a5eb3e47be5d7fe64163072, type: 3}
   - {fileID: 21300000, guid: 9627efa8f9032144b8fbf47e0f15dcb7, type: 3}
@@ -337,13 +340,15 @@ SpriteAtlas:
   - attack1
   - Gray_Power
   - layer2d
+  - vajra
   - endTurnButton
   - panelHeart
   - key_slots
-  - BurningBlood
+  - burningBlood
   - Attack_Legend
   - debuff1
   - layer5d
+  - oldCoin
   - reticleCorner
   - magic
   - defend
@@ -374,6 +379,7 @@ SpriteAtlas:
   - strike
   - attack4
   - armaments
+  - blood_vial
   - layer1d
   - corruption
   - Label_Legend

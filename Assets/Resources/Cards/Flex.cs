@@ -20,11 +20,10 @@ public class Flex : Card
 
     public override void Use(Character target)
     {
-        target = GameManager.instance.player;
-        target.data.power += card.value;
+        target = player;
+        player.Power += card.value;
         GameManager.instance.player.myTurnEnd += PowerDown;
         Debug.Log("파워업!:" + GameManager.instance.player.data.power);
-      //  GoCenter();
     }
 
     public override void CardUpgrade()
@@ -33,9 +32,9 @@ public class Flex : Card
         card.description = "힘을 " + card.value + " 얻습니다. 이번 턴이 끝날 때 힘을 " + card.value + " 잃습니다.";
         base.CardUpgrade();
     }
-    public void PowerDown()
+    void PowerDown()
     {
-        GameManager.instance.player.data.power -= card.value;
+        player.Power -= card.value;
         GameManager.instance.player.myTurnEnd -= PowerDown;
         Debug.Log("파워다운!:" + GameManager.instance.player.data.power);
     }

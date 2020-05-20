@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Artifact : MonoBehaviour
+public class Artifact : MonoBehaviour, IPointerEnterHandler
 {
     public Sprite sprite;
     public Player player;
@@ -37,12 +38,28 @@ public class Artifact : MonoBehaviour
         data.value = 0;
         data.name = "";
         data.description = "";
+        data.grade = ArtifactGrade.None;
     }
 
-    public virtual void ArtifactEffect()
+    public virtual void ActiveEffect()
     {
 
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log(GetType().Name + "터치중");
+    }
+}
+
+public enum ArtifactGrade
+{
+    None,
+    start,
+    Nomal,
+    Elite,
+    Shop,
+    Boss
 }
 
 [System.Serializable]
@@ -51,4 +68,5 @@ public struct ArtifactData
     public int value;
     public string name;
     public string description;
+    public ArtifactGrade grade;
 }
