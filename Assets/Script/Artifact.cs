@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Artifact : MonoBehaviour, IPointerEnterHandler
+public class Artifact : MonoBehaviour, IPointerEnterHandler , IPointerExitHandler
 {
     public Sprite sprite;
     public Player player;
     public ArtifactData data;
+
+    private MouseDescription mouseDescription;
 
     public virtual void Init()
     {
@@ -18,6 +20,7 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler
         sprite = Resources.Load<Sprite>("Sprite/Artifact/" + GetType().Name) as Sprite;
         GetComponent<Image>().sprite = sprite;
         gameObject.name = data.name;
+        mouseDescription = FindObjectOfType<MouseDescription>();
     }
 
     public void LoadData()
@@ -48,7 +51,12 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(GetType().Name + "터치중");
+        mouseDescription.LookDiscription(true,data.description);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouseDescription.LookDiscription(false, data.description);
     }
 }
 

@@ -43,7 +43,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bbf6c4609d521e9438f65597646cceb0, type: 3}
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
-    totalSpriteSurfaceArea: 28459676
+    totalSpriteSurfaceArea: 28533676
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -154,6 +154,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9331f023b889d3043bfabed8b5b3cb55, type: 3}
   - {fileID: 21300000, guid: 90004243dc26c7247b3418ab872be0dc, type: 3}
   - {fileID: 21300000, guid: 5129a353d7d639045a72df90a7c712e6, type: 3}
+  - {fileID: 21300000, guid: bf342a53232ffcf429c056ccf84281d0, type: 3}
   - {fileID: 21300000, guid: 89487483bb22d274497192202ec30fe5, type: 3}
   - {fileID: 21300000, guid: 4cabd293f43db044ebf172ed1da92731, type: 3}
   - {fileID: 21300000, guid: bd55a0b3f7288e24cab00c60d9dc9abd, type: 3}
@@ -344,7 +345,8 @@ SpriteAtlas:
   - endTurnButton
   - panelHeart
   - key_slots
-  - burningBlood
+  - BurningBlood
+  - description
   - Attack_Legend
   - debuff1
   - layer5d
