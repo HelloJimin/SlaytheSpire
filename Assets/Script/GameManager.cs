@@ -60,10 +60,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
-        myInventoryList = player.inventoryList;
-        myInventoryList.Add("Inflame");
-        myArtifactList = player.artifactList;
+       // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
+       myInventoryList = player.inventoryList;
+       myInventoryList.Add("Inflame");
+       myArtifactList = player.artifactList;
+
        player.myTurnStart += StartPhase;
        UIManager.instance.SettingUI();
        UIManager.instance.GoToNeowRoom();

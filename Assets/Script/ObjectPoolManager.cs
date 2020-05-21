@@ -31,10 +31,11 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject statusUIPrefab;
 
     public List<string> cardList = new List<string>();
+    public List<string> artifactList = new List<string>();
 
     List<Card> cardPool = new List<Card>();
     List<Character> monsterPool = new List<Character>();
-    List<Artifact> artifactPool = new List<Artifact>();
+    public List<Artifact> artifactPool = new List<Artifact>();
     Queue<Reward> rewardButtonPool = new Queue<Reward>();
     Queue<StatusUI> statusUIPool = new Queue<StatusUI>();
 
@@ -51,11 +52,15 @@ public class ObjectPoolManager : MonoBehaviour
         {
           //  monsterPool.Add(CreateNewMonster(monsterFiles[i]));
         }
-        string[] artifactFiles = { "BurningBlood" ,"Blood_vial" , "OldCoin", "Vajra" };
-
-        for (int i = 0; i < artifactFiles.Length; i++)
+        artifactList.Add("BurningBlood");
+        artifactList.Add("Blood_vial");
+        artifactList.Add("OldCoin");
+        artifactList.Add("Vajra");
+        artifactList.Add("Orichalcum");
+        artifactList.Add("Meat");
+        for (int i = 0; i < artifactList.Count; i++)
         {
-            artifactPool.Add(CreateArtifact(artifactFiles[i]));
+            artifactPool.Add(CreateArtifact(artifactList[i]));
         }
 
         for (int i = 0; i < 10; i++)
@@ -156,6 +161,7 @@ public class ObjectPoolManager : MonoBehaviour
                     artifact = artifactPool[i];
                     artifact.gameObject.SetActive(false);
                     artifactPool.Remove(artifact);
+
                     return artifact;
                 }
             }
@@ -164,6 +170,22 @@ public class ObjectPoolManager : MonoBehaviour
         }
         artifact = CreateArtifact(artifactName);
         return artifact;
+    }
+
+    public Artifact GetArtifact(bool isRandom)
+    {
+        Artifact artifact;
+        if (artifactPool.Count > 0)
+        {
+            artifact = artifactPool[ Random.Range(0,artifactPool.Count)];
+            artifact.gameObject.SetActive(false);
+            artifactPool.Remove(artifact);
+            return artifact;
+        }
+        else
+        {
+            return default;
+        }
     }
 
     public Card GetCard(string cardName)

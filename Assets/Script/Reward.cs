@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class Reward : MonoBehaviour
 {
     public Image icon;
+    Artifact rewardArtifact;
+
 
     public void init(string type)
     {
@@ -31,6 +33,17 @@ public class Reward : MonoBehaviour
             GetComponentInChildren<Text>().text = "덱에 카드를 추가";
             GetComponent<Button>().onClick.AddListener(() => nomalCardButton());
         }
+        else if(type == "artifact")
+        {
+            GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
+
+            rewardArtifact = ObjectPoolManager.instance.GetArtifact(true);
+            rewardArtifact.transform.SetParent(choicePanel.transform);
+
+            icon.sprite = rewardArtifact.sprite;
+            GetComponentInChildren<Text>().text = rewardArtifact.name;
+            GetComponent<Button>().onClick.AddListener(() => artifactButton());
+        }
     }
 
     public void MoneyButton()
@@ -55,6 +68,17 @@ public class Reward : MonoBehaviour
         //카드선택 ㄱ
         ObjectPoolManager.instance.ReturnRewardButton(this);
     }
+
+    public void artifactButton()
+    {
+        rewardArtifact.transform.SetParent(GameManager.instance.myArtifact.transform);
+        rewardArtifact.gameObject.SetActive(true);
+        rewardArtifact.ActiveEffect();
+
+
+        ObjectPoolManager.instance.ReturnRewardButton(this);
+    }
+
 
     public void RandmCardRewardNomal()
     {

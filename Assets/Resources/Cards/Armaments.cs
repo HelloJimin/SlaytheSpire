@@ -65,7 +65,7 @@ public class Armaments : Card
     }
     public override void CardUpgrade()
     {
-        base.CardUpgrade();
         card.description = "방어도를 5 얻습니다. 손에 있는 모든 카드를 이번 전투동안 강화합니다.";
+        base.CardUpgrade();
     }
 }

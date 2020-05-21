@@ -67,6 +67,9 @@ public class UIManager : MonoBehaviour
     public GameObject restUpgradePanel;
 
     public GameObject turnEndButton;
+    public MouseDescription mouseDescription;
+
+    public GameObject chest;
 
     private void Awake()
     {
@@ -138,6 +141,7 @@ public class UIManager : MonoBehaviour
         battleSystem.SetActive(false);
         proceedButton.SetActive(false);
         restRoom.SetActive(false);
+        chest.SetActive(false);
 
         Reward[] rewards = reward.transform.Find("Panel").GetComponentsInChildren<Reward>();
         for (int i = 0; i < rewards.Length; i++)
@@ -153,6 +157,16 @@ public class UIManager : MonoBehaviour
         battleSystem.SetActive(false);
         proceedButton.SetActive(false);
         restRoom.SetActive(true);
+    }
+
+    public void GoToChestRoom()
+    {
+        alphaImage.SetActive(false);
+        battleUI.SetActive(false);
+        battleSystem.SetActive(false);
+        restRoom.SetActive(false);
+        scollMapUI.gameObject.SetActive(false);
+        chest.SetActive(true);
     }
 
     public void GoToMonsterRoom()
@@ -250,4 +264,5 @@ public class UIManager : MonoBehaviour
             ObjectPoolManager.instance.ReturnCard(cards[i]);
         }
     }
+
 }

@@ -5,26 +5,33 @@ using UnityEngine.UI;
 
 public class MouseDescription : MonoBehaviour
 {
-    public Text text;
-    public bool isLook;
-    void Start()
+    private Text text;
+    public int mousePosX = 250;
+    public int mousePosY = 0;
+
+    private void FixedUpdate()
     {
-        text = GetComponentInChildren<Text>();
+        Vector3 pos = Camera.main.ScreenToViewportPoint(new Vector3(Input.mousePosition.x + mousePosX, Input.mousePosition.y+ mousePosY, Input.mousePosition.z-1));
+           
+        if (pos.x < 0f) pos.x = 0f;
+         
+        if (pos.x > 0.9f) pos.x = 0.9f;
+         
+        if (pos.y < 0f) pos.y = 0f;
+         
+        if (pos.y > 1f) pos.y = 1f;
+
+        transform.position = Camera.main.ViewportToScreenPoint(pos);
     }
 
-    void Update()
-    {
-        Vector3 pos = new Vector3(Input.mousePosition.x + 250, Input.mousePosition.y, Input.mousePosition.z);
-        transform.position = pos;
-    }
-
-    public void SetDiscription(string disc)
-    {
-        text.text = disc;
-    }
     public void LookDiscription(bool isLook, string disc)
     {
-        gameObject.SetActive(isLook);
-        text.text = disc;
+        if (text == null)
+        {
+            text = GetComponentInChildren<Text>();
+        }
+
+       gameObject.SetActive(isLook);
+       text.text = disc;
     }
 }

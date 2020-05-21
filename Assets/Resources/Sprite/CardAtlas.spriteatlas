@@ -43,7 +43,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bbf6c4609d521e9438f65597646cceb0, type: 3}
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
-    totalSpriteSurfaceArea: 28533676
+    totalSpriteSurfaceArea: 28716444
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -179,6 +179,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cffb4b06492916d43bffa6a7726e4603, type: 3}
   - {fileID: 21300000, guid: 76ca7256d5dcab2498190b0c5b2ae89c, type: 3}
   - {fileID: 21300000, guid: 7ac88f56ac8be2e4a84e35dfc3896106, type: 3}
+  - {fileID: 21300000, guid: 60feca766b0d7fc43877a86b63e59a36, type: 3}
+  - {fileID: 21300002, guid: 60feca766b0d7fc43877a86b63e59a36, type: 3}
   - {fileID: 21300000, guid: cb0d4bd629b30f345ab827dd0b7ff706, type: 3}
   - {fileID: 21300000, guid: d421eee6db2f661449d8f20d7e0f382c, type: 3}
   - {fileID: 21300000, guid: 05197007e4047d845903ada4e8f08f6e, type: 3}
@@ -188,6 +190,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 647f43a7ab849a841ad7fd00d6cf2bb4, type: 3}
   - {fileID: 21300000, guid: 72e27ce72d4116f448721adbea6a6046, type: 3}
   - {fileID: 21300000, guid: 7c340008b76e03c46bb60fe8b28bcf30, type: 3}
+  - {fileID: 21300000, guid: c7d8bd28c57de6f469c1c17cddf92afc, type: 3}
   - {fileID: 21300000, guid: e1eaa338f9dc38949a319b8841af0e69, type: 3}
   - {fileID: 21300000, guid: 5e803838363aa854caae16d1c7481193, type: 3}
   - {fileID: 21300000, guid: bf5ef3483e4e93044a46fe495a552342, type: 3}
@@ -229,6 +232,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 44b32dbd078e0c043bc6052edf720cfc, type: 3}
   - {fileID: 21300000, guid: bd59dd2ed3ede2b4a9237c75a3bda5e3, type: 3}
   - {fileID: 21300000, guid: c30613fe626014b40b0fe714676416b2, type: 3}
+  - {fileID: 21300000, guid: 993dc93f83cf3e6469fee109de037390, type: 3}
   - {fileID: 21300000, guid: 90bcf67f8f1d10b499fb90c164e7982a, type: 3}
   - {fileID: 21300000, guid: dd944d8fb3b318d4e81f010b62bfd388, type: 3}
   - {fileID: 21300000, guid: 5cc962af1321354438fb3d1e4ee0bfe4, type: 3}
@@ -345,7 +349,7 @@ SpriteAtlas:
   - endTurnButton
   - panelHeart
   - key_slots
-  - BurningBlood
+  - burningBlood
   - description
   - Attack_Legend
   - debuff1
@@ -371,6 +375,8 @@ SpriteAtlas:
   - bash
   - body_slam
   - wound
+  - mediumChest_0
+  - mediumChest_1
   - Gray_Skill
   - atk3
   - layer3
@@ -380,6 +386,7 @@ SpriteAtlas:
   - Red_Cost
   - strike
   - attack4
+  - meat
   - armaments
   - blood_vial
   - layer1d
@@ -421,6 +428,7 @@ SpriteAtlas:
   - panelGoldBag
   - rewardScreenSheet
   - Red_Power
+  - orichalcum
   - Red_Skill
   - debuff2
   - Power_Rare

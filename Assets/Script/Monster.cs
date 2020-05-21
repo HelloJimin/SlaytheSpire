@@ -132,4 +132,13 @@ public class Monster : Character
             intentImage.transform.Find("Damage").GetComponent<Text>().enabled = false;
         }
     }
+
+    public void ResetStatusUI()
+    {
+        while (transform.Find("Canvas/StatusPanel").childCount != 0)
+        {
+            ObjectPoolManager.instance.ReturnStatusUI(transform.Find("Canvas/StatusPanel").GetChild(0).GetComponent<StatusUI>());
+        }
+        statusUIs.Clear();
+    }
 }

@@ -6,6 +6,8 @@ public class Cultist : Monster
 {
     bool isFirstTurn;
 
+    bool IsFirstTurn { get { return isFirstTurn; } set { isFirstTurn = value; PropertySet("의식", Resources.LoadAll<Sprite>("Sprite/powers")[6], 3, "매 턴 힘이 3 증가합니다."); } }
+
     private void OnEnable()
     {
         Init(1, 10);
@@ -16,6 +18,7 @@ public class Cultist : Monster
         isAttack = false;
         SettingDamageUI();
         ActionCheck();
+        ResetStatusUI();
     }
 
     public override void ActionCheck()
@@ -25,12 +28,12 @@ public class Cultist : Monster
 
     public override void Action()
     {
-        if (isFirstTurn)
+        if (IsFirstTurn)
         {
             myTurnEnd += Ritual;
             isAttack = true;
             SettingDamageUI();
-            isFirstTurn = false;
+            IsFirstTurn = false;
             FindIntentImage("attack2");
             SkeletonAnimeStart("waving", false);
         }

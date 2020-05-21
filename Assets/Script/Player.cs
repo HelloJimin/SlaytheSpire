@@ -18,9 +18,10 @@ public class Player : Character
         LoadInvenData();
         LoadPlayerData();
         artifactList.Add("BurningBlood");
-        artifactList.Add("Blood_vial");
-        artifactList.Add("Vajra");
-        artifactList.Add("OldCoin");
+        artifactList.Add("Meat");
+        //artifactList.Add("Blood_vial");
+        //artifactList.Add("Vajra");
+        //artifactList.Add("OldCoin");
 
     }
 
@@ -88,6 +89,10 @@ public class Player : Character
 
     public void BattleStart()
     {
+        if (battleStart == null)
+        {
+            return;
+        }
         if (battleStart.GetInvocationList().Length <= 0)
         {
             return;

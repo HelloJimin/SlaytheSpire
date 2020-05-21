@@ -11,7 +11,7 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     public ArtifactData data;
 
     private MouseDescription mouseDescription;
-
+    public int mPosY;
     public virtual void Init()
     {
         LoadData();
@@ -20,7 +20,6 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
         sprite = Resources.Load<Sprite>("Sprite/Artifact/" + GetType().Name) as Sprite;
         GetComponent<Image>().sprite = sprite;
         gameObject.name = data.name;
-        mouseDescription = FindObjectOfType<MouseDescription>();
     }
 
     public void LoadData()
@@ -51,11 +50,20 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (mouseDescription == null)
+        {
+            mouseDescription = UIManager.instance.mouseDescription;
+        }
+        mouseDescription.mousePosY = mPosY;
         mouseDescription.LookDiscription(true,data.description);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (mouseDescription == null)
+        {
+            mouseDescription = UIManager.instance.mouseDescription;
+        }
         mouseDescription.LookDiscription(false, data.description);
     }
 }

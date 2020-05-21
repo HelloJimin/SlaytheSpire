@@ -76,12 +76,32 @@ namespace Map
                     UIManager.instance.GoToRestRoom();
                     break;
                 case NodeType.Treasure:
+                    UIManager.instance.GoToChestRoom();
                     break;
                 case NodeType.Store:
                     break;
                 case NodeType.Boss:
                     break;
                 case NodeType.Mystery:
+                    int random = UnityEngine.Random.Range(0, 5);
+                    switch (random)
+                    {
+                        case 0:
+                            UIManager.instance.GoToMonsterRoom();
+                            break;
+                        case 1:
+                            UIManager.instance.GoToChestRoom();
+                            break;
+                        case 2:
+                            Debug.Log("2번");
+                            break;
+                        case 3:
+                            Debug.Log("3번");
+                            break;
+                        case 4:
+                            Debug.Log("4번");
+                            break;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

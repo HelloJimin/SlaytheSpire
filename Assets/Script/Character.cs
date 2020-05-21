@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     public int vulnerable;
     public int weak;
     private int frail;
+    private MouseDescription mouseDescription;
 
     public Dictionary<string , StatusUI> statusUIs = new Dictionary<string, StatusUI>();
 
@@ -26,7 +27,7 @@ public class Character : MonoBehaviour
         set
         {
             vulnerable = value;
-            PropertySet("vulnerable", Resources.LoadAll<Sprite>("Sprite/powers")[109], vulnerable);
+            PropertySet("vulnerable", Resources.LoadAll<Sprite>("Sprite/powers")[109], vulnerable , "취약 상태");
         }
     }
 
@@ -39,7 +40,7 @@ public class Character : MonoBehaviour
         set
         {
             weak = value;
-            PropertySet("weak", Resources.LoadAll<Sprite>("Sprite/powers")[147], weak);
+            PropertySet("weak", Resources.LoadAll<Sprite>("Sprite/powers")[147], weak,"손상 상태");
         }
     }
 
@@ -52,7 +53,7 @@ public class Character : MonoBehaviour
         set
         {
             frail = value;
-            PropertySet("frail", Resources.LoadAll<Sprite>("Sprite/powers")[64] , frail);
+            PropertySet("frail", Resources.LoadAll<Sprite>("Sprite/powers")[64] , frail , "약화 상태");
         }
     }
 
@@ -65,7 +66,8 @@ public class Character : MonoBehaviour
         set
         {
             data.power = value;
-            PropertySet("power", Resources.LoadAll<Sprite>("Sprite/powers")[112] , data.power );
+            PropertySet("power", Resources.LoadAll<Sprite>("Sprite/powers")[112] , data.power, "공격력이 증가합니다." );
+          
         }
     }
 
@@ -78,7 +80,7 @@ public class Character : MonoBehaviour
         set
         {
             data.dexterity = value;
-            PropertySet("dexterity", Resources.LoadAll<Sprite>("Sprite/powers")[18], data.dexterity);
+            PropertySet("dexterity", Resources.LoadAll<Sprite>("Sprite/powers")[18], data.dexterity , "방어력이 증가합니다.");
         }
     }
     #endregion
@@ -169,7 +171,7 @@ public class Character : MonoBehaviour
         SettingShieldUI(false);
     }
 
-    void SettingShieldUI(bool isShield)
+    public void SettingShieldUI(bool isShield)
     {
         if (isShield)
         {
@@ -240,7 +242,7 @@ public class Character : MonoBehaviour
         HPText.transform.parent.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
     }
 
-    void PropertySet(string Key , Sprite sprite, int value)
+    public void PropertySet(string Key , Sprite sprite, int value, string disc)
     {
         string key = Key;
 
@@ -248,6 +250,7 @@ public class Character : MonoBehaviour
         {
             StatusUI newStatusUI = ObjectPoolManager.instance.GetStatusUI(transform.Find("Canvas/StatusPanel").gameObject, sprite);
             statusUIs.Add(key, newStatusUI);
+            statusUIs[key].GetComponent<CommonTouchUI>().description = disc;
         }
 
         if (statusUIs.ContainsKey(key))
