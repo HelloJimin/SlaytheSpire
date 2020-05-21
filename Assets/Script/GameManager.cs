@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
         isPlayerTurn = true;
         SettingMyDeck(myDeck);
         StartPhase();
-        TurnProcessing();
         player.BattleStart();
+        TurnProcessing();
         UIManager.instance.SettingUI();
     }
 
@@ -204,19 +204,6 @@ public class GameManager : MonoBehaviour
         monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.
             GetChild(Random.Range(0, GameObject.Find("MonsterSpawnPoints").transform.childCount)).transform.position;
         monsters.Add(monster);
-    }
-
-    public Card AddCardToDeck(string cardname)
-    {
-        GameObject test = Instantiate(cardPrefab, myDeck.transform);
-        test.AddComponent(System.Type.GetType(cardname));
-
-        Card newCard = test.GetComponent<Card>();
-        newCard.transform.localScale = new Vector3(2, 2, 2);
-        newCard.cardInit();
-        newCard.gameObject.SetActive(false);
-
-        return newCard;
     }
 
     public void BattleEnd()

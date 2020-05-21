@@ -43,7 +43,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bbf6c4609d521e9438f65597646cceb0, type: 3}
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
-    totalSpriteSurfaceArea: 28716444
+    totalSpriteSurfaceArea: 28798364
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -123,11 +123,14 @@ SpriteAtlas:
   - {fileID: 21300104, guid: 11d25bb08db06a24fb7bb2b6055169dc, type: 3}
   - {fileID: 21300102, guid: 11d25bb08db06a24fb7bb2b6055169dc, type: 3}
   - {fileID: 21300100, guid: 11d25bb08db06a24fb7bb2b6055169dc, type: 3}
+  - {fileID: 21300000, guid: 39ee71f0523651f46a41f02e838ac345, type: 3}
   - {fileID: 21300000, guid: 4336a9f0f78b45a44a591d1411c318b9, type: 3}
   - {fileID: 21300000, guid: 883593010f977414ca3356609ee8ca18, type: 3}
   - {fileID: 21300000, guid: 42ffda01481cc00428495b6ee5f58cb5, type: 3}
   - {fileID: 21300000, guid: c55f4411f4199494bb61af0f5f5403d7, type: 3}
+  - {fileID: 21300000, guid: f49df521373fd924082f54110a81cde4, type: 3}
   - {fileID: 21300000, guid: c1014f3122317664da005799b77a33de, type: 3}
+  - {fileID: 21300000, guid: 16cafb413b729ab49aa6e181d79b451a, type: 3}
   - {fileID: 21300000, guid: 1bf44f4183a50b8448ada38b267d4e1d, type: 3}
   - {fileID: 21300000, guid: 918154616d757b8499af405fdc196eec, type: 3}
   - {fileID: 21300000, guid: 0e61e2712e359c34d89f712c7ab8ae46, type: 3}
@@ -174,6 +177,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5a6530550bb887f48bc81481272c1fd6, type: 3}
   - {fileID: 21300000, guid: 90cccf85e154de544bfb91f02644ea28, type: 3}
   - {fileID: 21300000, guid: 533f12959787fc04f870a46b9a695289, type: 3}
+  - {fileID: 21300000, guid: c9e26ba596c454544b9a30b38c76cf80, type: 3}
   - {fileID: 21300000, guid: 198d28b55dc891344a548e6048bb4e03, type: 3}
   - {fileID: 21300000, guid: d21623f57790ab0419520e6520b41cb4, type: 3}
   - {fileID: 21300000, guid: cffb4b06492916d43bffa6a7726e4603, type: 3}
@@ -188,6 +192,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4f276e27675c0c14c8ce60c7fa2574bf, type: 3}
   - {fileID: 21300000, guid: 1fd41077dbf6cd748b014a9840de9739, type: 3}
   - {fileID: 21300000, guid: 647f43a7ab849a841ad7fd00d6cf2bb4, type: 3}
+  - {fileID: 21300000, guid: e70497b7a115ab646b4aeaf1e4dbcdfa, type: 3}
   - {fileID: 21300000, guid: 72e27ce72d4116f448721adbea6a6046, type: 3}
   - {fileID: 21300000, guid: 7c340008b76e03c46bb60fe8b28bcf30, type: 3}
   - {fileID: 21300000, guid: c7d8bd28c57de6f469c1c17cddf92afc, type: 3}
@@ -319,11 +324,14 @@ SpriteAtlas:
   - vfx_52
   - vfx_51
   - vfx_50
+  - mark_of_pain
   - bar
   - flex
   - Skill_Rare
   - layer5
+  - strawberry
   - attack3
+  - marbles
   - layer4
   - Skill_Legend
   - upgradeArrow
@@ -349,7 +357,7 @@ SpriteAtlas:
   - endTurnButton
   - panelHeart
   - key_slots
-  - burningBlood
+  - BurningBlood
   - description
   - Attack_Legend
   - debuff1
@@ -370,6 +378,7 @@ SpriteAtlas:
   - shoulder2
   - eng
   - LobbyBG
+  - mango
   - wild_strike
   - layer2
   - bash
@@ -384,6 +393,7 @@ SpriteAtlas:
   - stun
   - HpBar
   - Red_Cost
+  - lantern
   - strike
   - attack4
   - meat

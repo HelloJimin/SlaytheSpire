@@ -19,6 +19,9 @@ public class Player : Character
         LoadPlayerData();
         artifactList.Add("BurningBlood");
         artifactList.Add("Meat");
+        artifactList.Add("Marbles");
+        artifactList.Add("Mark_of_pain");
+        artifactList.Add("Lantern");
         //artifactList.Add("Blood_vial");
         //artifactList.Add("Vajra");
         //artifactList.Add("OldCoin");

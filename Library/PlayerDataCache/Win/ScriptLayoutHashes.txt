@@ -1,6 +1,6 @@
 Win
 PlayerPath?
-C:/Users/KGA_6/Desktop/새 폴더/SlayTheSpireProject.exe
+C:/Users/digim/OneDrive/바탕 화면/새 폴더/SlayTheSpireProject.exe
 SceneListBegin?
 Assets/Scenes/LobbyScene.unity
 Assets/Scenes/GameScene.unity
@@ -24,13 +24,14 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.OldCoin
 e8e6884f9aa59c3f25a5eb28f6416d62 Assembly-CSharp.dll:Spine.Unity.Modules.SkeletonRendererCustomMaterials
 a2113831d3323f931007e1b3812dc814 Cinemachine.dll:Cinemachine.CinemachineFollowZoom
-2e01818e0a52b7669dacc0939d1dead1 Assembly-CSharp.dll:.Character
+8432ada7ff488733db6dbeba9551c170 Assembly-CSharp.dll:.Character
 d227987243593b32ae57394d06018643 Cinemachine.dll:Cinemachine.CinemachineFixedSignal
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
 74c6661d5e976447557e467f8b89e796 Assembly-CSharp.dll:.Defend
-f4877add6daf24c9281c29920440dfe3 Assembly-CSharp.dll:.NobGoblin
+1683354557052c87cfa7ab4081df3a78 Assembly-CSharp.dll:.NobGoblin
 c80bc562de10fdbf8b2e9bcb89d80421 Cinemachine.dll:Cinemachine.CinemachineCollisionImpulseSource
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -108,10 +109,10 @@ b5eb08b578a2f2d80bb106cbe65ab501 Cinemachine.dll:Cinemachine.CinemachineStoryboa
 cbae2ed2d2d53cc8f539e7cb4f29bc1f Cinemachine.dll:.CinemachineCameraOffset
 b8b6652c91ec156e4590d6a8f7eff3be Assembly-CSharp.dll:Spine.Unity.Modules.SkeletonRagdoll
 158ffb543d45ff9010f242d7a12154b7 Assembly-CSharp.dll:.SpineboyBeginnerModel
-d39ea0ce9a76369e34f702dfae119484 Assembly-CSharp.dll:.ObjectPoolManager
+dc568cf90a44769094aebd660e50724c Assembly-CSharp.dll:.ObjectPoolManager
 7a1b539ea935c6143c2c709ea903d9a9 Assembly-CSharp.dll:.Bash
 e0978a597b621db4180557fb5e5cd19e Assembly-CSharp.dll:.SpineboyBeginnerInput
-2c0ffd8d7277ccbdb23b5b6cd6472cf7 Assembly-CSharp.dll:.GameManager
+a6637fb7dd7be2e7fbc6bdd77f0e428f Assembly-CSharp.dll:.GameManager
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -124,6 +125,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+f49b7082d562225545c5f6fdabf3339d Assembly-CSharp.dll:.ChestRoom
 4e9333594897a1fb8b136ad2eae996c7 Unity.TextMeshPro.dll:TMPro.TMP_SubMeshUI
 4421358d010f3efd3f5ee22aaa8aec01 Assembly-CSharp.dll:Spine.Unity.SkeletonRenderer
 56b69fd124d87b205f0bba400d6c3eda Assembly-CSharp.dll:Spine.Unity.Modules.SkeletonRenderSeparator
@@ -150,6 +152,7 @@ d1b673a451e26c967764a4db5601609a Assembly-CSharp.dll:Map.MapConfig
 2bbd817da0ebf06bb25d544b680ef335 Assembly-CSharp.dll:.SpineboyPole
 71bb6a6b6c8f052f948db64c7dd3ca4f Cinemachine.dll:Cinemachine.PostFX.CinemachinePostProcessing
 8963690ef6f6b05ce03bfd8b5c26e20c Cinemachine.dll:Cinemachine.NoiseSettings
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.BurningBlood
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.OpenMyCemetery
 2fd6747c2200758d3d01d3f89c9edf1d Assembly-CSharp.dll:Map.MapNode
 b21af3632b0aaa863cfe392d5fd7a5d3 Unity.2D.SpriteShape.Runtime.dll:UnityEngine.U2D.SpriteShape
@@ -168,7 +171,7 @@ b4672b813b40e30095d691cd7c29f752 Assembly-CSharp.dll:.ConstrainedCamera
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 2ce2187bbae6f802011f568630bd3d1f Cinemachine.dll:Cinemachine.CinemachineOrbitalTransposer
 7ec212c928dc13bbcdd3b88523e0be2e Assembly-CSharp.dll:.RestRoom
-cd44db3c2a3046efc900f181cb3d1797 Assembly-CSharp.dll:.UIManager
+1ff48d507e71e004e091e420abf9521b Assembly-CSharp.dll:.UIManager
 f722aef6ceb49c962e9c7939afd12205 Assembly-CSharp.dll:Map.NodeBlueprint
 b5fc3843e35dd6d09a719cb0d10ff4a5 DemiLib.dll:DG.DemiLib.External.DeHierarchyComponent
 20e247bb4d21b9a69734f1971b05871d Assembly-CSharp.dll:Spine.Unity.SkeletonAnimator
@@ -192,7 +195,10 @@ df902801ec1d80ba125b65da54615dc1 Assembly-CSharp.dll:.Chimera
 f94e7944fa1314de97e473e5182a1543 Assembly-CSharp.dll:Map.Example
 694d20920c0e41f567e119f7159a3644 Cinemachine.dll:Cinemachine.CinemachinePath
 5953aab9ad933051befd4d2ae668b6d2 Assembly-CSharp.dll:.SpineGauge
+6e8d67bf8584b1974a59ce7d5d3f6209 Assembly-CSharp.dll:.MouseDescription
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Blood_vial
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Vajra
 a1bf635396aab30e2e06177ccab020a6 Assembly-CSharp.dll:.Reward
 9765b7b3c09871e3998566f883a92301 Assembly-CSharp.dll:Spine.Unity.Modules.SkeletonGhostRenderer
 427f18d5fb548d869d1a3d7421ed6ab2 Assembly-CSharp.dll:Map.NameOverride
@@ -217,12 +223,14 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 a66794b62dbf044668a5f102bb7908c2 Cinemachine.dll:Cinemachine.CinemachineImpulseListener
 a8150c5b810f92b5c91442a83b675a76 Assembly-CSharp.dll:Spine.Unity.Modules.SkeletonGhost
 343ded3cfaf445e47361e49f29aaf4ef Assembly-CSharp.dll:Spine.Unity.SkeletonDataAsset
+5ba0fa518ebc968ebcb641d6b6df06a1 Assembly-CSharp.dll:.StatusUI
 e6d75f1a9bc0c6f7085df0baa077e688 Cinemachine.dll:Cinemachine.CinemachineGroupComposer
 dbfb4270852b0008a423a7418d9de4cf Cinemachine.dll:Cinemachine.CinemachineSameAsFollowTarget
 4a639215e29265dd99e4fed19e3fa9f4 Cinemachine.dll:Cinemachine.CinemachineBlendListCamera
 74c6661d5e976447557e467f8b89e796 Assembly-CSharp.dll:.Flex
 f6dd37cc7e51fa2767c95f9cecba6d0e Assembly-CSharp.dll:Map.DottedLineRenderer
 dcd17d5524cc48a24316612c59d8cdd1 Assembly-CSharp.dll:Map.SurrogateTest
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Meat
 9c82e8077c5db3502510aeb24c5f95f4 Assembly-CSharp.dll:.SpineboyBeginnerView
 b639d97cb780d0d99a2bfb3ad1935732 Cinemachine.dll:Cinemachine.CinemachineMixingCamera
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
@@ -282,19 +290,26 @@ d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:CodeMonkey.MonoBehaviours.ComponentActions
 df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
-f4877add6daf24c9281c29920440dfe3 Assembly-CSharp.dll:.Monster
+1683354557052c87cfa7ab4081df3a78 Assembly-CSharp.dll:.Monster
 c14d53d0d0dff8b5faf6ce2224005bd9 Assembly-CSharp.dll:Map.ScrollNonUI
 35199b53f82e50306b5dc14351a3d1fe Assembly-CSharp.dll:.RoomMaker
-2aa5ac9bc858c44234e4625fdafaa895 Assembly-CSharp.dll:.Artifact
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Artifact
+e5487035211aace94c91dcbdb3d4480d Assembly-CSharp.dll:.CommonTouchUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Cinemachine.dll:Cinemachine.CinemachinePixelPerfect
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Spineboy
 3e9ce94522268240dc78b4c61ebe0f85 Assembly-CSharp.dll:Map.GameObjectExample
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 fa653120b8e2e20f2e5fa15091afeb95 Assembly-CSharp.dll:CodeMonkey.Utils.Button_Sprite
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Orichalcum
 1351a1bf2c4086539cf0063006375478 Cinemachine.dll:Cinemachine.CinemachineBrain
-d657553bac8b715eb4331130b372b16b Assembly-CSharp.dll:.Player
+eacc785e9a7f4168a70f918d5efa1d00 Assembly-CSharp.dll:.Player
 dbfb4270852b0008a423a7418d9de4cf Cinemachine.dll:Cinemachine.CinemachineHardLockToTarget
 8a2193d36589610b9a9a816079abc21d Assembly-CSharp.dll:CodeMonkey.Assets
 b5c3dbcb94925c8b595ad16a62b44788 Cinemachine.dll:Cinemachine.CinemachineBasicMultiChannelPerlin
 2792936179724025482dc04d68a47ca7 Cinemachine.dll:Cinemachine.CinemachineClearShot
-f4877add6daf24c9281c29920440dfe3 Assembly-CSharp.dll:.Cultist
+1683354557052c87cfa7ab4081df3a78 Assembly-CSharp.dll:.Cultist
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Marbles
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Mango
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Strawberry
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Mark_of_pain
+2a03351d2e73fa132b31372c83c15688 Assembly-CSharp.dll:.Lantern

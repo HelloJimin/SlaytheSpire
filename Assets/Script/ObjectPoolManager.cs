@@ -58,6 +58,11 @@ public class ObjectPoolManager : MonoBehaviour
         artifactList.Add("Vajra");
         artifactList.Add("Orichalcum");
         artifactList.Add("Meat");
+        artifactList.Add("Marbles");
+        artifactList.Add("Strawberry");
+        artifactList.Add("Mango");
+        artifactList.Add("Mark_of_pain");
+        artifactList.Add("Lantern");
         for (int i = 0; i < artifactList.Count; i++)
         {
             artifactPool.Add(CreateArtifact(artifactList[i]));

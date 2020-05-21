@@ -10,7 +10,7 @@ public class Cultist : Monster
 
     private void OnEnable()
     {
-        Init(1, 10);
+        Init(50, 10);
         spain.AnimationName = "rally";
         isFirstTurn = true;
         damage = 6;
