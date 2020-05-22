@@ -79,6 +79,7 @@ namespace Map
                     UIManager.instance.GoToChestRoom();
                     break;
                 case NodeType.Store:
+                    UIManager.instance.GoToShopRoom();
                     break;
                 case NodeType.Boss:
                     break;
@@ -93,7 +94,7 @@ namespace Map
                             UIManager.instance.GoToChestRoom();
                             break;
                         case 2:
-                            Debug.Log("2번");
+                            UIManager.instance.GoToShopRoom();
                             break;
                         case 3:
                             Debug.Log("3번");
