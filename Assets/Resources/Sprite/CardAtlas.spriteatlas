@@ -43,7 +43,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bbf6c4609d521e9438f65597646cceb0, type: 3}
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
-    totalSpriteSurfaceArea: 28798364
+    totalSpriteSurfaceArea: 31765916
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -144,6 +144,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ab553ff11de67484fb5a54d74f8efe51, type: 3}
   - {fileID: 21300000, guid: df0f3122f578c774a86d1efb3bbfe9ab, type: 3}
   - {fileID: 21300000, guid: 41f158329c410de4cb0a29b5271ecab7, type: 3}
+  - {fileID: 21300000, guid: 77929f5208c8f6f4d8d0d26c971ea191, type: 3}
   - {fileID: 21300006, guid: 85512b72ce44c1540b293627315d7e4f, type: 3}
   - {fileID: 21300004, guid: 85512b72ce44c1540b293627315d7e4f, type: 3}
   - {fileID: 21300002, guid: 85512b72ce44c1540b293627315d7e4f, type: 3}
@@ -169,8 +170,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0327ed54428112846a37a15f53d7d80b, type: 3}
   - {fileID: 21300000, guid: 5b4b7f54be9bf9942a150c137872e0f3, type: 3}
   - {fileID: 21300000, guid: 8d7a16a40002ec341b4840dae965bd77, type: 3}
+  - {fileID: 21300000, guid: 748fb4b439c7e194abc1726b7f3c65ba, type: 3}
   - {fileID: 21300000, guid: 395f85d40dcc44b44b04a1267f6e9efd, type: 3}
   - {fileID: 21300000, guid: 213408e4132cab940a34dacfa17de0e8, type: 3}
+  - {fileID: 21300000, guid: 5d6350f4e4ad14c49a12ce2a97a968b9, type: 3}
   - {fileID: 21300000, guid: 5ecccb15f0058d94a8b506ed3a14e6cc, type: 3}
   - {fileID: 21300000, guid: fbadc025978264d45a5f1d22d31a256e, type: 3}
   - {fileID: 21300000, guid: 3ee5862551969854c81329d2c4e5ecef, type: 3}
@@ -345,6 +348,7 @@ SpriteAtlas:
   - inflame
   - UsedCard
   - layer1
+  - merchantObjects
   - title3_3
   - title3_2
   - title3_1
@@ -357,7 +361,7 @@ SpriteAtlas:
   - endTurnButton
   - panelHeart
   - key_slots
-  - BurningBlood
+  - burningBlood
   - description
   - Attack_Legend
   - debuff1
@@ -370,8 +374,10 @@ SpriteAtlas:
   - smith
   - endTurnButtonGlow
   - confirmButton
+  - merchantHand
   - Map1
   - defendBuff
+  - kor
   - bossCardReward
   - RestScene
   - attack2

@@ -44,6 +44,10 @@ public class Card : MonoBehaviour
     Image[] images;
     Text[] texts;
 
+    public GameObject priceObj;
+    public int price;
+    public int Price { get { return price; } set { price = value; PriceSetting(); } }
+
     void Start()
     {
         //usedAnime = transform.parent.parent.Find("UsedCardAnimation").gameObject;
@@ -57,6 +61,7 @@ public class Card : MonoBehaviour
 
     public virtual void cardInit()
     {
+        priceObj = transform.Find("Price").gameObject;
         gameObject.name = card.name;
         card.isUpgrade = false; 
         player = FindObjectOfType<Player>();
@@ -226,6 +231,28 @@ public class Card : MonoBehaviour
             damage = user.data.power + card.value;
         }
         return (int)damage;
+    }
+
+    void PriceSetting()
+    {
+        Text text = priceObj.GetComponent<Text>();
+        if ( price == 0)
+        {
+            priceObj.SetActive(false);
+        }
+        else
+        {
+            priceObj.SetActive(true);
+
+            if (player.data.money < price)
+            {
+               text.text = "<color=red>" + price.ToString() + "</color>";
+            }
+            else
+            {
+                text.text = price.ToString();
+            }
+        }
     }
 }
 

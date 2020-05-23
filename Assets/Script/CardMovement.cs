@@ -7,6 +7,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 {
     //카드와 마우스의 상호작용을 하는 부분입니다
 
+    public Vector3 orignalScale;
     public static Vector2 originalPosition;
     private GameObject target;
     public Character playerData;
@@ -42,6 +43,20 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             case ChoiceMode.RestUpgrade:
                 UIManager.instance.RestCardGoToUpgradePanel(card);
                 return;
+            case ChoiceMode.Shop:
+                if (playerData.data.money>card.Price)
+                {
+                    Debug.Log("들어옴");
+                    playerData.data.money -= card.Price;
+                    GameManager.instance.myInventoryList.Add(card.GetType().Name);
+                    UIManager.instance.shopHand.GoToOrignalPosition();
+                    UIManager.instance.SettingUI();
+                    return;
+                }
+                else
+                {
+                    return;
+                }
         }
         isGrab = true;
         originalPosition = transform.position;
@@ -93,6 +108,20 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             case ChoiceMode.RestUpgrade:
                 UIManager.instance.RestCardGoToUpgradePanel(card);
                 return;
+            case ChoiceMode.Shop:
+                if (playerData.data.money > card.Price)
+                {
+                    playerData.data.money -= card.Price;
+                    card.gameObject.SetActive(false);
+                    GameManager.instance.myInventoryList.Add(card.GetType().Name);
+                    UIManager.instance.shopHand.GoToOrignalPosition();
+                    UIManager.instance.SettingUI();
+                    return;
+                }
+                else
+                {
+                    return;
+                }
         }
         if (!isGrab)
         {
@@ -111,12 +140,45 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        //transform.localScale += new Vector3(1.0f, 1.0f);
+        switch (UIManager.instance.choice)
+        {
+            case ChoiceMode.None:
+                break;
+            case ChoiceMode.Grab:
+                break;
+            case ChoiceMode.Upgrade:
+                break;
+            case ChoiceMode.Choice:
+                break;
+            case ChoiceMode.RestUpgrade:
+                break;
+            case ChoiceMode.Shop:
+                UIManager.instance.shopHand.GoToMousePosition(card.transform.position + new Vector3(0,400,0));
+                //orignalScale = transform.localScale;
+                //transform.localScale += new Vector3(1.0f, 1.0f);
+                break;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //transform.localScale -= new Vector3(1.0f, 1.0f);
+        switch (UIManager.instance.choice)
+        {
+            case ChoiceMode.None:
+                break;
+            case ChoiceMode.Grab:
+                break;
+            case ChoiceMode.Upgrade:
+                break;
+            case ChoiceMode.Choice:
+                break;
+            case ChoiceMode.RestUpgrade:
+                break;
+            case ChoiceMode.Shop:
+                UIManager.instance.shopHand.GoToOrignalPosition();
+                // transform.localScale = orignalScale;
+                break;
+        }
     }
 
     #endregion

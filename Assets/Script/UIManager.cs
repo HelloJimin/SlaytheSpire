@@ -10,7 +10,8 @@ public enum ChoiceMode
     Grab,
     Upgrade,
     Choice,
-    RestUpgrade
+    RestUpgrade,
+    Shop
 }
 
 
@@ -65,12 +66,14 @@ public class UIManager : MonoBehaviour
     public GameObject scollMapUI;
     public GameObject restRoom;
     public GameObject restUpgradePanel;
+    public GameObject shopNPC;
+    public Shop shopPanel;
+    public ShopHand shopHand;
 
     public GameObject turnEndButton;
     public MouseDescription mouseDescription;
 
     public GameObject chest;
-
     private void Awake()
     {
         if (instance != this)
@@ -143,6 +146,12 @@ public class UIManager : MonoBehaviour
         restRoom.SetActive(false);
         chest.SetActive(false);
 
+        if (shopNPC.activeSelf)
+        {
+            shopPanel.rerereset();
+            shopNPC.SetActive(false);
+        }
+
         Reward[] rewards = reward.transform.Find("Panel").GetComponentsInChildren<Reward>();
         for (int i = 0; i < rewards.Length; i++)
         {
@@ -180,6 +189,17 @@ public class UIManager : MonoBehaviour
         battleSystem.SetActive(true);
         battleUI.SetActive(true);
         GameManager.instance.StartGame();
+    }
+
+    public void GoToShopRoom()
+    {
+        alphaImage.SetActive(false);
+        battleUI.SetActive(false);
+        battleSystem.SetActive(false);
+        restRoom.SetActive(false);
+        scollMapUI.gameObject.SetActive(false);
+        shopNPC.SetActive(true);
+        shopPanel.GetCards();
     }
 
     public void CameraShake()
@@ -249,7 +269,6 @@ public class UIManager : MonoBehaviour
         GameObject choicePanel = restUpgradePanel.transform.Find("ChoicePanel").gameObject;
 
         card.transform.SetParent(choicePanel.transform);
-        Debug.Log(choicePanel+"여기실행");
         Card NewCard = ObjectPoolManager.instance.GetCard(card.GetType() + "+");
         NewCard.transform.SetParent(choicePanel.transform);
         NewCard.gameObject.SetActive(true);

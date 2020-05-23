@@ -302,6 +302,7 @@ public class ObjectPoolManager : MonoBehaviour
         cardPool.Add(card);
         // card.cardInit();
         card.gameObject.SetActive(false);
+        card.Price = 0;
         card.transform.SetParent(transform.Find("Cards"));
     }
 

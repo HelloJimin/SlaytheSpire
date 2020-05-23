@@ -268,4 +268,5 @@ public class GameManager : MonoBehaviour
         ObjectPoolManager.instance.ReturnCard(cards[1]);
         cards[0].transform.SetParent(FindObjectOfType<MyAllcardList>().transform.Find("AllCards"));
     }
+
 }

@@ -91,7 +91,7 @@ public class Reward : MonoBehaviour
             int random = Random.Range(0, list.Count);
             Card rewardCard = ObjectPoolManager.instance.GetCard(list[random]);
 
-            if (rewardCard.name == "타격" || rewardCard.name == "수비")
+            if (rewardCard.name == "타격" || rewardCard.name == "수비" || rewardCard.name == "타격+" || rewardCard.name == "수비+")
             {
                 ObjectPoolManager.instance.ReturnCard(rewardCard);
                 continue;
