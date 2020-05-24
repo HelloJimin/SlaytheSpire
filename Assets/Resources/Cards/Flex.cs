@@ -20,6 +20,7 @@ public class Flex : Card
 
     public override void Use(Character target)
     {
+        base.Use(target);
         target = player;
         player.Power += card.value;
         GameManager.instance.player.myTurnEnd += PowerDown;

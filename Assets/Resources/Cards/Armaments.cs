@@ -21,6 +21,8 @@ public class Armaments : Card
 
     public override void Use(Character target)
     {
+        base.Use(target);
+
         target = GameManager.instance.player;
         target.GetShield(card.value);
 

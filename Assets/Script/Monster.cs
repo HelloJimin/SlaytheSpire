@@ -7,17 +7,21 @@ using Spine.Unity;
 public class Monster : Character
 {
     public Image intentImage;
-    public SkeletonAnimation spain;
+
     public float damage;
     public Character player;
     public bool isAttack;
+    Text damageText;
+
+    public override int Power { get => base.Power; set { base.Power = value; SettingDamageUI(); } }
 
     public void Init(int maxHp, int money)
     {
         DataInit();
+        ResetStatusUI();
         data.maxHP = maxHp;
-        data.money = money;
         data.currentHP = data.maxHP;
+        data.money = money;
         data.power = 0;
        // SettingHPUI();
         transform.Find("Canvas").transform.Find("MyHP").transform.Find("HPBar").GetComponent<Image>().fillAmount = (float)data.currentHP / (float)data.maxHP;
@@ -27,9 +31,12 @@ public class Monster : Character
     public void Awake()
     {
         intentImage = transform.Find("Canvas").transform.Find("Intent").GetComponent<Image>();
+        damageText = intentImage.transform.Find("Damage").GetComponent<Text>();
         SettingAnimation();
-        ActionCheck();
+       // ActionCheck();
+
         myTurnStart += Action;
+        myTurnEnd += ActionCheck;
         myTurnEnd += SettingDamageUI;
     }
 
@@ -49,7 +56,7 @@ public class Monster : Character
         }
     }
 
-    void Dead()
+    public virtual void Dead()
     {
         GameManager.instance.monsters.Remove(this);
         GameManager.instance.currentRoomMoney += data.money;
@@ -67,13 +74,6 @@ public class Monster : Character
 
     }
 
-    public void SkeletonAnimeStart(string name, bool loop)
-    {
-        string original = spain.AnimationName;
-        spain.AnimationState.SetAnimation(0, name, loop);
-        StartCoroutine(returnAnime(original));
-    }
-
     IEnumerator returnAnime(string name)
     {
         yield return new WaitForSeconds(0.1f);
@@ -82,7 +82,10 @@ public class Monster : Character
 
     public void FindIntentImage(string name)
     {
+        intentImage.gameObject.SetActive(true);
+
         intentImage.sprite = Resources.Load<Sprite>("Sprite/Intent/" + name) as Sprite;
+        SettingDamageUI();
     }
 
     public void SettingAnimation()
@@ -117,19 +120,24 @@ public class Monster : Character
        {
            realDamage = damage + data.power;
        }
-       return (int)realDamage;
+
+       if (player != null && player.Vulnerable > 0)
+       {
+           realDamage *= 1.5f;
+       }
+        return (int)realDamage;
     }
 
     public void SettingDamageUI()
     {
         if (isAttack)
         {
-            intentImage.transform.Find("Damage").GetComponent<Text>().enabled = true;
-            intentImage.transform.Find("Damage").GetComponent<Text>().text = AttackDamageCheck().ToString();
+            damageText.enabled = true;
+            damageText.text = AttackDamageCheck().ToString();
         }
         else
         {
-            intentImage.transform.Find("Damage").GetComponent<Text>().enabled = false;
+            damageText.enabled = false;
         }
     }
 

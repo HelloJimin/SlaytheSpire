@@ -22,13 +22,14 @@ public class Heavy_blade : Card
 
     public override void Use(Character target)
     {
-        Debug.Log(AttackDamageCheck(GameManager.instance.player));
-        target.Hit(AttackDamageCheck(GameManager.instance.player));
+        base.Use(target);
+        Debug.Log(AttackDamageCheck(player,target));
+        target.Hit(AttackDamageCheck(player,target));
         UIManager.instance.EffectStart("atk1", target.transform);
     //    GoCenter();
     }
 
-    public override int AttackDamageCheck(Character user)
+    public override int AttackDamageCheck(Character user, Character target)
     {
         float damage;
 
@@ -41,6 +42,9 @@ public class Heavy_blade : Card
         {
             damage = (user.data.power*power) + card.value ;
         }
+
+        if (target.Vulnerable > 0) damage *= 1.5f;
+
         return (int)damage;
     }
 

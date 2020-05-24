@@ -51,6 +51,7 @@ public class Reward : MonoBehaviour
         GameManager.instance.player.data.money += GameManager.instance.currentRoomMoney;
         ObjectPoolManager.instance.ReturnRewardButton(this);
         UIManager.instance.SettingUI();
+        SoundManager.instance.PlaySound("GetGold");
     }
 
     public void nomalCardButton()
@@ -67,6 +68,7 @@ public class Reward : MonoBehaviour
         RandmCardRewardNomal();
         //카드선택 ㄱ
         ObjectPoolManager.instance.ReturnRewardButton(this);
+        SoundManager.instance.PlaySound("Click");
     }
 
     public void artifactButton()
@@ -77,13 +79,19 @@ public class Reward : MonoBehaviour
 
 
         ObjectPoolManager.instance.ReturnRewardButton(this);
+        SoundManager.instance.PlaySound("Click");
     }
 
 
     public void RandmCardRewardNomal()
     {
-        List<string> list = ObjectPoolManager.instance.cardList;
+        List<string> list = ObjectPoolManager.instance.lists.cardList;
         GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i]);
+        }
+            Debug.Log("갯수수수수"+list.Count);
         bool ok = true;
 
         while (ok)

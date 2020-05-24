@@ -15,13 +15,11 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     public virtual void Init()
     {
         LoadData();
-
         player = FindObjectOfType<Player>();
         sprite = Resources.Load<Sprite>("Sprite/Artifact/" + GetType().Name) as Sprite;
         GetComponent<Image>().sprite = sprite;
         gameObject.name = data.name;
     }
-
     public void LoadData()
     {
         if (JsonManager.CheckJsonData(gameObject.name, gameObject.name))

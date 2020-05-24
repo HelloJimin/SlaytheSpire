@@ -12,6 +12,6 @@ public class Neow : MonoBehaviour
         UIManager.instance.SettingUI();
 
         transform.Find("Canvas/RewardButton1").gameObject.SetActive(false);
+        SoundManager.instance.PlaySound("Click");
     }
-
 }

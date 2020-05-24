@@ -21,6 +21,7 @@ public class Inflame : Card
 
     public override void Use(Character target)
     {
+        base.Use(target);
         player.Power += card.value;
         Debug.Log(player.Power);
        // GoCenter();

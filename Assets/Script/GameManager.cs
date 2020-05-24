@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,10 +41,13 @@ public class GameManager : MonoBehaviour
     public Player player;
     public GameObject cardPrefab;
 
-    public List<Character> monsters = new List<Character>();
+    public List<Monster> monsters = new List<Monster>();
+
+    int currentFloor;
+    public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; UIManager.instance.curretnFloorText.text = currentFloor.ToString(); } }
 
     //public delegate void BattleEndProcess();
-   // public event BattleEndProcess battleEndProcess;
+    // public event BattleEndProcess battleEndProcess;
 
     public int currentRoomMoney;
     //GameObject battleUI;
@@ -56,18 +60,19 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         maxCost = 3;
         currentRoomMoney = 0;
+        CurrentFloor = 1;
     }
 
     void Start()
     {
-       // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
-       myInventoryList = player.inventoryList;
-       myInventoryList.Add("Inflame");
-       myArtifactList = player.artifactList;
+        // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
+        myInventoryList = player.inventoryList;
+        myInventoryList.Add("Inflame");
+        myArtifactList = player.artifactList;
 
-       player.myTurnStart += StartPhase;
-       UIManager.instance.SettingUI();
-       UIManager.instance.GoToNeowRoom();
+        player.myTurnStart += StartPhase;
+        UIManager.instance.SettingUI();
+        UIManager.instance.GoToNeowRoom();
 
         for (int i = 0; i < myArtifactList.Count; i++)
         {
@@ -78,14 +83,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void StartGame(string level)
     {
         currentRoomMoney = 0;
-        SettingMonsters();
-        currentCost = maxCost;
+        SettingMonsters(level);
         isPlayerTurn = true;
         SettingMyDeck(myDeck);
-        StartPhase();
         player.BattleStart();
         TurnProcessing();
         UIManager.instance.SettingUI();
@@ -97,14 +100,13 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < myInventoryList.Count; i++)
         {
             // inventory[i].transform.SetParent(myDeck.transform);
-            Debug.Log(myInventoryList[i]);
             Card myCard = ObjectPoolManager.instance.GetCard(myInventoryList[i]);
             myCard.transform.SetParent(after.transform);
         }
         ShuffleDeck(myDeck);
     }
 
-    public void AllTransferCards( GameObject before , GameObject after , bool active)
+    public void AllTransferCards(GameObject before, GameObject after, bool active)
     {
         int retunCnt = before.transform.childCount;
 
@@ -142,14 +144,16 @@ public class GameManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
-            player.MyStartPhase();
+            SoundManager.instance.PlaySound("PlayerTurn");
+            StartCoroutine(player.MyStartPhase(1.0f));
         }
         else
         {
             Debug.Log("적턴");
+            SoundManager.instance.PlaySound("EnemyTurn");
             for (int i = 0; i < monsters.Count; i++)
             {
-                monsters[i].MyStartPhase();
+                StartCoroutine(monsters[i].MyStartPhase(1.0f + (0.5f * i)));
             }
             StartCoroutine(EndPhase());
         }
@@ -158,7 +162,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EndPhase()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         ChangeTurn();
     }
 
@@ -170,14 +174,15 @@ public class GameManager : MonoBehaviour
         {
             Draw();
         }
+        UIManager.instance.SettingUI();
     }
 
     public void ChangeTurn()
     {
-
         if (isPlayerTurn)
         {
-            AllTransferCards(myHand, myCemetary,false);
+            SoundManager.instance.PlaySound("EndTurn");
+            AllTransferCards(myHand, myCemetary, false);
             player.MyEndPhase();
             for (int i = 0; i < monsters.Count; i++)
             {
@@ -197,13 +202,32 @@ public class GameManager : MonoBehaviour
         TurnProcessing();
     }
 
-    void SettingMonsters()
+    void SettingMonsters(string level)
     {
-        var monster = ObjectPoolManager.instance.GetMonster("Cultist");
-        monster.gameObject.SetActive(true);
-        monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.
-            GetChild(Random.Range(0, GameObject.Find("MonsterSpawnPoints").transform.childCount)).transform.position;
-        monsters.Add(monster);
+        int roomNumber=0;
+
+        if (level == "Monster")
+        {
+            roomNumber = Random.Range(1, 8);
+        }
+        else if(level == "Elite")
+        {
+            roomNumber = Random.Range(1, 3);
+        }
+        else if (level == "Boss")
+        {
+            roomNumber = 1;
+        }
+
+        List<string> temp = JsonManager.LoadJsonData<List<string>>("MonsterRoom", level + roomNumber);
+        for (int i = 0; i < temp.Count; i++)
+        {
+            Monster monster = ObjectPoolManager.instance.GetMonster(temp[i]);
+            monster.gameObject.SetActive(true);
+            monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.
+                GetChild(Random.Range(0, GameObject.Find("MonsterSpawnPoints").transform.childCount)).transform.position;
+            monsters.Add(monster);
+        }
     }
 
     public void BattleEnd()
@@ -217,12 +241,13 @@ public class GameManager : MonoBehaviour
 
         ObjectPoolManager.instance.GetRewardMoneyButton("money");
         ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
-
+        currentCost = maxCost;
         DeckReset(myDeck);
         DeckReset(myHand);
         DeckReset(myCemetary);
         UIManager.instance.OpenRewardPanel();
         UIManager.instance.usedCardAnime.SetActive(false);
+        SoundManager.instance.PlaySound("Victory");
     }
 
     public void DeckReset(GameObject before)
@@ -231,7 +256,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < retunCnt; i++)
         {
-           ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
+            ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
         }
     }
 
@@ -257,6 +282,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.RestCardGoToCardPool();
         UIManager.instance.restUpgradePanel.SetActive(false);
         UIManager.instance.restRoom.SetActive(false);
+        SoundManager.instance.PlaySound("UpgradeCard");
     }
     public void RestUpgradeCancelButton()
     {
@@ -268,5 +294,11 @@ public class GameManager : MonoBehaviour
         ObjectPoolManager.instance.ReturnCard(cards[1]);
         cards[0].transform.SetParent(FindObjectOfType<MyAllcardList>().transform.Find("AllCards"));
     }
-
+    public void MonstersDamageUIUpdate()
+    {
+        for (int i = 0; i < monsters.Count; i++)
+        {
+            monsters[i].SettingDamageUI();
+        }
+    }
 }

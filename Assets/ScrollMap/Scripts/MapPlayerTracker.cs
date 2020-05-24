@@ -65,12 +65,17 @@ namespace Map
             // load appropriate scene with context based on nodeType:
             // or show appropriate GUI over the map: 
             // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
+            GameManager.instance.CurrentFloor++;
+
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.MinorEnemy:
                     UIManager.instance.GoToMonsterRoom();
+                    SoundManager.instance.PlaySound("BattleStart");
                     break;
                 case NodeType.EliteEnemy:
+                    UIManager.instance.GoToEliteRoom();
+                    SoundManager.instance.PlaySound("BattleStart");
                     break;
                 case NodeType.RestSite:
                     UIManager.instance.GoToRestRoom();
@@ -80,8 +85,11 @@ namespace Map
                     break;
                 case NodeType.Store:
                     UIManager.instance.GoToShopRoom();
+                    SoundManager.instance.PlaySound("Shoper");
                     break;
                 case NodeType.Boss:
+                    UIManager.instance.GoToBossRoom();
+                    SoundManager.instance.PlaySound("BossStart");
                     break;
                 case NodeType.Mystery:
                     int random = UnityEngine.Random.Range(0, 5);
@@ -89,6 +97,7 @@ namespace Map
                     {
                         case 0:
                             UIManager.instance.GoToMonsterRoom();
+                            SoundManager.instance.PlaySound("BattleStart");
                             break;
                         case 1:
                             UIManager.instance.GoToChestRoom();

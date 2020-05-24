@@ -18,12 +18,12 @@ public class Cultist : Monster
         isAttack = false;
         SettingDamageUI();
         ActionCheck();
-        ResetStatusUI();
     }
 
     public override void ActionCheck()
     {
         FindIntentImage("buff");
+        myTurnEnd -= ActionCheck;
     }
 
     public override void Action()
@@ -35,12 +35,11 @@ public class Cultist : Monster
             SettingDamageUI();
             IsFirstTurn = false;
             FindIntentImage("attack2");
-            SkeletonAnimeStart("waving", false);
+            AnimeOneShotStart("waving");
         }
         else
         {
             Attack();
-            Animation("Atk", true);
         }
 
     }
@@ -48,6 +47,7 @@ public class Cultist : Monster
     public override void Attack()
     {
         player.Hit(AttackDamageCheck());
+        Animation("Atk", true);
     }
 
     void PowerUP()
@@ -57,8 +57,6 @@ public class Cultist : Monster
     }
     void Ritual()
     {
-
-
         myTurnEnd += PowerUP;
         myTurnEnd -= SettingDamageUI;
         myTurnEnd += SettingDamageUI;

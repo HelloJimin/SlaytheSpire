@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class Character : MonoBehaviour
 {
+    public SkeletonAnimation spain;
     public CharacterData data;
     public bool isPlayer;
     public int vulnerable;
@@ -18,7 +19,7 @@ public class Character : MonoBehaviour
 
     #region 프로퍼티
 
-    public int Vulnerable
+    public virtual int Vulnerable
     {
         get
         {
@@ -28,10 +29,14 @@ public class Character : MonoBehaviour
         {
             vulnerable = value;
             PropertySet("vulnerable", Resources.LoadAll<Sprite>("Sprite/powers")[109], vulnerable , "취약 상태");
+            if (vulnerable >0)
+            {
+               SoundManager.instance.PlaySound("Debuff");
+            }
         }
     }
 
-    public int Weak
+    public virtual int Weak
     {
         get
         {
@@ -41,10 +46,14 @@ public class Character : MonoBehaviour
         {
             weak = value;
             PropertySet("weak", Resources.LoadAll<Sprite>("Sprite/powers")[147], weak,"손상 상태");
+            if (weak > 0)
+            {
+                SoundManager.instance.PlaySound("Debuff");
+            }
         }
     }
 
-    public int Frail
+    public virtual int Frail
     {
         get
         {
@@ -54,10 +63,14 @@ public class Character : MonoBehaviour
         {
             frail = value;
             PropertySet("frail", Resources.LoadAll<Sprite>("Sprite/powers")[64] , frail , "약화 상태");
+            if (frail > 0)
+            {
+                SoundManager.instance.PlaySound("Debuff");
+            }
         }
     }
 
-    public int Power
+    public virtual int Power
     {
         get
         {
@@ -67,11 +80,18 @@ public class Character : MonoBehaviour
         {
             data.power = value;
             PropertySet("power", Resources.LoadAll<Sprite>("Sprite/powers")[112] , data.power, "공격력이 증가합니다." );
-          
+            if (value > 0)
+            {
+                SoundManager.instance.PlaySound("Buff");
+            }
+            if (value < 0)
+            {
+                SoundManager.instance.PlaySound("Debuff");
+            }
         }
     }
 
-    public int Dexterity
+    public virtual int Dexterity
     {
         get
         {
@@ -81,6 +101,14 @@ public class Character : MonoBehaviour
         {
             data.dexterity = value;
             PropertySet("dexterity", Resources.LoadAll<Sprite>("Sprite/powers")[18], data.dexterity , "방어력이 증가합니다.");
+            if (value > 0)
+            {
+                SoundManager.instance.PlaySound("Buff");
+            }
+            if (value < 0)
+            {
+                SoundManager.instance.PlaySound("Debuff");
+            }
         }
     }
     #endregion
@@ -89,6 +117,8 @@ public class Character : MonoBehaviour
     public event MyTurnEnd myTurnEnd;
     public delegate void MyTurnStart();
     public event MyTurnStart myTurnStart;
+    public delegate void YourTurnEnd();
+    public event YourTurnEnd yourTurnEnd;
 
     public SkeletonAnimation anime;
 
@@ -101,36 +131,37 @@ public class Character : MonoBehaviour
         HPText = transform.Find("Canvas/MyHP/HPText").GetComponent<Text>();
         anime = GetComponent<SkeletonAnimation>();
         statusPanel = transform.Find("Canvas/StatusPanel").gameObject;
-        myTurnEnd += CoolDown;
+        yourTurnEnd += CoolDown;
+        yourTurnEnd += ShieldBreak;
         SettingHPUI();
     }
 
     public virtual void Hit(float damage)
     {
         damage = DefenseDamageCheck(damage);
-
+        
         data.currentHP -= (int)damage;
         SettingHPUI();
         //ShieldBreak();
         UIManager.instance.CameraShake();
+        SoundManager.instance.PlaySound("FastAtk1");
     }
 
     public int DefenseDamageCheck(float damage)
     {
         float Damage = damage;
 
-        if (vulnerable > 0) Damage *= 1.5f;
-
         if (data.shield>0)
         {
             float temp = Damage;
             Damage -= data.shield;
             data.shield -= (int)temp;
-            ShieldBreak();
+
             if (data.shield <= 0)
             {
                 data.shield = 0;
                 SettingShieldUI(false);
+                SoundManager.instance.PlaySound("DefenseBreak");
             }
             else
             {
@@ -152,7 +183,7 @@ public class Character : MonoBehaviour
         {
             data.currentHP += heal;
         }
-
+        SoundManager.instance.PlaySound("Heal");
         UIManager.instance.SettingUI();
     }
 
@@ -160,11 +191,11 @@ public class Character : MonoBehaviour
     {
         data.shield += sheild + data.dexterity;
         if (frail > 0) data.shield -= (int)(data.shield * 0.25f);
-
+        SoundManager.instance.PlaySound("GainDefense");
         SettingShieldUI(true);
     }
 
-    public void ShieldBreak(int damage = 0)
+    public void ShieldBreak()
     {
         if (data.shield > 0) return;
 
@@ -190,17 +221,19 @@ public class Character : MonoBehaviour
 
     public void MyEndPhase()
     {
+        if (myTurnEnd == null) return;
         myTurnEnd.Invoke();
     }
 
     public virtual void YourEndPhase()
     {
         data.shield = 0;
-        ShieldBreak();
+        yourTurnEnd.Invoke();
     }
 
-    public void MyStartPhase()
+    public IEnumerator MyStartPhase(float delay)
     {
+        yield return new WaitForSeconds(delay);
         myTurnStart.Invoke();
     }
 
@@ -210,8 +243,6 @@ public class Character : MonoBehaviour
         if (Vulnerable > 0) Vulnerable--;
         if (Weak > 0) Weak--;
     }
-
-
 
     public virtual void Animation(string aniName, bool isLeft)
     {
@@ -245,7 +276,6 @@ public class Character : MonoBehaviour
     public void PropertySet(string Key , Sprite sprite, int value, string disc)
     {
         string key = Key;
-
         if (!statusUIs.ContainsKey(key))
         {
             StatusUI newStatusUI = ObjectPoolManager.instance.GetStatusUI(transform.Find("Canvas/StatusPanel").gameObject, sprite);
@@ -258,25 +288,48 @@ public class Character : MonoBehaviour
             statusUIs[key].SettingUI(value);
         }
 
-        if (value <= 0)
+        if (value == 0)
         {
-            value = 0;
-            if (statusUIs.ContainsKey(key))
-            {
-                ObjectPoolManager.instance.ReturnStatusUI(statusUIs[key]);
-                statusUIs.Remove(key);
-            }
+            RemoveStatusUI(key);
+        }
+
+    }
+
+    public void RemoveStatusUI(string key)
+    {
+        if (statusUIs.ContainsKey(key))
+        {
+            ObjectPoolManager.instance.ReturnStatusUI(statusUIs[key]);
+            statusUIs.Remove(key);
         }
     }
 
     public void DataInit()
     {
-        data.dexterity = 0;
-        data.power = 0;
+        Dexterity = 0;
+        Power = 0;
         Vulnerable = 0;
         Weak = 0;
         Frail = 0;
     }
+
+    public void AnimeOneShotStart(string name)
+    {
+        string original = spain.AnimationName;
+        spain.AnimationState.SetAnimation(0, name, false);
+        spain.AnimationState.AddAnimation(0, original, true, 0f);
+        //StartCoroutine(returnAnime(original));
+    }
+
+    public void AnimeChangeStartForDelay(string name, bool loop, float delay)
+    {
+        spain.AnimationState.AddAnimation(0, name, loop, delay);
+    }
+    public void AnimeChangeStart(string name, bool loop)
+    {
+        spain.AnimationState.SetAnimation(0, name, loop);
+    }
+
 }
 
 [System.Serializable]

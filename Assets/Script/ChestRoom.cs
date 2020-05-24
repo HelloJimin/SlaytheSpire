@@ -30,5 +30,6 @@ public class ChestRoom : MonoBehaviour
         ObjectPoolManager.instance.GetRewardMoneyButton("artifact");
         UIManager.instance.alphaImage.SetActive(true);
         UIManager.instance.reward.SetActive(true);
+        SoundManager.instance.PlaySound("ChestOpen");
     }
 }

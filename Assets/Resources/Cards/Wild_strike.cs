@@ -20,8 +20,10 @@ public class Wild_strike : Card
 
     public override void Use(Character target)
     {
-        Debug.Log(AttackDamageCheck(GameManager.instance.player));
-        target.Hit(AttackDamageCheck(GameManager.instance.player));
+        base.Use(target);
+
+        Debug.Log(AttackDamageCheck(player, target));
+        target.Hit(AttackDamageCheck(player, target));
 
         Card newcard = ObjectPoolManager.instance.GetCard("Wound");
         newcard.transform.SetParent(GameManager.instance.myDeck.transform);

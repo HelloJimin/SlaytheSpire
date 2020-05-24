@@ -2,30 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Spine.Unity;
+
 public class Player : Character
 {
+    public struct CardUseCnt
+    {
+        public int attack;
+        public int skill;
+        public int power;
+    }
+
     public List<string> inventoryList;
     public List<string> artifactList;
+
+    public override int Vulnerable { get => base.Vulnerable; set { base.Vulnerable = value; GameManager.instance.MonstersDamageUIUpdate(); } }
+    #region 이벤트
 
     public delegate void BattleEnded();
     public event BattleEnded battleEnded;
     public delegate void BattleStarted();
     public event BattleStarted battleStart;
 
+    public delegate void AttackUseEvent();
+    public event AttackUseEvent attackUseEvent;
+    public delegate void SkillUseEvent();
+    public event SkillUseEvent skillUseEvent;
+    public delegate void PowerUseEvent();
+    public event PowerUseEvent powerUseEvent;
+
+    #endregion
+
+    CardUseCnt cardCnt;
+    public int AttackCnt { get { return cardCnt.attack; } set { cardCnt.attack = value; if (attackUseEvent != null) attackUseEvent.Invoke(); } }
+    public int SkillCnt { get { return cardCnt.skill; } set { cardCnt.skill = value; if (skillUseEvent != null) skillUseEvent.Invoke(); } }
+    public int PowerCnt { get { return cardCnt.power; } set { cardCnt.power = value; if (powerUseEvent != null) powerUseEvent.Invoke(); } }
+
     void Awake()
     {
         isPlayer = true;
+
+        battleStart += CardCountReset;
+        battleStart += DataInit;
+        SettingAnime();
         LoadInvenData();
         LoadPlayerData();
+
         artifactList.Add("BurningBlood");
         artifactList.Add("Meat");
         artifactList.Add("Marbles");
-        artifactList.Add("Mark_of_pain");
+        //artifactList.Add("Mark_of_pain");
         artifactList.Add("Lantern");
         //artifactList.Add("Blood_vial");
         //artifactList.Add("Vajra");
         //artifactList.Add("OldCoin");
+    }
 
+    public void CardCountReset()
+    {
+        cardCnt.attack = 0;
+        cardCnt.skill = 0;
+        cardCnt.power = 0;
     }
 
     void CreateInvenList()
@@ -49,7 +86,6 @@ public class Player : Character
 
     void LoadPlayerData()
     {
-
         if (JsonManager.CheckJsonData(gameObject.name, gameObject.name))
         {
             data = JsonManager.LoadJsonData<CharacterData>(gameObject.name, gameObject.name);
@@ -59,6 +95,15 @@ public class Player : Character
             IroncladSetting();
             JsonManager.SaveJsonData(data, gameObject.name, gameObject.name);
         }
+    }
+    void SettingAnime()
+    {
+        spain = GetComponent<SkeletonAnimation>();
+        spain.loop = true;
+        spain.AnimationName = "";
+        spain.Awake();
+        spain.Initialize(true);
+        AnimeChangeStart("Idle", true);
     }
 
     void LoadInvenData()
@@ -103,6 +148,9 @@ public class Player : Character
         battleStart.Invoke();
     }
 
-
-
+    public override void Hit(float damage)
+    {
+        base.Hit(damage);
+        AnimeOneShotStart("Hit");
+    }
 }

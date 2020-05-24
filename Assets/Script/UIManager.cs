@@ -71,8 +71,10 @@ public class UIManager : MonoBehaviour
     public ShopHand shopHand;
 
     public GameObject turnEndButton;
+    public Button deckAndCemetaryCancelButton;
     public MouseDescription mouseDescription;
 
+    public Text curretnFloorText;
     public GameObject chest;
     private void Awake()
     {
@@ -158,6 +160,7 @@ public class UIManager : MonoBehaviour
             ObjectPoolManager.instance.ReturnRewardButton(rewards[i]);
         }
         reward.SetActive(false);
+        SoundManager.instance.PlaySound("Map");
     }
 
     public void GoToRestRoom()
@@ -182,13 +185,34 @@ public class UIManager : MonoBehaviour
     {
         scollMapUI.SetActive(false);
         Neow.SetActive(false);
-       // mapScroll.SetActive(false);
         alphaImage.SetActive(false);
 
-        Debug.Log("몬스터룸으로 갑니다");
+        Debug.Log("몬스터룸으로 돌입합니다");
         battleSystem.SetActive(true);
         battleUI.SetActive(true);
-        GameManager.instance.StartGame();
+        GameManager.instance.StartGame("Monster");
+    }
+    public void GoToEliteRoom()
+    {
+        scollMapUI.SetActive(false);
+        Neow.SetActive(false);
+        alphaImage.SetActive(false);
+
+        Debug.Log("엘리트룸으로 돌입합니다");
+        battleSystem.SetActive(true);
+        battleUI.SetActive(true);
+        GameManager.instance.StartGame("Elite");
+    }
+    public void GoToBossRoom()
+    {
+        scollMapUI.SetActive(false);
+        Neow.SetActive(false);
+        alphaImage.SetActive(false);
+
+        Debug.Log("보스룸으로 돌입합니다");
+        battleSystem.SetActive(true);
+        battleUI.SetActive(true);
+        GameManager.instance.StartGame("Boss");
     }
 
     public void GoToShopRoom()
@@ -198,6 +222,7 @@ public class UIManager : MonoBehaviour
         battleSystem.SetActive(false);
         restRoom.SetActive(false);
         scollMapUI.gameObject.SetActive(false);
+        proceedButton.SetActive(true);
         shopNPC.SetActive(true);
         shopPanel.GetCards();
     }
@@ -284,4 +309,71 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void LookMyInvenList()
+    {
+        if (!battleSystem.activeSelf)
+        {
+            return;
+        }
+
+        alphaImage.SetActive(true);
+        battleUI.SetActive(false);
+        battleSystem.SetActive(false);
+
+        var resRoom = restRoom.GetComponent<RestRoom>();
+        resRoom.myAllCardList.SetActive(true);
+        choice = global::ChoiceMode.None;
+        GameObject myCemetaryCards = resRoom.myAllCardList.transform.Find("AllCards").gameObject;
+
+        List<string> invenList = GameManager.instance.myInventoryList;
+
+        for (int i = 0; i < invenList.Count; i++)
+        {
+            Card lookCard = ObjectPoolManager.instance.GetCard(invenList[i]);
+            lookCard.transform.SetParent(myCemetaryCards.transform);
+            lookCard.gameObject.SetActive(true);
+        }
+
+        deckAndCemetaryCancelButton.gameObject.SetActive(true);
+        deckAndCemetaryCancelButton.onClick.RemoveAllListeners();
+        deckAndCemetaryCancelButton.onClick.AddListener(ReturnBattleRoom);
+        SoundManager.instance.PlaySound("Click");
+    }
+
+    public void LookMyList(GameObject list)
+    {
+        alphaImage.SetActive(true);
+        battleUI.SetActive(false);
+        battleSystem.SetActive(false);
+
+        var resRoom = restRoom.GetComponent<RestRoom>();
+        resRoom.myAllCardList.SetActive(true);
+        choice = global::ChoiceMode.None;
+        GameObject myCemetaryCards = resRoom.myAllCardList.transform.Find("AllCards").gameObject;
+
+        for (int i = 0; i < list.transform.childCount; i++)
+        {
+            Card lookCard = ObjectPoolManager.instance.GetCard(list.transform.GetChild(i).GetComponent<Card>().GetType().Name);
+            lookCard.transform.SetParent(myCemetaryCards.transform);
+            lookCard.gameObject.SetActive(true);
+        }
+        deckAndCemetaryCancelButton.gameObject.SetActive(true);
+        deckAndCemetaryCancelButton.onClick.RemoveAllListeners();
+        deckAndCemetaryCancelButton.onClick.AddListener(ReturnBattleRoom);
+        SoundManager.instance.PlaySound("Click");
+    }
+
+    public void ReturnBattleRoom()
+    {
+        var resRoom = restRoom.GetComponent<RestRoom>();
+        resRoom.myAllCardList.SetActive(false);
+  
+        choice = global::ChoiceMode.Grab;
+        alphaImage.SetActive(false);
+        battleUI.SetActive(true);
+        battleSystem.SetActive(true);
+        
+       deckAndCemetaryCancelButton.gameObject.SetActive(false);
+        SoundManager.instance.PlaySound("Click");
+    }
 }

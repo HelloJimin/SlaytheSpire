@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 #region enum
 
@@ -44,6 +45,11 @@ public class Card : MonoBehaviour
     Image[] images;
     Text[] texts;
 
+    internal void Use()
+    {
+        throw new NotImplementedException();
+    }
+
     public GameObject priceObj;
     public int price;
     public int Price { get { return price; } set { price = value; PriceSetting(); } }
@@ -73,7 +79,7 @@ public class Card : MonoBehaviour
 
     public virtual void Use(Character target) //실제 사용되는 카드 효과
     {
-
+        CardCountUpdate();
     }
 
     public virtual void GoCenter(Character target)
@@ -217,7 +223,7 @@ public class Card : MonoBehaviour
         TextUpdate();
     }
 
-    public virtual int AttackDamageCheck(Character user)
+    public virtual int AttackDamageCheck(Character user, Character target)
     {
         float damage;
 
@@ -230,6 +236,9 @@ public class Card : MonoBehaviour
         {
             damage = user.data.power + card.value;
         }
+
+        if (target.Vulnerable > 0) damage *= 1.5f;
+
         return (int)damage;
     }
 
@@ -253,6 +262,21 @@ public class Card : MonoBehaviour
                 text.text = price.ToString();
             }
         }
+    }
+    public void CardCountUpdate()
+    {
+        switch (card.type)
+        {
+            case CardType.Attack:
+                player.AttackCnt++;
+                break;
+            case CardType.Skill:
+                player.SkillCnt++;
+                break;
+            case CardType.Power:
+                player.PowerCnt++;
+                break;
+        } 
     }
 }
 

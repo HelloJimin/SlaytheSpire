@@ -66,6 +66,7 @@ public class RestRoom : MonoBehaviour
         UIManager.instance.proceedButton.SetActive(true);
         actionPoint--;
         ButtonColorChange(new Color(255, 255, 255,0.5f));
+        SoundManager.instance.PlaySound("Click");
     }
 
     public void Upgrade()
@@ -104,6 +105,7 @@ public class RestRoom : MonoBehaviour
         UIManager.instance.proceedButton.SetActive(false);
         actionPoint--;
         ButtonColorChange(new Color(255, 255, 255, 0.5f));
+        SoundManager.instance.PlaySound("Click");
     }
 
     void PlayerAnimeMove()

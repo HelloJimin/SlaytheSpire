@@ -361,7 +361,7 @@ SpriteAtlas:
   - endTurnButton
   - panelHeart
   - key_slots
-  - burningBlood
+  - BurningBlood
   - description
   - Attack_Legend
   - debuff1

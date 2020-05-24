@@ -35,8 +35,6 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 }
                 return;
             case ChoiceMode.Choice:
-              //Card newca=  GameManager.instance.AddCardToDeck(card.GetType().Name);
-                
                 GameManager.instance.myInventoryList.Add(card.GetType().Name);
                 UIManager.instance.SucceesChoice();
                 return;
@@ -44,13 +42,14 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 UIManager.instance.RestCardGoToUpgradePanel(card);
                 return;
             case ChoiceMode.Shop:
-                if (playerData.data.money>card.Price)
+                if (playerData.data.money > card.Price)
                 {
-                    Debug.Log("들어옴");
                     playerData.data.money -= card.Price;
+                    card.gameObject.SetActive(false);
                     GameManager.instance.myInventoryList.Add(card.GetType().Name);
                     UIManager.instance.shopHand.GoToOrignalPosition();
                     UIManager.instance.SettingUI();
+                    SoundManager.instance.PlaySound("BuyCard");
                     return;
                 }
                 else
@@ -60,6 +59,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         }
         isGrab = true;
         originalPosition = transform.position;
+        SoundManager.instance.PlaySound("CardClick");
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -116,6 +116,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                     GameManager.instance.myInventoryList.Add(card.GetType().Name);
                     UIManager.instance.shopHand.GoToOrignalPosition();
                     UIManager.instance.SettingUI();
+                    SoundManager.instance.PlaySound("BuyCard");
                     return;
                 }
                 else
@@ -127,6 +128,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
         {
             isGrab = true;
             originalPosition = transform.position;
+            SoundManager.instance.PlaySound("CardClick");
         }
         else
         {
@@ -147,8 +149,10 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
             case ChoiceMode.Grab:
                 break;
             case ChoiceMode.Upgrade:
+                SoundManager.instance.PlaySound("CardHover");
                 break;
             case ChoiceMode.Choice:
+                SoundManager.instance.PlaySound("CardHover");
                 break;
             case ChoiceMode.RestUpgrade:
                 break;
@@ -158,6 +162,7 @@ public class CardMovement : MonoBehaviour, IPointerClickHandler, IBeginDragHandl
                 //transform.localScale += new Vector3(1.0f, 1.0f);
                 break;
         }
+     
     }
 
     public void OnPointerExit(PointerEventData eventData)

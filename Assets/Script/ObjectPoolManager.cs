@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+
+
+
 public class ObjectPoolManager : MonoBehaviour
 {
     #region 싱글톤
@@ -30,14 +33,13 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject rewardButtonPrefab;
     public GameObject statusUIPrefab;
 
-    public List<string> cardList = new List<string>();
-    public List<string> artifactList = new List<string>();
-
     List<Card> cardPool = new List<Card>();
-    List<Character> monsterPool = new List<Character>();
+    List<Monster> monsterPool = new List<Monster>();
     public List<Artifact> artifactPool = new List<Artifact>();
     Queue<Reward> rewardButtonPool = new Queue<Reward>();
     Queue<StatusUI> statusUIPool = new Queue<StatusUI>();
+
+    public ObjectPoolList lists;
 
     void Awake()
     {
@@ -46,56 +48,114 @@ public class ObjectPoolManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        string[] monsterFiles = { "NobGoblin" , "Cultist" };
+        SettingJsonData();
 
-        for (int i = 0; i < monsterFiles.Length; i++)
-        {
-          //  monsterPool.Add(CreateNewMonster(monsterFiles[i]));
-        }
-        artifactList.Add("BurningBlood");
-        artifactList.Add("Blood_vial");
-        artifactList.Add("OldCoin");
-        artifactList.Add("Vajra");
-        artifactList.Add("Orichalcum");
-        artifactList.Add("Meat");
-        artifactList.Add("Marbles");
-        artifactList.Add("Strawberry");
-        artifactList.Add("Mango");
-        artifactList.Add("Mark_of_pain");
-        artifactList.Add("Lantern");
-        for (int i = 0; i < artifactList.Count; i++)
-        {
-            artifactPool.Add(CreateArtifact(artifactList[i]));
-        }
-
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             statusUIPool.Enqueue(CreateStatusUI());
+        }
+
+        for (int i = 0; i < lists.monsterList.Count; i++)
+        {
+           monsterPool.Add(CreateNewMonster(lists.monsterList[i]));
+        }
+
+        for (int i = 0; i < lists.artifactList.Count; i++)
+        {
+            artifactPool.Add(CreateArtifact(lists.artifactList[i]));
+        }
+
+        for (int i = 0; i < lists.cardList.Count; i++)
+        {
+            for (int k = 0; k < 5; k++)
+            {
+               cardPool.Add(CreateCard(lists.cardList[i]));
+            }
         }
 
         for (int i = 0; i < 5; i++)
         {
             rewardButtonPool.Enqueue(CreateButtons());
         }
+    }
+    void SettingJsonData()
+    {
+        lists.monsterList = new List<string>();
+        lists.artifactList = new List<string>();
+        lists.cardList = new List<string>();
+        lists.monsterRoomSetting = new List<List<string>>();
 
-        cardList.Add("Bash");
-        cardList.Add("Armaments");
-        cardList.Add("Inflame");
-        cardList.Add("Heavy_blade");
-        cardList.Add("Wild_strike");
-        cardList.Add("Flex");
-        cardList.Add("Body_slam");
-        cardList.Add("Strike");
-        cardList.Add("Defend");
-        cardList.Add("Wound");
+        LoadJsonData(ref lists.cardList, "Cards");
+        LoadJsonData(ref lists.artifactList, "Artifacts");
+        LoadJsonData(ref lists.monsterList, "Monsters");
 
+        LoadRoomData();
+    }
+    void LoadRoomData()
+    {
+        int roomNum = 1;
+        List<string> temp = new List<string>();
 
-        for (int i = 0; i < cardList.Count; i++)
+        temp.Add("NobGoblin");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Elite1");
+        temp.Clear();
+
+        temp.Add("Lagavulin");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Elite2");
+        temp.Clear();
+
+        temp.Add("SlimeKing");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Boss1");
+        temp.Clear();
+
+        temp.Add("Cultist");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+        temp.Clear();
+        roomNum++;
+        temp.Add("LouseRed");
+        temp.Add("LouseGreen");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+        temp.Clear();
+        roomNum++;
+        temp.Add("JawWorm");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+        temp.Clear();
+        roomNum++;
+        temp.Add("SlimeM");
+        temp.Add("SlimeM");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+        temp.Clear();
+        roomNum++;
+        temp.Add("BlueSlaver");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+        temp.Clear();
+        roomNum++;
+        temp.Add("Fungi");
+        temp.Add("Fungi");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+        temp.Clear();
+        roomNum++;
+        temp.Add("SlimeL");
+        JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
+    }
+
+    void LoadJsonData(ref List<string> list, string name)
+    {
+        if (JsonManager.CheckJsonData("ObjectPoolList", name))
         {
-            for (int k = 0; k < 3; k++)
+            list = JsonManager.LoadJsonData<List<string>>("ObjectPoolList", name);
+        }
+        else
+        {
+            string path = "Assets/Resources/" + name;
+            string[] scripts = Directory.GetFiles(path, "*.cs");
+
+            list.Clear();
+            for (int i = 0; i < scripts.Length; i++)
             {
-               cardPool.Add(CreateCard(cardList[i]));
+                list.Add(scripts[i].Substring(path.Length + 1).Split('.')[0]);
             }
+            JsonManager.SaveJsonData(list, "ObjectPoolList", name);
         }
     }
 
@@ -104,7 +164,6 @@ public class ObjectPoolManager : MonoBehaviour
     StatusUI CreateStatusUI()
     {
         StatusUI newUI = Instantiate(statusUIPrefab, transform.Find("StatusUIs")).GetComponent<StatusUI>();
-
         newUI.gameObject.SetActive(false);
         return newUI;
     }
@@ -142,10 +201,10 @@ public class ObjectPoolManager : MonoBehaviour
         return newButton;
     }
 
-    Character CreateNewMonster(string monsterFileName)
+    Monster CreateNewMonster(string monsterFileName)
     {
         Debug.Log(monsterFileName+ " 생성 완료");
-        Character newMon = Instantiate(monsterPrefab, transform.Find("Monsters")).AddComponent(System.Type.GetType(monsterFileName)).GetComponent<Character>();
+        Monster newMon = Instantiate(monsterPrefab, transform.Find("Monsters")).AddComponent(System.Type.GetType(monsterFileName)).GetComponent<Monster>();
         newMon.gameObject.SetActive(false);
         newMon.name = monsterFileName;
         return newMon;
@@ -235,9 +294,9 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
-    public Character GetMonster(string monsterName)
+    public Monster GetMonster(string monsterName)
     {
-        Character mon;
+        Monster mon;
 
         if (monsterPool.Count > 0)
         {
@@ -290,7 +349,7 @@ public class ObjectPoolManager : MonoBehaviour
         artifact.transform.SetParent(transform.Find("Artifacts"));
     }
 
-    public void ReturnMonster(Character monster)
+    public void ReturnMonster(Monster monster)
     {
         monster.gameObject.SetActive(false);
         monster.transform.SetParent(transform.Find("Monsters"));
@@ -319,5 +378,12 @@ public class ObjectPoolManager : MonoBehaviour
         ui.transform.SetParent(transform.Find("StatusUIs"));
     }
     #endregion
-
+}
+[System.Serializable]
+public struct ObjectPoolList
+{
+    public List<string> monsterList;
+    public List<string> cardList;
+    public List<string> artifactList;
+    public List<List<string>> monsterRoomSetting;
 }

@@ -19,6 +19,7 @@ public class Corruption : Card
 
     public override void Use(Character target)
     {
+        base.Use(target);
         Debug.Log("타락카드 사용");
     }
 }

@@ -38,7 +38,7 @@ public class Shop : MonoBehaviour
         UIManager.instance.choice = ChoiceMode.Shop;
         gameObject.SetActive(true);
         StartCoroutine(test());
-
+        SoundManager.instance.PlaySound("ShopClose");
         // groups[0].enabled = false;  
     }
 
@@ -62,7 +62,7 @@ public class Shop : MonoBehaviour
 
     public void RandmCardRewardNomal(GameObject parent, CardColor cardColor, CardGrade cardGrade)
     {
-        List<string> list = ObjectPoolManager.instance.cardList;
+        List<string> list = ObjectPoolManager.instance.lists.cardList;
         bool ok = true;
 
         while (ok)
@@ -131,7 +131,7 @@ public class Shop : MonoBehaviour
 
     public void CloseShopPanel()
     {
-
+        SoundManager.instance.PlaySound("ShopClose");
         gameObject.SetActive(false);
     }
 }

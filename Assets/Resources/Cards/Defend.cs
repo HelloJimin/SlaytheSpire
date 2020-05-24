@@ -20,9 +20,9 @@ public class Defend : Card
 
     public override void Use(Character target)
     {
-        GameManager.instance.player.GetShield(card.value);
-        Debug.Log("실드량:" + GameManager.instance.player.data.shield);
-      //  GoCenter();
+        base.Use(target);
+        player.GetShield(card.value);
+        Debug.Log("실드량:" + player.data.shield);
     }
 
     public override void CardUpgrade()

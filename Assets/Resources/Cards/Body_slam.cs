@@ -20,8 +20,10 @@ public class Body_slam : Card
 
     public override void Use(Character target)
     {
-        Debug.Log(AttackDamageCheck(GameManager.instance.player));
-        target.Hit(AttackDamageCheck(GameManager.instance.player));
+        base.Use(target);
+
+        Debug.Log(AttackDamageCheck(player,target));
+        target.Hit(AttackDamageCheck(player, target));
         UIManager.instance.EffectStart("atk2", target.transform);
      //   GoCenter();
     }
@@ -32,7 +34,7 @@ public class Body_slam : Card
         base.CardUpgrade();
     }
 
-    public override int AttackDamageCheck(Character user)
+    public override int AttackDamageCheck(Character user, Character target)
     {
         card.value = GameManager.instance.player.data.shield;
         float damage;
@@ -46,6 +48,9 @@ public class Body_slam : Card
         {
             damage = user.data.power + card.value;
         }
+
+        if (target.Vulnerable > 0) damage *= 1.5f;
+
         return (int)damage;
     }
 }
