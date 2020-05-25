@@ -58,11 +58,13 @@ public class Monster : Character
 
     public virtual void Dead()
     {
-        GameManager.instance.monsters.Remove(this);
+        //GameManager.instance.monsters.Remove(this);
+        GameManager.instance.monsters.Remove(GameManager.instance.getMyKey(this));
         GameManager.instance.currentRoomMoney += data.money;
         ObjectPoolManager.instance.ReturnMonster(this);
         UIManager.instance.SettingUI();
         GameManager.instance.BattleEnd();
+        GameManager.instance.monsterKill++;
     }
 
     public virtual void Action()

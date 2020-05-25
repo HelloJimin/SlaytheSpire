@@ -51,7 +51,6 @@ public class UIManager : MonoBehaviour
 
     public GameObject battleSystem;
     public GameObject battleUI;
-    public GameObject mapScroll;
     public GameObject Neow;
     public GameObject reward;
     public GameObject costUI;
@@ -76,6 +75,14 @@ public class UIManager : MonoBehaviour
 
     public Text curretnFloorText;
     public GameObject chest;
+
+    public GameObject Heart;
+
+    public SpriteRenderer mapBG;
+
+    public GameObject hudDamageTextPrefab;
+    public Transform hudPos;
+
     private void Awake()
     {
         if (instance != this)
@@ -91,7 +98,7 @@ public class UIManager : MonoBehaviour
         costUIs = costUI.GetComponentsInChildren<Image>();
         StartCoroutine(Bingle());
         choice = global::ChoiceMode.Grab;
-
+        mapBG.sprite = Resources.Load<Sprite>("Sprite/bottomScene/Map1") as Sprite;
         //    reward.GetComponent<Button>().GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
@@ -135,12 +142,12 @@ public class UIManager : MonoBehaviour
     }
     public void GoToMap()
     {
+
         GameManager.instance.player.DataInit();
         choice = global::ChoiceMode.Grab;
 
         Neow.SetActive(false);
         alphaImage.SetActive(false);
-        scollMapUI.gameObject.SetActive(true);
 
         //mapScroll.SetActive(true);
         battleSystem.SetActive(false);
@@ -160,7 +167,18 @@ public class UIManager : MonoBehaviour
             ObjectPoolManager.instance.ReturnRewardButton(rewards[i]);
         }
         reward.SetActive(false);
+
+        if (GameManager.instance.isClear)
+        {
+            mapBG.sprite = Resources.Load<Sprite>("Sprite/bottomScene/endingMap") as Sprite;
+            Heart.SetActive(true);
+            return;
+        }
+
         SoundManager.instance.PlaySound("Map");
+        scollMapUI.gameObject.SetActive(true);
+        GameManager.instance.SavePlayingData();
+        MapManager.instance.SaveMap();
     }
 
     public void GoToRestRoom()

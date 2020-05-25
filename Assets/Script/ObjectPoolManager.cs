@@ -147,7 +147,7 @@ public class ObjectPoolManager : MonoBehaviour
         }
         else
         {
-            string path = "Assets/Resources/" + name;
+            string path = Application.streamingAssetsPath + "/"+ name;
             string[] scripts = Directory.GetFiles(path, "*.cs");
 
             list.Clear();

@@ -20,9 +20,9 @@ namespace Map
 
         private void Awake()
         {
-            mainCamera = Camera.main;
-            zDisplacement = -mainCamera.transform.position.z + transform.position.z;
-            UIManager.instance.scollMapUI = gameObject;
+           mainCamera = Camera.main;
+           zDisplacement = -mainCamera.transform.position.z + transform.position.z;
+           UIManager.instance.scollMapUI = gameObject;
            gameObject.SetActive(false);
         }
 

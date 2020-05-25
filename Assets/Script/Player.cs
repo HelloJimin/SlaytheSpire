@@ -16,6 +16,8 @@ public class Player : Character
     public List<string> inventoryList;
     public List<string> artifactList;
 
+    public GameObject hitPanel;
+
     public override int Vulnerable { get => base.Vulnerable; set { base.Vulnerable = value; GameManager.instance.MonstersDamageUIUpdate(); } }
     #region 이벤트
 
@@ -37,6 +39,7 @@ public class Player : Character
     public int AttackCnt { get { return cardCnt.attack; } set { cardCnt.attack = value; if (attackUseEvent != null) attackUseEvent.Invoke(); } }
     public int SkillCnt { get { return cardCnt.skill; } set { cardCnt.skill = value; if (skillUseEvent != null) skillUseEvent.Invoke(); } }
     public int PowerCnt { get { return cardCnt.power; } set { cardCnt.power = value; if (powerUseEvent != null) powerUseEvent.Invoke(); } }
+    public int Money { get { return data.money; } set { data.money = value; GameManager.instance.allMoney = value;  } }
 
     void Awake()
     {
@@ -123,7 +126,7 @@ public class Player : Character
     {
         data.maxHP = 80;
         data.currentHP = data.maxHP;
-        data.money = 100;
+        Money = 100;
     }
 
     public void BattleEnd()
@@ -152,5 +155,21 @@ public class Player : Character
     {
         base.Hit(damage);
         AnimeOneShotStart("Hit");
+        StartCoroutine(HitPanelOn());
+        if (data.currentHP<=0)
+        {
+            Dead();
+        }
+    }
+    void Dead()
+    {
+        FindObjectOfType<EndingManager>().Die();
+    }
+    
+    IEnumerator HitPanelOn()
+    {
+        hitPanel.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        hitPanel.SetActive(false);
     }
 }

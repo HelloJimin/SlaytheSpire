@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
         set
         {
             vulnerable = value;
-            PropertySet("vulnerable", Resources.LoadAll<Sprite>("Sprite/powers")[109], vulnerable , "취약 상태");
+            PropertySet("vulnerable", Resources.LoadAll<Sprite>("Sprite/powers")[109], vulnerable , "취약 상태. 대미지를 50% 추가로 받습니다.");
             if (vulnerable >0)
             {
                SoundManager.instance.PlaySound("Debuff");
@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
         set
         {
             weak = value;
-            PropertySet("weak", Resources.LoadAll<Sprite>("Sprite/powers")[147], weak,"손상 상태");
+            PropertySet("weak", Resources.LoadAll<Sprite>("Sprite/powers")[147], weak,"약화 상태. 대미지가 30% 감소합니다.");
             if (weak > 0)
             {
                 SoundManager.instance.PlaySound("Debuff");
@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
         set
         {
             frail = value;
-            PropertySet("frail", Resources.LoadAll<Sprite>("Sprite/powers")[64] , frail , "약화 상태");
+            PropertySet("frail", Resources.LoadAll<Sprite>("Sprite/powers")[64] , frail , "손상 상태. 카드로부터 얻는 방어도가 25% 감소합니다.");
             if (frail > 0)
             {
                 SoundManager.instance.PlaySound("Debuff");
@@ -126,6 +126,8 @@ public class Character : MonoBehaviour
 
     public GameObject statusPanel;
 
+
+
     public virtual void Start()
     {
         HPText = transform.Find("Canvas/MyHP/HPText").GetComponent<Text>();
@@ -141,10 +143,17 @@ public class Character : MonoBehaviour
         damage = DefenseDamageCheck(damage);
         
         data.currentHP -= (int)damage;
+        if (data.currentHP<0) data.currentHP = 0;
+
         SettingHPUI();
         //ShieldBreak();
         UIManager.instance.CameraShake();
         SoundManager.instance.PlaySound("FastAtk1");
+
+        GameObject hudText = Instantiate(UIManager.instance.hudDamageTextPrefab); // 생성할 텍스트 오브젝트
+        hudText.transform.SetParent(UIManager.instance.battleUI.transform.parent);
+        hudText.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0,3,0)); // 표시될 위치
+        hudText.GetComponent<DamageText>().damage = (int)damage; // 데미지 전달
     }
 
     public int DefenseDamageCheck(float damage)

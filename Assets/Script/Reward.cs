@@ -7,7 +7,6 @@ public class Reward : MonoBehaviour
     public Image icon;
     Artifact rewardArtifact;
 
-
     public void init(string type)
     {
         if (type == "money")
@@ -48,7 +47,7 @@ public class Reward : MonoBehaviour
 
     public void MoneyButton()
     {
-        GameManager.instance.player.data.money += GameManager.instance.currentRoomMoney;
+        GameManager.instance.player.Money += GameManager.instance.currentRoomMoney;
         ObjectPoolManager.instance.ReturnRewardButton(this);
         UIManager.instance.SettingUI();
         SoundManager.instance.PlaySound("GetGold");
@@ -73,6 +72,7 @@ public class Reward : MonoBehaviour
 
     public void artifactButton()
     {
+        GameManager.instance.myArtifactList.Add(rewardArtifact.GetType().Name);
         rewardArtifact.transform.SetParent(GameManager.instance.myArtifact.transform);
         rewardArtifact.gameObject.SetActive(true);
         rewardArtifact.ActiveEffect();
@@ -87,11 +87,7 @@ public class Reward : MonoBehaviour
     {
         List<string> list = ObjectPoolManager.instance.lists.cardList;
         GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
-        for (int i = 0; i < list.Count; i++)
-        {
-            Debug.Log(list[i]);
-        }
-            Debug.Log("갯수수수수"+list.Count);
+
         bool ok = true;
 
         while (ok)

@@ -25,10 +25,12 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip[] audioClips;
     AudioSource audioSource;
-
+    public Option option;
+    
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        option.LoadOptionData();
     }
 
     public void PlaySound(string name)

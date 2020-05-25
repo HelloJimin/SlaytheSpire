@@ -300,22 +300,22 @@
       <HintPath>Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.2d.common@1.0.11-preview.1/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.2d.common@1.0.11-preview.1/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:\Unity\2018.4.20f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll</HintPath>
@@ -701,16 +701,28 @@
     <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />
     <None Include="Assets\Demigiant\DemiLib\Core\DemiLib.xml" />
     <None Include="Assets\Demigiant\DemiLib\Core\Editor\DemiEditor.xml" />
+    <None Include="Assets\Febucci\Text Animator\Example\Font\OFL.txt" />
+    <None Include="Assets\Febucci\Text Animator\Integrations\Integrations.txt" />
     <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
     <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
     <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
     <None Include="Assets\JsonDotNet\link.xml" />
     <None Include="Assets\Resources\Sprite\Character\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\BlueSlaver\skeleton.atlas.txt" />
     <None Include="Assets\Resources\Sprite\Monster\Cultist\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\Fungi\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\JawWorm\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\Lagavulin\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\LouseGreen\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\LouseRed\skeleton.atlas.txt" />
     <None Include="Assets\Resources\Sprite\Monster\NobGoblin\skeleton.atlas.txt" />
-    <None Include="Assets\Resources\Sprite\Monster\blueSlaver\skeleton.atlas.txt" />
-    <None Include="Assets\Resources\Sprite\Monster\slimeL\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\SlimeKing\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\SlimeL\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\SlimeM\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\Monster\SlimeS\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\NPCs\Heart\skeleton.atlas.txt" />
     <None Include="Assets\Resources\Sprite\NPCs\Neow\skeleton.atlas.txt" />
+    <None Include="Assets\Resources\Sprite\NPCs\merchant\skeleton.atlas.txt" />
     <None Include="Assets\ScrollMap\Shaders\MADFINGER-Unlit-Scroll2Layers-Sine-AlphaBlend-No-Amp.shader" />
     <None Include="Assets\ScrollMap\Shaders\Scroll.shader" />
     <None Include="Assets\ScrollMap\Sprites\game-icons.net\license.txt" />

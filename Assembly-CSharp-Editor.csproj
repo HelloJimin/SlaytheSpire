@@ -62,6 +62,14 @@
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTweenPro\Editor\DOTweenAnimationInspector.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\Editor\DOTweenPreviewManager.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Core\Editor\TAnimGlobalDataScriptableDrawer.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Core\Editor\TextAnimatorDrawer.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Core\Utilities\Attributes\Editor\CharsDisplayTimeAttributeDrawer.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Core\Utilities\Attributes\Editor\MinValueAttributeDrawer.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Core\Utilities\Attributes\Editor\NotZeroAttribute.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Core\Utilities\Attributes\Editor\PositiveValueAttributeDrawer.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Example\Editor\EffectsTestingCustomEditor.cs" />
+    <Compile Include="Assets\Febucci\Text Animator\Example\Editor\UsageExampleCustomEditor.cs" />
     <Compile Include="Assets\ScrollMap\Scripts\Editor\MapManagerInspector.cs" />
     <Compile Include="Assets\ScrollMap\Scripts\ReorderableList\Example\Editor\ExampleEditor.cs" />
     <Compile Include="Assets\ScrollMap\Scripts\ReorderableList\Example\Editor\GameObjectEditor.cs" />
@@ -95,43 +103,43 @@
     <None Include="Assets\spine-unity\Assets\spine-unity\Editor\Resources\SpineAssetDatabaseMarker.txt" />
     <None Include="Assets\Demigiant\DemiLib\Core\Editor\DemiEditor.xml" />
     <Reference Include="Cinemachine">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>D:/myProject/SlaytheSpire/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Unity/2018.4.20f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -368,43 +376,43 @@
       <HintPath>E:/Unity/2018.4.20f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="DemiLib">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
     </Reference>
     <Reference Include="DemiEditor">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/Demigiant/DemiLib/Core/Editor/DemiEditor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/Demigiant/DemiLib/Core/Editor/DemiEditor.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenEditor">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenPro">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenProEditor">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/myProject/SlaytheSpire/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.2d.common@1.0.11-preview.1/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.2d.common@1.0.11-preview.1/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/myProject/SlaytheSpire/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/digim/OneDrive/바탕 화면/다운로드/SlaytheSpire/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Unity/2018.4.20f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

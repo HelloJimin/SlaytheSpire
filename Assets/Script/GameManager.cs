@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-
+using System.Linq;
 public class GameManager : MonoBehaviour
 {
     #region 싱글톤
@@ -24,6 +23,7 @@ public class GameManager : MonoBehaviour
     private static GameManager m_instance;
     #endregion
 
+    public bool isClear;
     bool isPlayerTurn;
 
     public int currentCost;
@@ -41,11 +41,18 @@ public class GameManager : MonoBehaviour
     public Player player;
     public GameObject cardPrefab;
 
-    public List<Monster> monsters = new List<Monster>();
+    //public List<Monster> monsters = new List<Monster>();
+    public Dictionary<int, Monster> monsters = new Dictionary<int, Monster>();
 
     int currentFloor;
-    public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; UIManager.instance.curretnFloorText.text = currentFloor.ToString(); } }
+    public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; if(value != 0) UIManager.instance.curretnFloorText.transform.parent.gameObject.SetActive(true);  UIManager.instance.curretnFloorText.text = currentFloor.ToString(); } }
 
+    public PlayingData saveData;
+
+    public int allMoney;
+    public int monsterKill;
+    public int eliteKill;
+    
     //public delegate void BattleEndProcess();
     // public event BattleEndProcess battleEndProcess;
 
@@ -60,27 +67,41 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         maxCost = 3;
         currentRoomMoney = 0;
-        CurrentFloor = 1;
+        CurrentFloor = 0;
+        isClear = false;
     }
 
     void Start()
     {
         // battleUI = UIManager.instance.powerZone.transform.parent.gameObject;
         myInventoryList = player.inventoryList;
-        myInventoryList.Add("Inflame");
         myArtifactList = player.artifactList;
 
         player.myTurnStart += StartPhase;
         UIManager.instance.SettingUI();
         UIManager.instance.GoToNeowRoom();
 
-        for (int i = 0; i < myArtifactList.Count; i++)
+
+        if (JsonManager.CheckJsonData("PlayingData", "saveData"))
         {
-            Artifact artifact = ObjectPoolManager.instance.GetArtifact(myArtifactList[i]);
-            artifact.transform.SetParent(myArtifact.transform);
-            artifact.gameObject.SetActive(true);
-            artifact.ActiveEffect();
+            saveData = JsonManager.LoadJsonData<PlayingData>("PlayingData", "saveData");
+            myInventoryList = saveData.myInventoryList;
+            myArtifactList = saveData.myArtifactList;
+            ArtifactSetting();
+
+            player.data.currentHP = saveData.hp;
+            player.data.maxHP = saveData.maxHp;
+            player.data.money = saveData.money;
+            monsterKill = saveData.monsterKill;
+            eliteKill = saveData.eliteKill;
+            allMoney = saveData.getAllMoney;
+            CurrentFloor = saveData.floor;
+
+            UIManager.instance.SettingUI();
+            UIManager.instance.GoToMap();
+            return;
         }
+        ArtifactSetting();
     }
 
     public void StartGame(string level)
@@ -92,6 +113,21 @@ public class GameManager : MonoBehaviour
         player.BattleStart();
         TurnProcessing();
         UIManager.instance.SettingUI();
+    }
+
+    public void SavePlayingData()
+    {
+        SoundManager.instance.option.SaveOption();
+        saveData.floor = CurrentFloor;
+        saveData.hp = player.data.currentHP;
+        saveData.maxHp = player.data.maxHP;
+        saveData.money = player.data.money;
+        saveData.getAllMoney = allMoney;
+        saveData.monsterKill = monsterKill;
+        saveData.eliteKill = eliteKill;
+        saveData.myInventoryList = myInventoryList;
+        saveData.myArtifactList = myArtifactList;
+        JsonManager.SaveJsonData(saveData, "PlayingData", "saveData");
     }
 
     public void SettingMyDeck(GameObject after)
@@ -151,10 +187,17 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("적턴");
             SoundManager.instance.PlaySound("EnemyTurn");
-            for (int i = 0; i < monsters.Count; i++)
+
+            int tum = 0;
+            foreach (var item in monsters)
             {
-                StartCoroutine(monsters[i].MyStartPhase(1.0f + (0.5f * i)));
+                StartCoroutine(item.Value.MyStartPhase(1.0f + (0.5f * tum)));
+                tum++;
             }
+            //for (int i = 0; i < monsters.Count; i++)
+            //{
+            //    StartCoroutine(monsters[i].MyStartPhase(1.0f + (0.5f * i)));
+            //}
             StartCoroutine(EndPhase());
         }
         UIManager.instance.SettingUI();
@@ -184,16 +227,24 @@ public class GameManager : MonoBehaviour
             SoundManager.instance.PlaySound("EndTurn");
             AllTransferCards(myHand, myCemetary, false);
             player.MyEndPhase();
-            for (int i = 0; i < monsters.Count; i++)
+            //for (int i = 0; i < monsters.Count; i++)
+            //{
+            //    monsters[i].YourEndPhase();
+            //}
+            foreach (var item in monsters)
             {
-                monsters[i].YourEndPhase();
+                item.Value.YourEndPhase();
             }
         }
         else
         {
-            for (int i = 0; i < monsters.Count; i++)
+            //for (int i = 0; i < monsters.Count; i++)
+            //{
+            //    monsters[i].MyEndPhase();
+            //}
+            foreach (var item in monsters)
             {
-                monsters[i].MyEndPhase();
+                item.Value.MyEndPhase();
             }
             player.YourEndPhase();
         }
@@ -224,9 +275,17 @@ public class GameManager : MonoBehaviour
         {
             Monster monster = ObjectPoolManager.instance.GetMonster(temp[i]);
             monster.gameObject.SetActive(true);
-            monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.
-                GetChild(Random.Range(0, GameObject.Find("MonsterSpawnPoints").transform.childCount)).transform.position;
-            monsters.Add(monster);
+            //for (int k = 0; k < spons.Length; k++)
+            //{
+            //    if (spons[i] == false)
+            //    {
+            //        monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.GetChild(i).transform.position;
+            //        spons[i] = true;
+            //        break;
+            //    }
+            //}
+            monster.transform.position = GameObject.Find("MonsterSpawnPoints").transform.GetChild(i).transform.position;
+            monsters.Add(i,monster);
         }
     }
 
@@ -252,9 +311,13 @@ public class GameManager : MonoBehaviour
 
     public void DeckReset(GameObject before)
     {
-        int retunCnt = before.transform.childCount;
+        //int retunCnt = before.transform.childCount;
 
-        for (int i = 0; i < retunCnt; i++)
+        //for (int i = 0; i < retunCnt; i++)
+        //{
+        //    ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
+        //}
+        while (before.transform.childCount != 0)
         {
             ObjectPoolManager.instance.ReturnCard(before.transform.GetChild(0).GetComponent<Card>());
         }
@@ -296,9 +359,46 @@ public class GameManager : MonoBehaviour
     }
     public void MonstersDamageUIUpdate()
     {
-        for (int i = 0; i < monsters.Count; i++)
+        //for (int i = 0; i < monsters.Count; i++)
+        //{
+        //    monsters[i].SettingDamageUI();
+        //}
+        foreach (var item in monsters)
         {
-            monsters[i].SettingDamageUI();
+            item.Value.SettingDamageUI();
         }
     }
+
+    public int getMyKey(Monster monster)
+    {
+        var key= monsters.FirstOrDefault(x => x.Value == monster).Key;
+        return key;
+    }
+
+    void ArtifactSetting()
+    {
+        for (int i = 0; i < myArtifactList.Count; i++)
+        {
+            Artifact artifact = ObjectPoolManager.instance.GetArtifact(myArtifactList[i]);
+            artifact.transform.SetParent(myArtifact.transform);
+            artifact.gameObject.SetActive(true);
+            artifact.ActiveEffect();
+        }
+    }
+}
+
+[System.Serializable]
+public struct PlayingData
+{
+    public List<string> myArtifactList;
+    public List<string> myInventoryList;
+    public int hp;
+    public int maxHp;
+    public int money;
+    public int floor;
+    public int monsterKill;
+    public int eliteKill;
+    public int getArtifactCnt;
+    public int getAllMoney;
+    public int volume;
 }
