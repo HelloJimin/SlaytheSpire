@@ -32,6 +32,8 @@ public class Lagavulin : Monster
         AnimeChangeStart("Idle_1",true);
         PropertySet("금속화", Resources.LoadAll<Sprite>("Sprite/powers")[150], 8, "턴 종료시 8의 방어도를 얻습니다.");
         ActionCheck();
+        GameManager.instance.isEliteRoom = true;
+
     }
 
     public override void ActionCheck()
@@ -125,6 +127,7 @@ public class Lagavulin : Monster
         {
             if (data.currentHP< data.maxHP)
             {
+                Debug.Log("체력" + data.currentHP);
                 status = Status.Stun;
                 RemoveStatusUI("금속화");
                 ActionCheck();

@@ -20,12 +20,25 @@ public class Wound : Card
 
     public override void Use(Character target)
     {
-       // GoCenter();
+        ObjectPoolManager.instance.ReturnCard(this);
+        Card newcard = ObjectPoolManager.instance.GetCard("Wound");
+        newcard.transform.SetParent(GameManager.instance.myHand.transform);
+        newcard.gameObject.SetActive(true);
     }
 
     public override void CardUpgrade()
     {
         card.value = 9;
         base.CardUpgrade();
+    }
+
+    public override IEnumerator StopCard(Character target)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (usedAnime.activeSelf)
+        {
+            StartCoroutine(StopCard(target));
+        }
     }
 }

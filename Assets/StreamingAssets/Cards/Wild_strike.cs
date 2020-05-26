@@ -25,11 +25,10 @@ public class Wild_strike : Card
         Debug.Log(AttackDamageCheck(player, target));
         target.Hit(AttackDamageCheck(player, target));
 
-        Card newcard = ObjectPoolManager.instance.GetCard("Wound");
-        newcard.transform.SetParent(GameManager.instance.myDeck.transform);
+        ObjectPoolManager.instance.GetDebuffCard("Wound");
+        UIManager.instance.EffectStart("atk1", target.transform.position);
 
-        UIManager.instance.EffectStart("atk1", target.transform);
-       // GoCenter(target);
+        // GoCenter(target);
     }
 
     public override void CardUpgrade()

@@ -77,8 +77,7 @@ public class SlimeL : Slime
 
         for (int i = 0; i < 2; i++)
         {
-            Card newcard = ObjectPoolManager.instance.GetCard("Wound");
-            newcard.transform.SetParent(GameManager.instance.myDeck.transform);
+            ObjectPoolManager.instance.GetDebuffCard("Slimed");
         }
     }
 

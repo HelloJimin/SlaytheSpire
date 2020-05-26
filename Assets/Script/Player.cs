@@ -52,13 +52,6 @@ public class Player : Character
         LoadPlayerData();
 
         artifactList.Add("BurningBlood");
-        artifactList.Add("Meat");
-        artifactList.Add("Marbles");
-        //artifactList.Add("Mark_of_pain");
-        artifactList.Add("Lantern");
-        //artifactList.Add("Blood_vial");
-        //artifactList.Add("Vajra");
-        //artifactList.Add("OldCoin");
     }
 
     public void CardCountReset()
@@ -99,6 +92,7 @@ public class Player : Character
             JsonManager.SaveJsonData(data, gameObject.name, gameObject.name);
         }
     }
+
     void SettingAnime()
     {
         spain = GetComponent<SkeletonAnimation>();
@@ -155,12 +149,16 @@ public class Player : Character
     {
         base.Hit(damage);
         AnimeOneShotStart("Hit");
-        StartCoroutine(HitPanelOn());
+        if (DefenseDamageCheck(damage) >0)
+        {
+            StartCoroutine(HitPanelOn());
+        }
         if (data.currentHP<=0)
         {
             Dead();
         }
     }
+
     void Dead()
     {
         FindObjectOfType<EndingManager>().Die();

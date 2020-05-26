@@ -29,7 +29,7 @@ public class Bash : Card
 
         target.Hit(AttackDamageCheck(player, target));
         target.Vulnerable += vulPower;
-        UIManager.instance.EffectStart("atk2", target.transform);
+        UIManager.instance.EffectStart("atk2", target.transform.position);
     }
 
     public override void CardUpgrade()

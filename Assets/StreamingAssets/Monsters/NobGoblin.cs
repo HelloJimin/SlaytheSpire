@@ -16,6 +16,8 @@ public class NobGoblin : Monster
         isFirst = true;
         spain.AnimationName = "animation";
         ActionCheck();
+        GameManager.instance.isEliteRoom = true;
+
     }
 
     public override void ActionCheck()

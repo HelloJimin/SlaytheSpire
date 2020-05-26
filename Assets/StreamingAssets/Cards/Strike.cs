@@ -8,7 +8,7 @@ public class Strike : Card
     {
         usedAnime = UIManager.instance.usedCardAnime;
         card.name = "타격";
-        card.value = 999;
+        card.value = 6;
         card.cost = 1;
         card.color = CardColor.Red;
         card.type = CardType.Attack;
@@ -23,7 +23,7 @@ public class Strike : Card
         base.Use(target);
         Debug.Log(AttackDamageCheck(player, target));
         target.Hit(AttackDamageCheck(GameManager.instance.player, target));
-       UIManager.instance.EffectStart("atk3", target.transform);
+       UIManager.instance.EffectStart("atk3", target.transform.position);
     //   GoCenter();
     }
 

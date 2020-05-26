@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 
@@ -213,6 +214,22 @@ public class ObjectPoolManager : MonoBehaviour
     #endregion
 
     #region GET
+    public void GetDebuffCard(string name)
+    {
+        Card newcard = GetCard("Wound");
+        newcard.transform.SetParent(UIManager.instance.battleUI.transform);
+        newcard.gameObject.SetActive(true);
+
+        newcard.transform.position = new Vector3(Random.Range(400, 1700), Random.Range(300, 800), 0);
+
+        newcard.transform.DOJump(UIManager.instance.myDeckText.transform.position, 400, 1, 0.7f).SetEase(Ease.InQuad)
+             .OnComplete(() =>
+             {
+                 newcard.transform.SetParent(GameManager.instance.myDeck.transform);
+                 newcard.gameObject.SetActive(false);
+             });
+    }
+
     public Artifact GetArtifact(string artifactName)
     {
         Artifact artifact;

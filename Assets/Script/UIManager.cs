@@ -112,17 +112,17 @@ public class UIManager : MonoBehaviour
         GameManager.instance.player.SettingHPUI();
     }
 
-    public IEnumerator Effect(string effName , Transform target)
+    public IEnumerator Effect(string effName , Vector3 target)
     {
         AtkEffect.gameObject.SetActive(true);
         AtkEffect.sprite = Resources.Load<Sprite>("Sprite/Cards/atkEffects/" + effName) as Sprite;
-        AtkEffect.transform.position = target.position+ new Vector3(0,1.5f,0);
+        AtkEffect.transform.position = target+ new Vector3(0,1.5f,0);
 
         yield return new WaitForSeconds(0.1f);
         AtkEffect.gameObject.SetActive(false);
     }
 
-    public void EffectStart(string effName, Transform target)
+    public void EffectStart(string effName, Vector3 target)
     {
         StartCoroutine(Effect(effName, target));
     }
@@ -142,7 +142,7 @@ public class UIManager : MonoBehaviour
     }
     public void GoToMap()
     {
-
+        GameManager.instance.isEliteRoom = false;
         GameManager.instance.player.DataInit();
         choice = global::ChoiceMode.Grab;
 
@@ -202,7 +202,6 @@ public class UIManager : MonoBehaviour
     public void GoToMonsterRoom()
     {
         scollMapUI.SetActive(false);
-        Neow.SetActive(false);
         alphaImage.SetActive(false);
 
         Debug.Log("몬스터룸으로 돌입합니다");
@@ -213,7 +212,6 @@ public class UIManager : MonoBehaviour
     public void GoToEliteRoom()
     {
         scollMapUI.SetActive(false);
-        Neow.SetActive(false);
         alphaImage.SetActive(false);
 
         Debug.Log("엘리트룸으로 돌입합니다");
@@ -224,7 +222,6 @@ public class UIManager : MonoBehaviour
     public void GoToBossRoom()
     {
         scollMapUI.SetActive(false);
-        Neow.SetActive(false);
         alphaImage.SetActive(false);
 
         Debug.Log("보스룸으로 돌입합니다");
@@ -263,17 +260,17 @@ public class UIManager : MonoBehaviour
 
     public void UsedCardAnimeStart(GameObject target)
     {
-        usedCardAnime.gameObject.SetActive(true);
+        //usedCardAnime.gameObject.SetActive(true);
 
-        Vector3 original = transform.position;
-        Vector3 endPosition = target.transform.position;
+        //Vector3 original = transform.position;
+        //Vector3 endPosition = target.transform.position;
 
-        usedCardAnime.transform.DOMove(endPosition, 0.7f)
-                .OnComplete(() =>
-                {
-                    usedCardAnime.transform.position = original;
-                    usedCardAnime.gameObject.SetActive(false);
-                });
+        //usedCardAnime.transform.DOMove(endPosition, 0.7f)
+        //        .OnComplete(() =>
+        //        {
+        //            usedCardAnime.transform.position = original;
+        //            usedCardAnime.gameObject.SetActive(false);
+        //        });
     }
 
     public void OpenRewardPanel()
@@ -291,7 +288,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseRewardPanel()
     {
-        GameManager.instance.DeckReset(reward.transform.Find("ChoicePanel").gameObject);
+        //GameManager.instance.DeckReset(reward.transform.Find("ChoicePanel").gameObject);
 
         proceedButton.SetActive(false);
         reward.SetActive(false);

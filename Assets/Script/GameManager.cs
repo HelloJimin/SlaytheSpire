@@ -45,16 +45,20 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, Monster> monsters = new Dictionary<int, Monster>();
 
     int currentFloor;
-    public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; if(value != 0) UIManager.instance.curretnFloorText.transform.parent.gameObject.SetActive(true);  UIManager.instance.curretnFloorText.text = currentFloor.ToString(); } }
+    public int CurrentFloor { get { return currentFloor; } set { currentFloor = value;
+            if (value != 0) UIManager.instance.curretnFloorText.transform.parent.gameObject.SetActive(true);
+            UIManager.instance.curretnFloorText.text = currentFloor.ToString(); saveData.floor = CurrentFloor;
+        } }
 
     public PlayingData saveData;
 
     public int allMoney;
     public int monsterKill;
     public int eliteKill;
-    
+
     //public delegate void BattleEndProcess();
     // public event BattleEndProcess battleEndProcess;
+    public bool isEliteRoom;
 
     public int currentRoomMoney;
     //GameObject battleUI;
@@ -66,7 +70,10 @@ public class GameManager : MonoBehaviour
         }
         player = FindObjectOfType<Player>();
         maxCost = 3;
-        currentRoomMoney = 0;
+
+
+       currentRoomMoney = 0;
+        
         CurrentFloor = 0;
         isClear = false;
     }
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SettingUI();
         UIManager.instance.GoToNeowRoom();
 
+        allMoney = player.data.money;
 
         if (JsonManager.CheckJsonData("PlayingData", "saveData"))
         {
@@ -106,6 +114,10 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(string level)
     {
+        DeckReset(myDeck);
+        DeckReset(myHand);
+        DeckReset(myCemetary);
+
         currentRoomMoney = 0;
         SettingMonsters(level);
         isPlayerTurn = true;
@@ -212,6 +224,7 @@ public class GameManager : MonoBehaviour
     void StartPhase()
     {
         Debug.Log("내턴");
+
         currentCost = maxCost;
         while (myHand.transform.childCount < 5)
         {
@@ -300,10 +313,13 @@ public class GameManager : MonoBehaviour
 
         ObjectPoolManager.instance.GetRewardMoneyButton("money");
         ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
+
+        if (isEliteRoom)
+        {
+            ObjectPoolManager.instance.GetRewardMoneyButton("artifact");
+        }
         currentCost = maxCost;
-        DeckReset(myDeck);
-        DeckReset(myHand);
-        DeckReset(myCemetary);
+
         UIManager.instance.OpenRewardPanel();
         UIManager.instance.usedCardAnime.SetActive(false);
         SoundManager.instance.PlaySound("Victory");
@@ -384,6 +400,11 @@ public class GameManager : MonoBehaviour
             artifact.gameObject.SetActive(true);
             artifact.ActiveEffect();
         }
+    }
+
+    public void Cheat()
+    {
+        player.Power = 999;
     }
 }
 

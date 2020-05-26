@@ -25,7 +25,7 @@ public class Heavy_blade : Card
         base.Use(target);
         Debug.Log(AttackDamageCheck(player,target));
         target.Hit(AttackDamageCheck(player,target));
-        UIManager.instance.EffectStart("atk1", target.transform);
+        UIManager.instance.EffectStart("atk1", target.transform.position);
     //    GoCenter();
     }
 

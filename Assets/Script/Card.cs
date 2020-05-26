@@ -42,7 +42,7 @@ public class Card : MonoBehaviour
     public CardData card;
     public GameObject usedAnime;
     public Player player;
-    Image[] images;
+    public Image[] images;
     Text[] texts;
 
     internal void Use()
@@ -93,7 +93,7 @@ public class Card : MonoBehaviour
         });
     }
 
-    public IEnumerator StopCard(Character target)
+    public virtual IEnumerator StopCard(Character target)
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -117,7 +117,7 @@ public class Card : MonoBehaviour
     }
 
     [ContextMenu("load")]
-    public void SpriteSetting()
+    public virtual void SpriteSetting()
     {
         TextUpdate();
 

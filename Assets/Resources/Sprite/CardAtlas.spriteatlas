@@ -44,7 +44,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
     - {fileID: 102900000, guid: 2c6a2de76716c6443a9b513b3a6f8dab, type: 3}
-    totalSpriteSurfaceArea: 41641716
+    totalSpriteSurfaceArea: 41831716
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -260,6 +260,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bd59dd2ed3ede2b4a9237c75a3bda5e3, type: 3}
   - {fileID: 21300000, guid: 575adc8e0f705294fb05d00ebf1d411c, type: 3}
   - {fileID: 21300000, guid: c30613fe626014b40b0fe714676416b2, type: 3}
+  - {fileID: 21300000, guid: 52ec420fd3a08b84fa3707951b97692e, type: 3}
   - {fileID: 21300000, guid: 993dc93f83cf3e6469fee109de037390, type: 3}
   - {fileID: 21300000, guid: 90bcf67f8f1d10b499fb90c164e7982a, type: 3}
   - {fileID: 21300000, guid: dd944d8fb3b318d4e81f010b62bfd388, type: 3}
@@ -483,6 +484,7 @@ SpriteAtlas:
   - rewardScreenSheet
   - toggleButtonOverlay
   - Red_Power
+  - slimed
   - orichalcum
   - Red_Skill
   - debuff2

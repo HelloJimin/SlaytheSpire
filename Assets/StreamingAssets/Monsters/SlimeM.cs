@@ -78,8 +78,7 @@ public class SlimeM : Slime
     {
         base.Attack();
 
-        Card newcard = ObjectPoolManager.instance.GetCard("Wound");
-        newcard.transform.SetParent(GameManager.instance.myDeck.transform);
+        ObjectPoolManager.instance.GetDebuffCard("Slimed");
     }
 
     public override void Debuff()

@@ -13,6 +13,8 @@ public class SlimeKing : Slime
         Init(hp, money);
         AnimeChangeStart("idle", true);
         ActionCheck();
+        GameManager.instance.isEliteRoom = true;
+
     }
 
     public override void ActionCheck()
@@ -62,13 +64,17 @@ public class SlimeKing : Slime
 
     public override void Debuff()
     {
-        Card newcard = ObjectPoolManager.instance.GetCard("Wound");
-        newcard.transform.SetParent(GameManager.instance.myDeck.transform);
+        ObjectPoolManager.instance.GetDebuffCard("Slimed");
     }
 
     public override void Dead()
     {
         base.Dead();
+        GameManager.instance.isClear = true;
+    }
+    public override void Split(string monsterName, int cnt, int hp, int money)
+    {
+        base.Split(monsterName, cnt, hp, money);
         GameManager.instance.isClear = true;
     }
 }

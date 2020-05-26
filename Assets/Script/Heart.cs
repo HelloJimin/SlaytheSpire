@@ -22,7 +22,7 @@ public class Heart : MonoBehaviour
         //샤샤샥
         for (int i = 0; i < 3; i++)
         {
-            AtkSound(i * 0.2f);
+            StartCoroutine(AtkEffect(i * 0.3f));
         }
         button.GetComponentInChildren<Text>().text = "수면";
         button.onClick.RemoveAllListeners();
@@ -38,9 +38,10 @@ public class Heart : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    IEnumerator AtkSound(float time)
+    IEnumerator AtkEffect(float time)
     {
         yield return new WaitForSeconds(time);
         SoundManager.instance.PlaySound("FastAtk1");
+        UIManager.instance.EffectStart("atk3", transform.position+ new Vector3(0,1,0));
     }
 }
