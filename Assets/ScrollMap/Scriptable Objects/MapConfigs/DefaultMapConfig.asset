@@ -36,7 +36,7 @@ MonoBehaviour:
         max: 0
       nodesApartDistance: 2
       randomizePosition: 0
-      randomizeNodes: 0.273
+      randomizeNodes: 0
     - nodeType: 0
       distanceFromPreviousLayer:
         min: 2

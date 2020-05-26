@@ -89,6 +89,7 @@ namespace Map
                     break;
                 case NodeType.Boss:
                     UIManager.instance.GoToBossRoom();
+                    SoundManager.instance.ChangeBGM("BossBGM");
                     SoundManager.instance.PlaySound("BossStart");
                     break;
                 case NodeType.Mystery:

@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
 
         if (JsonManager.CheckJsonData("PlayingData", "saveData"))
         {
+            UIManager.instance.Neow.SetActive(false);
             saveData = JsonManager.LoadJsonData<PlayingData>("PlayingData", "saveData");
             myInventoryList = saveData.myInventoryList;
             myArtifactList = saveData.myArtifactList;
@@ -106,10 +107,18 @@ public class GameManager : MonoBehaviour
             CurrentFloor = saveData.floor;
 
             UIManager.instance.SettingUI();
-            UIManager.instance.GoToMap();
+            //Invoke("UIManager.instance.GoToMap", 10);
+            StartCoroutine(Test());
             return;
         }
         ArtifactSetting();
+    }
+
+    IEnumerator Test()
+    {
+        yield return null;
+        UIManager.instance.GoToMap();
+
     }
 
     public void StartGame(string level)
@@ -312,11 +321,16 @@ public class GameManager : MonoBehaviour
         player.BattleEnd();
 
         ObjectPoolManager.instance.GetRewardMoneyButton("money");
-        ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
 
         if (isEliteRoom)
         {
             ObjectPoolManager.instance.GetRewardMoneyButton("artifact");
+            ObjectPoolManager.instance.GetRewardMoneyButton("elite");
+        }
+        else
+        {
+
+        ObjectPoolManager.instance.GetRewardMoneyButton("nomal");
         }
         currentCost = maxCost;
 
@@ -421,5 +435,4 @@ public struct PlayingData
     public int eliteKill;
     public int getArtifactCnt;
     public int getAllMoney;
-    public int volume;
 }

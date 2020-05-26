@@ -83,6 +83,8 @@ public class UIManager : MonoBehaviour
     public GameObject hudDamageTextPrefab;
     public Transform hudPos;
 
+    public bool vampEvent;
+
     private void Awake()
     {
         if (instance != this)
@@ -138,6 +140,7 @@ public class UIManager : MonoBehaviour
 
     public void GoToNeowRoom()
     {
+        SoundManager.instance.PlaySound("Neow");
         battleUI.SetActive(false);
     }
     public void GoToMap()
@@ -170,6 +173,7 @@ public class UIManager : MonoBehaviour
 
         if (GameManager.instance.isClear)
         {
+            SoundManager.instance.ChangeBGM("EndingBGM");
             mapBG.sprite = Resources.Load<Sprite>("Sprite/bottomScene/endingMap") as Sprite;
             Heart.SetActive(true);
             return;

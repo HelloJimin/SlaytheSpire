@@ -147,12 +147,26 @@ public class Player : Character
 
     public override void Hit(float damage)
     {
-        base.Hit(damage);
-        AnimeOneShotStart("Hit");
-        if (DefenseDamageCheck(damage) >0)
+        damage = DefenseDamageCheck(damage);
+
+        data.currentHP -= (int)damage;
+        if (data.currentHP < 0) data.currentHP = 0;
+
+        SettingHPUI();
+        UIManager.instance.CameraShake();
+        SoundManager.instance.PlaySound("FastAtk1");
+        Debug.Log("댐지" + damage);
+        if (damage > 0)
         {
+            GameObject hudText = Instantiate(UIManager.instance.hudDamageTextPrefab); // 생성할 텍스트 오브젝트
+            hudText.transform.SetParent(UIManager.instance.battleUI.transform.parent);
+            hudText.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 3, 0)); // 표시될 위치
+            hudText.GetComponent<DamageText>().damage = (int)damage; // 데미지 전달
             StartCoroutine(HitPanelOn());
         }
+
+        AnimeOneShotStart("Hit");
+
         if (data.currentHP<=0)
         {
             Dead();

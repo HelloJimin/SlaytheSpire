@@ -31,6 +31,8 @@ public class SoundManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         option.LoadOptionData();
+
+        ChangeBGM("Level1BGM");
     }
 
     public void PlaySound(string name)
@@ -40,6 +42,18 @@ public class SoundManager : MonoBehaviour
             if (audioClips[i].name == name)
             {
                 audioSource.PlayOneShot(audioClips[i]);
+            }
+        }
+    }
+
+    public void ChangeBGM(string name)
+    {
+        for (int i = 0; i < audioClips.Length; i++)
+        {
+            if (audioClips[i].name == name)
+            {
+                audioSource.clip = audioClips[i];
+                audioSource.Play();
             }
         }
     }

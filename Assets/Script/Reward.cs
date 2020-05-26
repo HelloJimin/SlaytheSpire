@@ -32,6 +32,21 @@ public class Reward : MonoBehaviour
             GetComponentInChildren<Text>().text = "덱에 카드를 추가";
             GetComponent<Button>().onClick.AddListener(() => nomalCardButton());
         }
+        else if (type == "elite")
+        {
+            GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
+
+            Card[] cards = choicePanel.GetComponentsInChildren<Card>();
+
+            for (int i = 0; i < cards.Length; i++)
+            {
+                ObjectPoolManager.instance.ReturnCard(cards[i]);
+            }
+            Debug.Log("엘리트로 들어옴");
+            icon.sprite = Resources.Load<Sprite>("Sprite/Reward/normalCardReward") as Sprite;
+            GetComponentInChildren<Text>().text = "덱에 카드를 추가";
+            GetComponent<Button>().onClick.AddListener(() => eliteCardButton());
+        }
         else if(type == "artifact")
         {
             GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
@@ -53,6 +68,40 @@ public class Reward : MonoBehaviour
         SoundManager.instance.PlaySound("GetGold");
     }
 
+    public void eliteCardButton()
+    {
+        UIManager.instance.RewardbanerText.text = "카드를 선택하십시오";
+        UIManager.instance.reward.transform.Find("Panel").gameObject.SetActive(false);
+        UIManager.instance.reward.transform.Find("ChoicePanel").gameObject.SetActive(true);
+        UIManager.instance.SettingUI();
+        UIManager.instance.choice = ChoiceMode.Choice;
+
+        UIManager.instance.choicePanel.SetActive(true);
+        for (int i = 0; i < 3; i++)
+        {
+            CardGrade cardGrade;
+
+            if (Random.value > 0.5f)
+            {
+                cardGrade = CardGrade.Nomal;
+            }
+            else
+            {
+                if (Random.value > 0.5f)
+                {
+                    cardGrade = CardGrade.Rare;
+                }
+                else
+                {
+                    cardGrade = CardGrade.Legend;
+                }
+            }
+            RandmCardRewardNomal(CardColor.Red, cardGrade);
+        }
+        //카드선택 ㄱ
+        ObjectPoolManager.instance.ReturnRewardButton(this);
+        SoundManager.instance.PlaySound("Click");
+    }
     public void nomalCardButton()
     {
         UIManager.instance.RewardbanerText.text = "카드를 선택하십시오";
@@ -62,9 +111,27 @@ public class Reward : MonoBehaviour
         UIManager.instance.choice = ChoiceMode.Choice;
 
         UIManager.instance.choicePanel.SetActive(true);
-        RandmCardRewardNomal();
-        RandmCardRewardNomal();
-        RandmCardRewardNomal();
+        for (int i = 0; i < 3; i++)
+        {
+            CardGrade cardGrade;
+
+            if (Random.value > 0.3f)
+            {
+                cardGrade = CardGrade.Nomal;
+            }
+            else
+            {
+                if (Random.value > 0.3f)
+                {
+                    cardGrade = CardGrade.Rare;
+                }
+                else
+                {
+                    cardGrade = CardGrade.Legend;
+                }
+            }
+            RandmCardRewardNomal(CardColor.Red, cardGrade);
+        }
         //카드선택 ㄱ
         ObjectPoolManager.instance.ReturnRewardButton(this);
         SoundManager.instance.PlaySound("Click");
@@ -82,17 +149,66 @@ public class Reward : MonoBehaviour
         SoundManager.instance.PlaySound("Click");
     }
 
+    public void RandmCardRewardNomal( CardColor cardColor, CardGrade cardGrade)
+    {
+        string[] list = ObjectPoolManager.instance.lists.cardList;
+        GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
+        bool ok = true;
+        int max = 0;
+        while (ok)
+        {
+            max++;
+            if (max >= 20)
+            {
+                cardGrade = CardGrade.Nomal;
+            }
+
+            int random = Random.Range(0, list.Length);
+            Card shopCard = ObjectPoolManager.instance.GetCard(list[random]);
+
+            if (shopCard.name == "타격" || shopCard.name == "수비" || shopCard.name == "타격+" || shopCard.name == "수비+")
+            {
+                ObjectPoolManager.instance.ReturnCard(shopCard);
+                continue;
+            }
+
+            if (shopCard.card.type == CardType.CC || shopCard.card.type == CardType.Curse)
+            {
+                ObjectPoolManager.instance.ReturnCard(shopCard);
+                continue;
+            }
+
+            if (shopCard.card.color != cardColor)
+            {
+                ObjectPoolManager.instance.ReturnCard(shopCard);
+                continue;
+            }
+            bool check = false;
+
+            if (check)
+            {
+                continue;
+            }
+
+            if (shopCard.card.grade == cardGrade)
+            {
+                shopCard.gameObject.transform.SetParent(choicePanel.transform);
+                shopCard.gameObject.SetActive(true);
+                ok = false;
+            }
+        }
+    }
 
     public void RandmCardRewardNomal()
     {
-        List<string> list = ObjectPoolManager.instance.lists.cardList;
+        string[] list = ObjectPoolManager.instance.lists.cardList;
         GameObject choicePanel = UIManager.instance.reward.transform.Find("ChoicePanel").gameObject;
 
         bool ok = true;
 
         while (ok)
         {
-            int random = Random.Range(0, list.Count);
+            int random = Random.Range(0, list.Length);
             Card rewardCard = ObjectPoolManager.instance.GetCard(list[random]);
 
             if (rewardCard.name == "타격" || rewardCard.name == "수비" || rewardCard.name == "타격+" || rewardCard.name == "수비+")

@@ -44,13 +44,29 @@ public class Shop : MonoBehaviour
 
     public void GetCards()
     {
-        RandmCardRewardNomal(charCard, CardColor.Red, CardGrade.Nomal);
-        RandmCardRewardNomal(charCard, CardColor.Red, CardGrade.Rare);
-        RandmCardRewardNomal(charCard, CardColor.Red, CardGrade.Nomal);
-        RandmCardRewardNomal(charCard, CardColor.Red, CardGrade.Nomal);
-        RandmCardRewardNomal(charCard, CardColor.Red, CardGrade.Nomal);
-        groups = GetComponentsInChildren<HorizontalLayoutGroup>();
+        for (int i = 0; i < 5; i++)
+        {
+            CardGrade cardGrade;
 
+            if (Random.value > 0.3f)
+            {
+                 cardGrade = CardGrade.Nomal;
+            }
+            else
+            {
+                if (Random.value >0.3f)
+                {
+                      cardGrade = CardGrade.Rare;
+                }
+                else
+                {
+                     cardGrade = CardGrade.Legend;
+                }
+            }
+           RandmCardRewardNomal(charCard, CardColor.Red, cardGrade);
+        }
+
+        groups = GetComponentsInChildren<HorizontalLayoutGroup>();
     }
 
     IEnumerator test()
@@ -62,12 +78,18 @@ public class Shop : MonoBehaviour
 
     public void RandmCardRewardNomal(GameObject parent, CardColor cardColor, CardGrade cardGrade)
     {
-        List<string> list = ObjectPoolManager.instance.lists.cardList;
+        string[] list = ObjectPoolManager.instance.lists.cardList;
         bool ok = true;
-
+        int max = 0;
         while (ok)
         {
-            int random = Random.Range(0, list.Count);
+            max++;
+            if (max >= 20)
+            {
+                cardGrade = CardGrade.Nomal;
+            }
+
+            int random = Random.Range(0, list.Length);
             Card shopCard = ObjectPoolManager.instance.GetCard(list[random]);
 
             if (shopCard.name == "타격" || shopCard.name == "수비" || shopCard.name == "타격+" || shopCard.name == "수비+")

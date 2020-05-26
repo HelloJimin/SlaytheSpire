@@ -28,6 +28,7 @@ public class EndingManager : MonoBehaviour
     }
     public void Die()
     {
+        SoundManager.instance.ChangeBGM("EndingBGM");
         StartCoroutine(DeadEnding());
     }
 

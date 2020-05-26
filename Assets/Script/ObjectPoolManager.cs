@@ -56,17 +56,17 @@ public class ObjectPoolManager : MonoBehaviour
             statusUIPool.Enqueue(CreateStatusUI());
         }
 
-        for (int i = 0; i < lists.monsterList.Count; i++)
+        for (int i = 0; i < lists.monsterList.Length; i++)
         {
            monsterPool.Add(CreateNewMonster(lists.monsterList[i]));
         }
 
-        for (int i = 0; i < lists.artifactList.Count; i++)
+        for (int i = 0; i < lists.artifactList.Length; i++)
         {
             artifactPool.Add(CreateArtifact(lists.artifactList[i]));
         }
 
-        for (int i = 0; i < lists.cardList.Count; i++)
+        for (int i = 0; i < lists.cardList.Length; i++)
         {
             for (int k = 0; k < 5; k++)
             {
@@ -81,9 +81,9 @@ public class ObjectPoolManager : MonoBehaviour
     }
     void SettingJsonData()
     {
-        lists.monsterList = new List<string>();
-        lists.artifactList = new List<string>();
-        lists.cardList = new List<string>();
+        //lists.monsterList = new List<string>();
+        //lists.artifactList = new List<string>();
+        //lists.cardList = new List<string>();
         lists.monsterRoomSetting = new List<List<string>>();
 
         LoadJsonData(ref lists.cardList, "Cards");
@@ -140,23 +140,25 @@ public class ObjectPoolManager : MonoBehaviour
         JsonManager.SaveJsonData(temp, "MonsterRoom", "Monster"+ roomNum);
     }
 
-    void LoadJsonData(ref List<string> list, string name)
+    void LoadJsonData(ref string[] list, string name)
     {
         if (JsonManager.CheckJsonData("ObjectPoolList", name))
         {
-            list = JsonManager.LoadJsonData<List<string>>("ObjectPoolList", name);
+            list = JsonManager.LoadJsonData<string[]>("ObjectPoolList", name);
         }
         else
         {
-            string path = Application.streamingAssetsPath + "/"+ name;
-            string[] scripts = Directory.GetFiles(path, "*.cs");
+            string[] artifactList = { "Blood_vial", "BurningBlood", "Lantern", "Mango", "Marbles", "Mark_of_pain", "Meat", "OldCoin", "Orichalcum", "Strawberry", "Vajra" };
+            JsonManager.SaveJsonData(artifactList, "ObjectPoolList", "Artifacts");
+            lists.artifactList = artifactList;
 
-            list.Clear();
-            for (int i = 0; i < scripts.Length; i++)
-            {
-                list.Add(scripts[i].Substring(path.Length + 1).Split('.')[0]);
-            }
-            JsonManager.SaveJsonData(list, "ObjectPoolList", name);
+            string[] cardList = {"Armaments","Bash","Body_slam","Defend","Flex","Heavy_blade","Inflame","Strike","Wild_strike","Wound","Slimed","Demon_form"};
+            JsonManager.SaveJsonData(cardList, "ObjectPoolList", "Cards");
+            lists.cardList = cardList;
+
+            string[] monsterList = {"BlueSlaver","Cultist","Fungi","JawWorm","Lagavulin","LouseGreen","LouseRed","NobGoblin","Slime","SlimeKing","SlimeL","SlimeM","SlimeS"};
+            JsonManager.SaveJsonData(monsterList, "ObjectPoolList", "Monsters");
+            lists.monsterList = monsterList;
         }
     }
 
@@ -216,7 +218,7 @@ public class ObjectPoolManager : MonoBehaviour
     #region GET
     public void GetDebuffCard(string name)
     {
-        Card newcard = GetCard("Wound");
+        Card newcard = GetCard(name);
         newcard.transform.SetParent(UIManager.instance.battleUI.transform);
         newcard.gameObject.SetActive(true);
 
@@ -399,8 +401,8 @@ public class ObjectPoolManager : MonoBehaviour
 [System.Serializable]
 public struct ObjectPoolList
 {
-    public List<string> monsterList;
-    public List<string> cardList;
-    public List<string> artifactList;
+    public string[] monsterList;
+    public string[] cardList;
+    public string[] artifactList;
     public List<List<string>> monsterRoomSetting;
 }

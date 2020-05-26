@@ -44,7 +44,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: bc0e0bb02218d5b47b2a97bb58b1a8d2, type: 3}
     - {fileID: 102900000, guid: 48f02b827db9bd04d8bfb48e6529880d, type: 3}
     - {fileID: 102900000, guid: 2c6a2de76716c6443a9b513b3a6f8dab, type: 3}
-    totalSpriteSurfaceArea: 41831716
+    totalSpriteSurfaceArea: 42021716
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -143,6 +143,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a3ecdda1948a0644da45d8c2b1b1fd04, type: 3}
   - {fileID: 21300000, guid: 13ca10b1ab1b2e347900f1d5522b1f2f, type: 3}
   - {fileID: 21300000, guid: 6af8a0b18203a5642855643acceed6b7, type: 3}
+  - {fileID: 21300000, guid: f57b53e1080e8f248ad9f45f23868621, type: 3}
   - {fileID: 21300000, guid: 0f59bde1f9da73b4fb671668ab9a02fc, type: 3}
   - {fileID: 21300000, guid: 4a1d57f1a087e11459540cb1a03cd8d7, type: 3}
   - {fileID: 21300000, guid: ab553ff11de67484fb5a54d74f8efe51, type: 3}
@@ -367,6 +368,7 @@ SpriteAtlas:
   - yes
   - Label_Rare
   - sleep
+  - demon_form
   - atk2
   - sheild
   - inflame

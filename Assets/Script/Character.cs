@@ -148,7 +148,7 @@ public class Character : MonoBehaviour
         SettingHPUI();
         UIManager.instance.CameraShake();
         SoundManager.instance.PlaySound("FastAtk1");
-
+        Debug.Log("댐지" + damage);
         if (damage>0)
         {
             GameObject hudText = Instantiate(UIManager.instance.hudDamageTextPrefab); // 생성할 텍스트 오브젝트
@@ -158,7 +158,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public int DefenseDamageCheck(float damage)
+    public  int DefenseDamageCheck(float damage)
     {
         float Damage = damage;
 

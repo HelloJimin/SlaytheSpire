@@ -22,14 +22,14 @@ public class Artifact : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     }
     public void LoadData()
     {
-        if (JsonManager.CheckJsonData(gameObject.name, gameObject.name))
+        if (JsonManager.CheckJsonData("Artifact", GetType().Name))
         {
-            data = JsonManager.LoadJsonData<ArtifactData>("Artifact", gameObject.name);
+            data = JsonManager.LoadJsonData<ArtifactData>("Artifact", GetType().Name);
         }
         else
         {
             SettingArtifactData();
-            JsonManager.SaveJsonData(data, "Artifact", gameObject.name);
+            JsonManager.SaveJsonData(data, "Artifact", GetType().Name);
         }
     }
 
