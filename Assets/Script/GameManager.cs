@@ -275,6 +275,31 @@ public class GameManager : MonoBehaviour
         TurnProcessing();
     }
 
+    public void TurnEndButton()
+    {
+        if (!isPlayerTurn)
+        {
+            return;
+        }
+        if (isPlayerTurn)
+        {
+            SoundManager.instance.PlaySound("EndTurn");
+            AllTransferCards(myHand, myCemetary, false);
+            player.MyEndPhase();
+            //for (int i = 0; i < monsters.Count; i++)
+            //{
+            //    monsters[i].YourEndPhase();
+            //}
+            foreach (var item in monsters)
+            {
+                item.Value.YourEndPhase();
+            }
+        }
+
+        isPlayerTurn = !isPlayerTurn;
+        TurnProcessing();
+    }
+
     void SettingMonsters(string level)
     {
         int roomNumber=0;

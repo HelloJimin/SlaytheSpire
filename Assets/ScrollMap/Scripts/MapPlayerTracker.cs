@@ -93,7 +93,7 @@ namespace Map
                     SoundManager.instance.PlaySound("BossStart");
                     break;
                 case NodeType.Mystery:
-                    int random = UnityEngine.Random.Range(0, 5);
+                    int random = UnityEngine.Random.Range(0, 4);
                     switch (random)
                     {
                         case 0:
@@ -107,10 +107,7 @@ namespace Map
                             UIManager.instance.GoToShopRoom();
                             break;
                         case 3:
-                            Debug.Log("3번");
-                            break;
-                        case 4:
-                            Debug.Log("4번");
+                            UIManager.instance.GoToShopRoom();
                             break;
                     }
                     break;

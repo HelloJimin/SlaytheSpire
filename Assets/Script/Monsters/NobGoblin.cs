@@ -18,6 +18,7 @@ public class NobGoblin : Monster
         ActionCheck();
         GameManager.instance.isEliteRoom = true;
 
+        transform.GetChild(0).transform.position += new Vector3(-0.5f, 0, 0);
     }
 
     public override void ActionCheck()
